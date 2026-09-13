@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GSSF — Jacqueline Jimin Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #0a0a0a;
+    --muted: #8a8a8a;
+    --rule: #e8e8e8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    padding: 80px 60px 100px 60px;
+    align-items: start;
+  }
+
+  .hero-left {
+    padding-top: 20px;
+    max-width: 540px;
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    margin-bottom: 32px;
+    text-transform: uppercase;
+  }
+
+  .title {
+    font-size: 76px;
+    font-weight: 500;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 36px;
+  }
+
+  .subline {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    margin-bottom: 56px;
+    text-transform: uppercase;
+  }
+
+  .description {
+    font-size: 17px;
+    line-height: 1.55;
+    margin-bottom: 56px;
+    max-width: 460px;
+  }
+
+  .visit-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 4px;
+    margin-bottom: 64px;
+    transition: gap 0.3s ease;
+  }
+  .visit-link:hover { gap: 16px; }
+
+  .meta {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    row-gap: 18px;
+    column-gap: 32px;
+    font-size: 15px;
+  }
+  .meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding-top: 3px;
+  }
+
+  .hero-right {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: #f5f5f5;
+  }
+  .hero-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ===== PROCESS SECTIONS ===== */
+  section {
+    padding: 80px 60px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 32px;
+    margin-bottom: 48px;
+    max-width: 1400px;
+  }
+  .step-marker {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding-top: 6px;
+  }
+  .section-title {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+    max-width: 720px;
+  }
+  .section-body {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #2a2a2a;
+    max-width: 680px;
+  }
+
+  .img-block { margin-top: 16px; }
+
+  .img {
+    width: 100%;
+    overflow: hidden;
+    background: #f5f5f5;
+  }
+  .img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .img.logo-on-light {
+    background: #fff;
+    border: 1px solid var(--rule);
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+  }
+  .img.logo-on-light img {
+    width: 50%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .img.logo-on-dark {
+    background: #0a0a0a;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+  }
+  .img.logo-on-dark img {
+    width: 50%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .img.slide {
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .img.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .img.screenshot {
+    aspect-ratio: 16 / 10;
+    background: #f5f5f5;
+  }
+  .img.screenshot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .img.event {
+    aspect-ratio: 16 / 9;
+  }
+  .img.event img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .caption {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-top: 12px;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* ===== PROJECT NAV ===== */
+  .project-nav {
+    padding: 200px 60px 160px 60px;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    gap: 40px;
+  }
+  .all-projects {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    text-decoration: none;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 6px;
+    justify-self: start;
+    transition: opacity 0.2s;
+  }
+  .all-projects:hover { opacity: 0.5; }
+
+  .next-project {
+    justify-self: end;
+    text-align: right;
+    text-decoration: none;
+    color: var(--ink);
+    display: block;
+  }
+  .next-project-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .next-project-title {
+    font-size: 56px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 24px;
+    transition: gap 0.3s ease;
+  }
+  .next-project:hover .next-project-title { gap: 32px; }
+  .next-project-arrow {
+    font-weight: 400;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 960px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 40px 24px 60px 24px;
+    }
+    .title { font-size: 48px; }
+    section { padding: 56px 24px; }
+    .section-head { grid-template-columns: 1fr; gap: 12px; }
+    .section-title { font-size: 22px; }
+    .two-col { grid-template-columns: 1fr; }
+    .img.logo-on-light, .img.logo-on-dark { padding: 48px; aspect-ratio: 1 / 1; }
+    .img.logo-on-light img, .img.logo-on-dark img { width: 60%; }
+    .project-nav {
+      grid-template-columns: 1fr;
+      padding: 100px 24px 80px 24px;
+      gap: 60px;
+    }
+    .next-project { justify-self: start; text-align: left; }
+    .next-project-title { font-size: 36px; gap: 16px; }
+  }
+</style>
+  <link rel="stylesheet" href="assets/css/nav.css">
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">Brand Identity &amp; Web Design</div>
+    <h1 class="title">GSSF</h1>
+    <div class="subline">Global Student Startup Foundation · 2025</div>
+    <p class="description">
+      Brand identity and homepage design for the Global Student Startup Foundation, a non-profit supporting undergraduate founders.
+    </p>
+
+    <a href="https://foundation.globalstudentstartup.org/" target="_blank" rel="noopener" class="visit-link">VISIT WEBSITE →</a>
+
+    <div class="meta">
+      <div class="meta-label">Role</div>
+      <div>Brand &amp; Web Designer</div>
+
+      <div class="meta-label">Client</div>
+      <div>Global Student Startup Foundation</div>
+
+      <div class="meta-label">Scope</div>
+      <div>Brand Identity, Web Design</div>
+
+      <div class="meta-label">Tools</div>
+      <div>Figma, Webflow</div>
+
+      <div class="meta-label">Year</div>
+      <div>2025</div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <img src="assets/images/gssf/img-01.jpg" alt="2025 GSSC closing ceremony in Seoul" />
+  </div>
+</div>
+
+<!-- STEP 01 — LOGO -->
+<section>
+  <div class="section-head">
+    <div class="step-marker">Step 01 — Logo</div>
+    <div>
+      <h2 class="section-title">Logo</h2>
+      <p class="section-body">A stacked GS/SF monogram inside a square frame. The square shape later became the container for sub-brand variants.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="img logo-on-light">
+        <img src="assets/images/gssf/img-02.png" alt="GSSF logo in blue" />
+      </div>
+      <div class="caption">Primary — Blue on white</div>
+    </div>
+    <div>
+      <div class="img logo-on-dark">
+        <img src="assets/images/gssf/img-03.png" alt="GSSF logo in light grey on black" />
+      </div>
+      <div class="caption">Reverse — Grey on black</div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 02 — TYPE & COLOR -->
+<section>
+  <div class="section-head">
+    <div class="step-marker">Step 02 — Type &amp; Color</div>
+    <div>
+      <h2 class="section-title">Typography and color</h2>
+      <p class="section-body">Noto Sans for official copy, VCR OSD Mono for accents. The palette is built around blue (#242EC0), with deep indigo, black, and lavender as supporting tones.</p>
+    </div>
+  </div>
+
+  <div class="img-block">
+    <div class="img slide">
+      <img src="assets/images/gssf/img-04.png" alt="Brand guide page showing typography and color palette" />
+    </div>
+    <div class="caption">Brand guide — type and color</div>
+  </div>
+</section>
+
+<!-- STEP 03 — LOGO SYSTEM -->
+<section>
+  <div class="section-head">
+    <div class="step-marker">Step 03 — Logo System</div>
+    <div>
+      <h2 class="section-title">Sub-brand variants</h2>
+      <p class="section-body">The foundation runs multiple programs (GSSC, Academy), so I extended the logo into a system. Each variant uses the same square frame.</p>
+    </div>
+  </div>
+
+  <div class="img-block">
+    <div class="img slide">
+      <img src="assets/images/gssf/img-05.png" alt="Brand guide page showing logo and sub-brand variations" />
+    </div>
+    <div class="caption">Brand guide — logo system</div>
+  </div>
+</section>
+
+<!-- STEP 04 — WEBSITE: PROGRAMS -->
+<section>
+  <div class="section-head">
+    <div class="step-marker">Step 04 — Website</div>
+    <div>
+      <h2 class="section-title">Programs section</h2>
+      <p class="section-body">The homepage covers the foundation's six programs. I designed a card grid so each program gets equal weight, and so the layout can scale as more programs are added.</p>
+    </div>
+  </div>
+
+  <div class="img-block">
+    <div class="img screenshot">
+      <img src="assets/images/gssf/img-06.png" alt="GSSF website showing six program cards" />
+    </div>
+    <div class="caption">Homepage — Programs section</div>
+  </div>
+</section>
+
+<!-- STEP 05 — WEBSITE: NETWORK -->
+<section>
+  <div class="section-head">
+    <div class="step-marker">Step 05 — Network Section</div>
+    <div>
+      <h2 class="section-title">Global Network section</h2>
+      <p class="section-body">A separate section for the foundation's network — mentors, partner universities, and sponsors. Three pillars with a tab system for switching between them.</p>
+    </div>
+  </div>
+
+  <div class="img-block">
+    <div class="img screenshot">
+      <img src="assets/images/gssf/img-07.png" alt="GSSF website Global Network section" />
+    </div>
+    <div class="caption">Homepage — Global Network section</div>
+  </div>
+</section>
+
+
+<!-- PROJECT NAV -->
+<nav class="project-nav">
+  <a href="projects.html" class="all-projects">← All Projects</a>
+  <a href="mtp.html" class="next-project">
+    <span class="next-project-label">Next Project</span>
+    <span class="next-project-title">
+      Melrose Trading Post
+      <span class="next-project-arrow">→</span>
+    </span>
+  </a>
+</nav>
+
+  <script src="assets/js/nav.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artworks — Jacqueline Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html, body { width:100%; height:100%; overflow:hidden; }
+
+:root {
+  --bg: #ffffff;
+  --ink: #111;
+  --muted: #888;
+}
+
+body {
+  background: var(--bg);
+  font-family: 'DM Mono', ui-monospace, monospace;
+}
+
+/* ── RING STAGE ── */
+#bg-stage {
+  position: fixed; inset: 0;
+  perspective: 1100px;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 0;
+  pointer-events: none;
+}
+#bg-ring {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: translateY(-3%) rotateX(-22deg) rotateY(0deg);
+}
+.bg-card {
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: opacity 0.5s ease;
+}
+.bg-face {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0,0,0,.13);
+}
+.bg-face img { width:100%; height:100%; object-fit:cover; display:block; }
+
+/* ── FOG ── */
+#fog {
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(
+    ellipse 70% 60% at 50% 50%,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,0.55) 55%,
+    rgba(255,255,255,0.92) 80%,
+    rgba(255,255,255,1) 100%
+  );
+}
+
+/* ── CATEGORY FILTER BAR ── */
+#filter-bar {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  display: flex;
+  gap: 4px;
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(17,17,17,0.08);
+  border-radius: 100px;
+  padding: 5px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.filter-btn {
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 9px 20px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 100px;
+  transition: color 0.3s ease, background 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.filter-btn:hover {
+  color: var(--ink);
+}
+
+.filter-btn.active {
+  color: var(--ink);
+  background: rgba(17,17,17,0.06);
+}
+
+/* ── COUNT LABEL ── */
+#count-label {
+  position: fixed;
+  top: calc(50% + 48px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: labelFade .6s .2s forwards;
+}
+
+@keyframes labelFade {
+  to { opacity: 1; }
+}
+
+/* ── PAGE TITLE ── */
+#page-title {
+  position: fixed;
+  top: 86px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0;
+  animation: fadeIn .7s .3s forwards;
+}
+
+/* ── HINT ── */
+#ring-hint {
+  position: fixed; bottom: 22px; right: 32px;
+  font-size: 10px; letter-spacing: .1em; color: #ccc;
+  z-index: 10; pointer-events: none;
+  opacity: 0; animation: fadeIn .8s 1.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity:0; } to { opacity:1; }
+}
+
+/* ── RING OPEN/WRAP STATES ── */
+#bg-ring.wrapping .bg-card {
+  transition: transform 0.7s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.5s ease;
+}
+#bg-ring.opening .bg-card {
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.5s ease;
+}
+
+@media (max-width: 640px) {
+  .filter-btn { padding: 8px 14px; font-size: 10px; }
+  #page-title { font-size: 11px; top: 72px; }
+}
+</style>
+  <link rel="stylesheet" href="assets/css/nav.css">
+</head>
+<body class="overlay-nav">
+
+<div id="page-title">Artworks</div>
+
+<div id="bg-stage">
+  <div id="bg-ring"></div>
+</div>
+
+<div id="fog"></div>
+
+<div id="filter-bar">
+  <button class="filter-btn active" data-cat="all">All</button>
+  <button class="filter-btn" data-cat="2d">2D</button>
+  <button class="filter-btn" data-cat="3d">3D</button>
+  <button class="filter-btn" data-cat="digital">Digital</button>
+</div>
+
+<div id="count-label"></div>
+
+<div id="ring-hint">drag to rotate</div>
+
+<script>
+const DATA_ALL = [
+  { img: "assets/images/artworks/remote-01.jpg", cat: "2d" },
+  { img: "assets/images/artworks/remote-02.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-03.png", cat: "digital" },
+  { img: "assets/images/artworks/remote-04.avif", cat: "2d" },
+  { img: "assets/images/artworks/remote-05.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-06.png", cat: "digital" },
+  { img: "assets/images/artworks/remote-07.jpg", cat: "2d" },
+  { img: "assets/images/artworks/remote-08.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-09.jpg", cat: "digital" },
+  { img: "assets/images/artworks/remote-10.jpg", cat: "2d" },
+  { img: "assets/images/artworks/remote-11.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-12.jpg", cat: "digital" },
+  { img: "assets/images/artworks/remote-13.jpg", cat: "2d" },
+  { img: "assets/images/artworks/remote-14.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-15.jpg", cat: "digital" },
+  { img: "assets/images/artworks/remote-16.jpg", cat: "2d" },
+  { img: "assets/images/artworks/remote-17.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-18.png", cat: "digital" },
+  { img: "assets/images/artworks/remote-19.jpg", cat: "2d" },
+  { img: "assets/images/artworks/remote-20.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-21.jpg", cat: "digital" },
+  { img: "assets/images/artworks/remote-22.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-23.png", cat: "digital" },
+  { img: "assets/images/artworks/remote-24.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-25.jpg", cat: "digital" },
+  { img: "assets/images/artworks/remote-26.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-27.jpg", cat: "digital" },
+  { img: "assets/images/artworks/remote-28.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-29.jpg", cat: "digital" },
+];
+const DATA_2D = [
+  { img: "assets/images/artworks/remote-01.jpg", cat: "2d" },
+  { img: "assets/images/artworks/remote-04.avif", cat: "2d" },
+  { img: "assets/images/artworks/remote-07.jpg", cat: "2d" },
+  { img: "assets/images/artworks/remote-10.jpg", cat: "2d" },
+  { img: "assets/images/artworks/remote-13.jpg", cat: "2d" },
+  { img: "assets/images/artworks/remote-16.jpg", cat: "2d" },
+  { img: "assets/images/artworks/remote-19.jpg", cat: "2d" },
+];
+const DATA_3D = [
+  { img: "assets/images/artworks/remote-02.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-05.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-08.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-11.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-14.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-17.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-20.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-22.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-24.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-26.jpg", cat: "3d" },
+  { img: "assets/images/artworks/remote-28.jpg", cat: "3d" },
+];
+const DATA_DIGITAL = [
+  { img: "assets/images/artworks/remote-03.png", cat: "digital" },
+  { img: "assets/images/artworks/remote-06.png", cat: "digital" },
+  { img: "assets/images/artworks/remote-09.jpg", cat: "digital" },
+  { img: "assets/images/artworks/remote-12.jpg", cat: "digital" },
+  { img: "assets/images/artworks/remote-15.jpg", cat: "digital" },
+  { img: "assets/images/artworks/remote-18.png", cat: "digital" },
+  { img: "assets/images/artworks/remote-21.jpg", cat: "digital" },
+  { img: "assets/images/artworks/remote-23.png", cat: "digital" },
+  { img: "assets/images/artworks/remote-25.jpg", cat: "digital" },
+  { img: "assets/images/artworks/remote-27.jpg", cat: "digital" },
+  { img: "assets/images/artworks/remote-29.jpg", cat: "digital" },
+];
+
+
+const DATASETS = {
+  all: DATA_ALL,
+  '2d': DATA_2D,
+  '3d': DATA_3D,
+  digital: DATA_DIGITAL
+};
+
+let CURRENT_CAT = 'all';
+let RING_DATA = DATASETS.all;
+
+let rotY = 0, tgtRotY = 0;
+let tiltX = -22, tgtTiltX = -22;
+let tiltY = 0, tgtTiltY = 0;
+let transY = 0, tgtTransY = 0;
+
+let isDragging = false;
+let dragStartX = 0, dragStartY = 0, dragBaseRotY = 0;
+let lastInteract = Date.now();
+let hintFaded = false;
+let isTransitioning = false;
+
+// ── RING GEOMETRY ──
+function ringRadii() {
+  const vw = window.innerWidth, vh = window.innerHeight;
+  return {
+    rx: Math.max(140, Math.min(vw * 0.44, 520)),
+    rz: Math.max(80, Math.min((vh * 0.42) / Math.cos(22 * Math.PI / 180), 260))
+  };
+}
+
+function cardDims() {
+  const vmin = Math.min(window.innerWidth, window.innerHeight);
+  const w = Math.max(68, Math.min(88, vmin * 0.10));
+  return { w, h: Math.round(w * 0.74) };
+}
+
+// ── BUILD RING ──
+function buildRing(opening = false) {
+  const ring = document.getElementById('bg-ring');
+  ring.innerHTML = '';
+  const n = RING_DATA.length;
+  const { rx, rz } = ringRadii();
+  const { w, h } = cardDims();
+  const step = (2 * Math.PI) / n;
+
+  RING_DATA.forEach((item, i) => {
+    const angle = i * step - Math.PI / 2;
+    const x = rx * Math.cos(angle);
+    const z = rz * Math.sin(angle);
+    const fy = -angle * 180 / Math.PI;
+
+    const card = document.createElement('div');
+    card.className = 'bg-card';
+
+    if (opening) {
+      // Start collapsed at center
+      card.style.cssText = `width:${w}px;height:${h}px;transform:translate3d(${-w/2}px,${-h/2}px,0px) rotateY(${fy}deg) scale(0.1);opacity:0;`;
+
+      // Animate to position
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          card.style.cssText = `width:${w}px;height:${h}px;transform:translate3d(${x - w/2}px,${-h/2}px,${z}px) rotateY(${fy}deg) scale(1);opacity:1;transition:transform 0.9s cubic-bezier(0.2,0.7,0.2,1) ${i * 0.02}s, opacity 0.6s ease ${i * 0.02}s;`;
+        });
+      });
+    } else {
+      card.style.cssText = `width:${w}px;height:${h}px;transform:translate3d(${x - w/2}px,${-h/2}px,${z}px) rotateY(${fy}deg)`;
+    }
+
+    const face = document.createElement('div');
+    face.className = 'bg-face';
+    const img = document.createElement('img');
+    img.src = item.img;
+    img.alt = '';
+    img.draggable = false;
+    img.onerror = function() { this.style.display = 'none'; face.style.background = '#e8e4df'; };
+    face.appendChild(img);
+    card.appendChild(face);
+    ring.appendChild(card);
+  });
+
+  updateCountLabel();
+}
+
+function updateCountLabel() {
+  const label = document.getElementById('count-label');
+  const count = RING_DATA.length;
+  const catText = CURRENT_CAT === 'all' ? 'ALL WORKS' : CURRENT_CAT.toUpperCase();
+  label.textContent = `${count} · ${catText}`;
+}
+
+// ── WRAP THEN OPEN ──
+function wrapAndOpen(newCat) {
+  if (isTransitioning || newCat === CURRENT_CAT) return;
+  isTransitioning = true;
+
+  const ring = document.getElementById('bg-ring');
+  const cards = ring.querySelectorAll('.bg-card');
+  const { w, h } = cardDims();
+
+  // WRAP: collapse all cards toward center with stagger
+  cards.forEach((card, i) => {
+    const currentTransform = card.style.transform;
+    // Extract the rotateY value to preserve rotation during collapse
+    const rotMatch = currentTransform.match(/rotateY\(([-\d.]+)deg\)/);
+    const fy = rotMatch ? rotMatch[1] : 0;
+    card.style.transition = `transform 0.6s cubic-bezier(0.7,0,0.3,1) ${i * 0.015}s, opacity 0.5s ease ${i * 0.015}s`;
+    card.style.transform = `translate3d(${-w/2}px,${-h/2}px,0px) rotateY(${fy}deg) scale(0.1)`;
+    card.style.opacity = '0';
+  });
+
+  // After wrap completes, swap data and open
+  setTimeout(() => {
+    CURRENT_CAT = newCat;
+    RING_DATA = DATASETS[newCat];
+    // Reset rotation to 0 for clean open
+    rotY = 0;
+    tgtRotY = 0;
+    buildRing(true);
+
+    setTimeout(() => {
+      isTransitioning = false;
+    }, 1200);
+  }, 700);
+}
+
+// ── LERP & RENDER ──
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+function render() {
+  const idle = Date.now() - lastInteract > 3000;
+  if (idle && !isDragging && !isTransitioning) tgtRotY += 0.055;
+
+  rotY   = lerp(rotY,   tgtRotY,   0.08);
+  tiltX  = lerp(tiltX,  tgtTiltX,  0.07);
+  tiltY  = lerp(tiltY,  tgtTiltY,  0.07);
+  transY = lerp(transY, tgtTransY, 0.06);
+
+  document.getElementById('bg-ring').style.transform =
+    `translateY(${transY}px) rotateX(${tiltX}deg) rotateY(${rotY + tiltY}deg)`;
+
+  requestAnimationFrame(render);
+}
+
+// ── DRAG ──
+document.addEventListener('mousedown', e => {
+  if (e.target.closest('#filter-bar') || e.target.closest('nav') || e.target.closest('#universal-nav')) return;
+  if (isTransitioning) return;
+  isDragging = true;
+  dragStartX = e.clientX;
+  dragStartY = e.clientY;
+  dragBaseRotY = tgtRotY;
+  lastInteract = Date.now();
+  if (!hintFaded) {
+    hintFaded = true;
+    const hint = document.getElementById('ring-hint');
+    hint.style.transition = 'opacity .5s';
+    hint.style.opacity = '0';
+  }
+});
+
+document.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  lastInteract = Date.now();
+  const dx = e.clientX - dragStartX;
+  const dy = e.clientY - dragStartY;
+  tgtRotY = dragBaseRotY + dx * 0.35;
+  const nyC = Math.max(-1, Math.min(1, dy / 110));
+  tgtTiltX = -22 + nyC * 24;
+  tgtTiltY = Math.max(-1, Math.min(1, dx / (window.innerWidth * 0.5))) * 10;
+  tgtTransY = nyC * window.innerHeight * 0.14;
+});
+
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+  tgtTiltX = -22; tgtTiltY = 0; tgtTransY = 0;
+});
+document.addEventListener('mouseleave', () => {
+  isDragging = false;
+  tgtTiltX = -22; tgtTiltY = 0; tgtTransY = 0;
+});
+
+// ── TOUCH ──
+let tX = 0, tBaseY = 0;
+document.addEventListener('touchstart', e => {
+  if (e.target.closest('#filter-bar')) return;
+  tX = e.touches[0].clientX;
+  tBaseY = tgtRotY;
+}, { passive: true });
+document.addEventListener('touchmove', e => {
+  if (e.target.closest('#filter-bar')) return;
+  tgtRotY = tBaseY + (e.touches[0].clientX - tX) * 0.38;
+  lastInteract = Date.now();
+}, { passive: true });
+
+// ── FILTER BUTTONS ──
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cat = btn.dataset.cat;
+    if (cat === CURRENT_CAT || isTransitioning) return;
+
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    wrapAndOpen(cat);
+  });
+});
+
+// ── RESIZE ──
+window.addEventListener('resize', () => {
+  if (!isTransitioning) buildRing(false);
+});
+
+// ── INIT ──
+// Initial page load: use opening animation for a dramatic entrance
+buildRing(true);
+render();
+</script>
+
+  <script src="assets/js/nav.js" defer></script>
+</body>
+</html>

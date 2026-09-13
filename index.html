@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;}
+:root{--bg:#ffffff;--ink:#111;--muted:#888;}
+body{background:var(--bg);font-family:'DM Mono',ui-monospace,monospace;}
+#bg-stage{position:fixed;inset:0;perspective:1100px;display:flex;align-items:center;justify-content:center;z-index:0;pointer-events:none;}
+#bg-ring{position:relative;transform-style:preserve-3d;transform:translateY(-3%) rotateX(-22deg) rotateY(0deg);}
+.bg-card{position:absolute;transform-style:preserve-3d;}
+.bg-face{position:absolute;inset:0;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.13);}
+.bg-face img{width:100%;height:100%;object-fit:cover;display:block;}
+.bg-face .bph{width:100%;height:100%;}
+#fog{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(255,255,255,0) 0%,rgba(255,255,255,0.55) 55%,rgba(255,255,255,0.92) 80%,rgba(255,255,255,1) 100%);}
+#ring-hint{position:fixed;bottom:22px;right:32px;font-size:10px;letter-spacing:.1em;color:#ccc;z-index:10;pointer-events:none;opacity:0;animation:fadeIn .8s 1.5s ease forwards;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+</style>
+  <link rel="stylesheet" href="assets/css/nav.css">
+</head>
+<body class="overlay-nav">
+<div id="bg-stage"><div id="bg-ring"></div></div>
+<div id="fog"></div>
+<div id="ring-hint">drag to rotate</div>
+<script>
+const RING_DATA = [
+  { img: "assets/images/home/remote-01.jpg" },
+  { img: "assets/images/home/remote-02.jpg" },
+  { img: "assets/images/home/remote-03.png" },
+  { img: "assets/images/home/remote-04.avif" },
+  { img: "assets/images/home/remote-05.jpg" },
+  { img: "assets/images/home/remote-06.png" },
+  { img: "assets/images/home/remote-07.jpg" },
+  { img: "assets/images/home/remote-08.jpg" },
+  { img: "assets/images/home/remote-09.jpg" },
+  { img: "assets/images/home/remote-10.jpg" },
+  { img: "assets/images/home/remote-11.jpg" },
+  { img: "assets/images/home/remote-12.jpg" },
+  { img: "assets/images/home/remote-13.jpg" },
+  { img: "assets/images/home/remote-14.jpg" },
+  { img: "assets/images/home/remote-15.jpg" },
+  { img: "assets/images/home/remote-16.jpg" },
+  { img: "assets/images/home/remote-17.jpg" },
+  { img: "assets/images/home/remote-18.png" },
+  { img: "assets/images/home/remote-19.jpg" },
+  { img: "assets/images/home/remote-20.jpg" },
+  { img: "assets/images/home/remote-21.jpg" },
+  { img: "assets/images/home/remote-22.jpg" },
+  { img: "assets/images/home/remote-23.png" },
+  { img: "assets/images/home/remote-24.jpg" },
+  { img: "assets/images/home/remote-25.jpg" },
+  { img: "assets/images/home/remote-26.jpg" },
+  { img: "assets/images/home/remote-27.jpg" },
+  { img: "assets/images/home/remote-28.jpg" },
+  { img: "assets/images/home/remote-29.jpg" },
+];
+
+let rotY=0,tgtRotY=0,tiltX=-22,tgtTiltX=-22,tiltY=0,tgtTiltY=0,transY=0,tgtTransY=0;
+let isDragging=false,dragStartX=0,dragStartY=0,dragBaseRotY=0;
+let lastInteract=Date.now(),hintFaded=false;
+
+function ringRadii(){
+  const vw=window.innerWidth,vh=window.innerHeight;
+  return{rx:Math.max(140,Math.min(vw*0.44,520)),rz:Math.max(80,Math.min((vh*0.42)/Math.cos(22*Math.PI/180),260))};
+}
+function cardDims(){
+  const vmin=Math.min(window.innerWidth,window.innerHeight);
+  const w=Math.max(68,Math.min(88,vmin*0.10));
+  return{w,h:Math.round(w*0.74)};
+}
+function buildRing(){
+  const ring=document.getElementById('bg-ring');
+  ring.innerHTML='';
+  const n=RING_DATA.length;
+  const{rx,rz}=ringRadii();
+  const{w,h}=cardDims();
+  const step=(2*Math.PI)/n;
+  RING_DATA.forEach((item,i)=>{
+    const angle=i*step-Math.PI/2;
+    const x=rx*Math.cos(angle),z=rz*Math.sin(angle);
+    const fy=-angle*180/Math.PI;
+    const card=document.createElement('div');
+    card.className='bg-card';
+    card.style.cssText=`width:${w}px;height:${h}px;transform:translate3d(${x-w/2}px,${-h/2}px,${z}px) rotateY(${fy}deg)`;
+    const face=document.createElement('div');
+    face.className='bg-face';
+    const img=document.createElement('img');
+    img.src=item.img;
+    img.alt='';
+    img.draggable=false;
+    img.onerror=function(){this.style.display='none';face.style.background='#e8e4df';};
+    face.appendChild(img);
+    card.appendChild(face);
+    ring.appendChild(card);
+  });
+}
+function lerp(a,b,t){return a+(b-a)*t;}
+function render(){
+  const idle=Date.now()-lastInteract>3000;
+  if(idle&&!isDragging)tgtRotY+=0.055;
+  rotY=lerp(rotY,tgtRotY,0.08);
+  tiltX=lerp(tiltX,tgtTiltX,0.07);
+  tiltY=lerp(tiltY,tgtTiltY,0.07);
+  transY=lerp(transY,tgtTransY,0.06);
+  document.getElementById('bg-ring').style.transform=`translateY(${transY}px) rotateX(${tiltX}deg) rotateY(${rotY+tiltY}deg)`;
+  requestAnimationFrame(render);
+}
+document.addEventListener('mousedown',e=>{
+  if(e.target.closest('nav'))return;
+  isDragging=true;dragStartX=e.clientX;dragStartY=e.clientY;dragBaseRotY=tgtRotY;lastInteract=Date.now();
+  if(!hintFaded){hintFaded=true;const h=document.getElementById('ring-hint');h.style.transition='opacity .5s';h.style.opacity='0';}
+});
+document.addEventListener('mousemove',e=>{
+  if(!isDragging)return;
+  lastInteract=Date.now();
+  const dx=e.clientX-dragStartX,dy=e.clientY-dragStartY;
+  tgtRotY=dragBaseRotY+dx*0.35;
+  const nyC=Math.max(-1,Math.min(1,dy/110));
+  tgtTiltX=-22+nyC*24;
+  tgtTiltY=Math.max(-1,Math.min(1,dx/(window.innerWidth*0.5)))*10;
+  tgtTransY=nyC*window.innerHeight*0.14;
+});
+document.addEventListener('mouseup',()=>{isDragging=false;tgtTiltX=-22;tgtTiltY=0;tgtTransY=0;});
+document.addEventListener('mouseleave',()=>{isDragging=false;tgtTiltX=-22;tgtTiltY=0;tgtTransY=0;});
+let tX=0,tBaseY=0;
+document.addEventListener('touchstart',e=>{tX=e.touches[0].clientX;tBaseY=tgtRotY;},{passive:true});
+document.addEventListener('touchmove',e=>{tgtRotY=tBaseY+(e.touches[0].clientX-tX)*0.38;lastInteract=Date.now();},{passive:true});
+window.addEventListener('resize',buildRing);
+buildRing();
+render();
+</script>
+  <script src="assets/js/nav.js" defer></script>
+</body>
+</html>

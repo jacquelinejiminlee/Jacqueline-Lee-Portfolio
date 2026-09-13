@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Miss+Fajardose&family=DM+Mono:wght@400;500&display=swap');
+
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #ececec;
+  box-sizing: border-box;
+}
+
+.site-nav-logo {
+  font-family: 'Miss Fajardose', cursive;
+  font-size: 26px;
+  color: #111;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.site-nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.site-nav-link {
+  font-family: 'DM Mono', ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #444;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.site-nav-link:hover,
+.site-nav-link.is-current {
+  color: #111;
+}
+
+body:not(.overlay-nav) {
+  padding-top: 56px !important;
+}
+
+body.overlay-nav .site-nav {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+@media (max-width: 560px) {
+  .site-nav { padding: 0 18px; }
+  .site-nav-links { gap: 16px; }
+  .site-nav-logo { font-size: 22px; }
+}

@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spendly — Jacqueline Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #ffffff;
+    --ink: #0a0a0a;
+    --muted: #6b6b6b;
+    --hairline: #e5e5e5;
+    --accent: #c8ff00;
+    --accent-2: #5d03e5;
+  }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    cursor: none;
+  }
+
+  a { color: inherit; text-decoration: none; cursor: none; }
+  button { cursor: none; font-family: inherit; }
+
+  /* ---------- custom cursor ---------- */
+  .cursor-dot, .cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-dot {
+    width: 6px; height: 6px;
+    background: var(--ink);
+    transition: transform 0.12s ease, background 0.2s ease;
+  }
+  .cursor-ring {
+    width: 32px; height: 32px;
+    border: 1px solid var(--ink);
+    transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s ease, border-color 0.2s ease;
+    opacity: 0;
+  }
+  body.cursor-hover .cursor-ring { opacity: 1; transform: translate(-50%, -50%) scale(1.4); }
+  body.cursor-hover .cursor-dot { transform: translate(-50%, -50%) scale(0.5); }
+
+  /* ---------- shared layout ---------- */
+  .wrap {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 64px;
+  }
+
+  .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---------- top nav ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.86);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .nav-inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 18px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-logo {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+  }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover, .nav-links a.current { color: var(--ink); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 96px 0 80px;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: end;
+  }
+  .hero-text { padding-bottom: 16px; }
+  .hero-eyebrow {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 32px;
+    align-items: center;
+  }
+  .hero-eyebrow .label { display: inline-block; }
+  .hero-eyebrow .dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--muted);
+  }
+  h1.hero-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: clamp(56px, 7vw, 96px);
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    margin-bottom: 28px;
+  }
+  .hero-sub {
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 32px;
+  }
+  .hero-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding: 14px 20px;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    margin-bottom: 40px;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+  .hero-link:hover {
+    background: var(--ink);
+    color: #fff;
+  }
+  .hero-link .arr {
+    display: inline-block;
+    transition: transform 0.18s ease;
+  }
+  .hero-link:hover .arr {
+    transform: translate(2px, -2px);
+  }
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--hairline);
+    max-width: 480px;
+  }
+  .meta-item .label { display: block; margin-bottom: 6px; }
+  .meta-item .val {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .hero-img {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+  .hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ---------- SECTION ---------- */
+  section.story {
+    padding: 120px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .section-head {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 64px;
+    margin-bottom: 56px;
+    align-items: start;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    padding-top: 14px;
+  }
+  .section-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: clamp(36px, 4.4vw, 56px);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    max-width: 780px;
+  }
+  .section-body {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 64px;
+  }
+  .section-body .lead {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #2a2a2a;
+    max-width: 680px;
+  }
+  .section-body .lead + .lead { margin-top: 20px; }
+  .section-body .label { padding-top: 6px; }
+
+  /* full-bleed slide image */
+  .slide {
+    margin-top: 64px;
+    background: #0a0a0a;
+    border-radius: 4px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+  }
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .slide-grid-2 {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .slide-grid-2 .slide { margin-top: 0; }
+
+  .slide-grid-3 {
+    margin-top: 64px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .slide-grid-3 .slide { margin-top: 0; aspect-ratio: 1 / 1; background: #f5f5f5; }
+  .slide-grid-3 .slide img { object-fit: cover; }
+
+  /* ---------- PROBLEM CALLOUTS ---------- */
+  .callout-grid {
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--hairline);
+    border: 1px solid var(--hairline);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .callout {
+    background: var(--bg);
+    padding: 32px 28px;
+  }
+  .callout-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .callout-text {
+    font-size: 17px;
+    line-height: 1.4;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- SOLUTION HIGHLIGHT ---------- */
+  .highlight-box {
+    background: var(--ink);
+    color: #fff;
+    padding: 64px 56px;
+    border-radius: 4px;
+    margin-top: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .highlight-box::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 6px; height: 100%;
+    background: var(--accent);
+  }
+  .highlight-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 28px;
+    text-transform: uppercase;
+  }
+  .highlight-text {
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    max-width: 880px;
+  }
+  .highlight-text em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  /* ---------- VIDEO ---------- */
+  .video-wrap {
+    margin-top: 64px;
+    background: #f3f3f3;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 2186 / 1124;
+  }
+  .video-wrap video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .video-cap {
+    margin-top: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  /* ---------- BRAND BAR (color palette) ---------- */
+  .palette {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+  }
+  .swatch {
+    aspect-ratio: 1 / 1;
+    border-radius: 4px;
+    position: relative;
+    border: 1px solid var(--hairline);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px;
+  }
+  .swatch .hex {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .swatch.dark .hex { color: #fff; }
+  .swatch.light .hex { color: var(--ink); }
+
+  /* ---------- FOOTER ---------- */
+  .foot {
+    padding: 80px 0 48px;
+  }
+  .foot-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--hairline);
+    padding-top: 48px;
+  }
+  .foot a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    transition: opacity 0.2s ease;
+  }
+  .foot a:hover { opacity: 0.5; }
+  .foot-next { text-align: right; }
+  .foot-next .label { display: block; margin-bottom: 8px; }
+  .foot-back .label { display: block; margin-bottom: 8px; }
+  .foot-bottom {
+    margin-top: 64px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ---------- entrance animations ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 980px) {
+    .wrap, .nav-inner { padding-left: 32px; padding-right: 32px; }
+    .hero-grid, .section-head, .section-body { grid-template-columns: 1fr; gap: 32px; }
+    .section-num, .section-body .label { padding-top: 0; }
+    .slide-grid-2, .slide-grid-3 { grid-template-columns: 1fr; }
+    .callout-grid { grid-template-columns: 1fr; }
+    .palette { grid-template-columns: repeat(3, 1fr); }
+    .meta { grid-template-columns: 1fr 1fr; max-width: none; }
+    .foot a { font-size: 28px; }
+    html, body { cursor: auto; }
+    .cursor-dot, .cursor-ring { display: none; }
+    a, button { cursor: pointer; }
+  }
+</style>
+  <link rel="stylesheet" href="assets/css/nav.css">
+</head>
+<body>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-text reveal">
+          <div class="hero-eyebrow">
+            <span class="label">Brand Identity</span>
+            <span class="dot"></span>
+            <span class="label">Product Design</span>
+            <span class="dot"></span>
+            <span class="label">2025</span>
+          </div>
+          <h1 class="hero-title">Spendly.</h1>
+          <p class="hero-sub">A banking app for the next generation — where splitting the check, tracking every item, and budgeting with friends actually feels good.</p>
+          <a href="https://stone-carrot-97216671.figma.site/" target="_blank" rel="noopener" class="hero-link">View full app design <span class="arr">↗</span></a>
+          <div class="meta">
+            <div class="meta-item">
+              <span class="label">Role</span>
+              <div class="val">Brand &amp; Product Designer</div>
+            </div>
+            <div class="meta-item">
+              <span class="label">Scope</span>
+              <div class="val">Strategy, Identity, UI/UX</div>
+            </div>
+            <div class="meta-item">
+              <span class="label">Deliverables</span>
+              <div class="val">App prototype, brand system, social campaign</div>
+            </div>
+            <div class="meta-item">
+              <span class="label">Tools</span>
+              <div class="val">Figma, Illustrator, After Effects</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-img reveal">
+          <img src="assets/images/spendly/img-01.jpg" alt="Spendly app mockup">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 01 OVERVIEW -->
+  <section class="story">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-num">01 — Overview</div>
+        <h2 class="section-title">Banking, but built for the way we actually spend.</h2>
+      </div>
+      <div class="section-body">
+        <div class="label">Concept</div>
+        <div>
+          <p class="lead">Spendly is a self-initiated banking concept aimed at college students and the broader 18–35 audience. The premise is simple: the apps we use to manage our money were built for a generation of users who paid for things alone. They don't fit the way our generation actually spends — splitting dinner four ways, tracking $4 coffees, comparing budgets with friends.</p>
+          <p class="lead">The project covers the full arc — identifying the problem, defining the audience, designing the brand identity, prototyping the core flows, and building out a social campaign that brings the brand to life.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 PROBLEM -->
+  <section class="story">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-num">02 — The Problem</div>
+        <h2 class="section-title">Splitting the check is a hassle. So is figuring out where your money went.</h2>
+      </div>
+      <div class="section-body">
+        <div class="label">Pain points</div>
+        <div>
+          <p class="lead">Picture a group of college students out for dinner. The bill comes — and most restaurants only let you split it two ways. So one friend pays the whole thing, and now everyone's squinting at a paper receipt trying to remember who ordered the salmon and who got the side of fries. Multiply that by every group dinner, every grocery run, every Uber.</p>
+          <p class="lead">Then on the other side: most banking apps only show you the merchant and the total. $87.43 at Trader Joe's. But what was actually in the bag? You don't know unless you kept the receipt.</p>
+          <div class="callout-grid">
+            <div class="callout">
+              <div class="callout-num">01</div>
+              <div class="callout-text">Receipts only show totals — never the items you actually bought.</div>
+            </div>
+            <div class="callout">
+              <div class="callout-num">02</div>
+              <div class="callout-text">Paper receipts pile up, get lost, fade away.</div>
+            </div>
+            <div class="callout">
+              <div class="callout-num">03</div>
+              <div class="callout-text">Splitting bills evenly never reflects who actually ordered what.</div>
+            </div>
+            <div class="callout">
+              <div class="callout-num">04</div>
+              <div class="callout-text">Banking apps feel cold and clinical — there's nothing to come back for.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 SOLUTION -->
+  <section class="story">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-num">03 — The Solution</div>
+        <h2 class="section-title">Itemized receipts. Item-level splits. Friends in the loop.</h2>
+      </div>
+      <div class="section-body">
+        <div class="label">Core idea</div>
+        <div>
+          <p class="lead">Spendly's core feature is item-level visibility. Every transaction in the app expands into a virtual receipt that mirrors the paper one — every drink, every appetizer, every grocery item, line by line. You see exactly where your money goes.</p>
+          <p class="lead">Once you can see the items, splitting becomes effortless. After one person pays the bill, they can tap individual line items and request the exact amount from any friend connected on the app — no more squinting at a thermal-printed receipt under restaurant lighting.</p>
+          <div class="highlight-box">
+            <div class="highlight-eyebrow">The pitch in one line</div>
+            <div class="highlight-text">One person pays. Everyone splits <em>by the item</em>. The receipt knows who ordered what.</div>
+          </div>
+          <p class="lead" style="margin-top: 32px;">Layered on top: budget challenges with friends, a social feed that turns financial habits into something shared rather than isolating, and all your cards consolidated in one place.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 AUDIENCE -->
+  <section class="story">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-num">04 — Audience</div>
+        <h2 class="section-title">Designed for the generation that splits everything.</h2>
+      </div>
+      <div class="section-body">
+        <div class="label">Who it's for</div>
+        <div>
+          <p class="lead">Gen Z and young millennials (18–35) — students, early-career professionals, anyone who lives with roommates, eats out with friends, and feels the friction of every group bill. They're financially conscious but not financially boring. They've already accepted that banking apps will be ugly. Spendly bets they'd rather it weren't.</p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="assets/images/spendly/img-02.jpg" alt="Target audience slide">
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 BRAND IDENTITY -->
+  <section class="story">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-num">05 — Brand Identity</div>
+        <h2 class="section-title">Loud where banking is quiet. Pixel‑bright where banking is beige.</h2>
+      </div>
+      <div class="section-body">
+        <div class="label">System</div>
+        <div>
+          <p class="lead">The identity leans into the contradiction at the heart of the product — financial software that doesn't take itself too seriously. Type pairs a pixelated display face (OffBit) for moments of personality with a clean grotesque (Dlea Gothic One) for impact and Inter for utility. Acid green and electric purple do the heavy lifting against deep black.</p>
+          <div class="palette">
+            <div class="swatch dark" style="background: #C8FF00;"><span class="hex" style="color:#0a0a0a;">#C8FF00</span></div>
+            <div class="swatch dark" style="background: #5D03E5;"><span class="hex">#5D03E5</span></div>
+            <div class="swatch light" style="background: #E4E6F3;"><span class="hex">#E4E6F3</span></div>
+            <div class="swatch dark" style="background: #161616;"><span class="hex">#161616</span></div>
+            <div class="swatch light" style="background: #FFFFFF;"><span class="hex">#FFFFFF</span></div>
+            <div class="swatch dark" style="background: #000000;"><span class="hex">#000000</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-grid-2">
+        <div class="slide"><img src="assets/images/spendly/img-03.jpg" alt="Brand guide fonts and color"></div>
+        <div class="slide"><img src="assets/images/spendly/img-04.jpg" alt="Brand guide logo"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 PROTOTYPE -->
+  <section class="story">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-num">06 — Prototype</div>
+        <h2 class="section-title">Every screen, walking the same line: financial, but never sterile.</h2>
+      </div>
+      <div class="section-body">
+        <div class="label">UI</div>
+        <div>
+          <p class="lead">The home screen leads with a stack of cards — your main, your secondary, anything you've added — followed by quick send/receive actions and the active budget challenge from your friends. Tapping a transaction opens the full virtual receipt with itemized line entries. Long-press an item to request that exact amount from a connected friend. The challenges tab turns saving into something social — streaks, friends active, weekly goals.</p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="assets/images/spendly/img-05.jpg" alt="Spendly prototype screens">
+      </div>
+      <div class="video-wrap" style="margin-top: 32px;">
+        <video src="assets/images/spendly/img-06.mp4" poster="assets/images/spendly/img-07.jpg" autoplay muted loop playsinline></video>
+      </div>
+      <div class="video-cap">Walkthrough — home, send money, card details, challenges</div>
+    </div>
+  </section>
+
+  <!-- 07 CAMPAIGN -->
+  <section class="story">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-num">07 — Campaign</div>
+        <h2 class="section-title">Banking is boring. We fixed it.</h2>
+      </div>
+      <div class="section-body">
+        <div class="label">Social rollout</div>
+        <div>
+          <p class="lead">The campaign extends Spendly past the app — a series of Instagram posts, billboards, and lifestyle photography built around three flat lines: <em>See every single item. Split bills, zero drama. Budget with your crew.</em> The visual system stays consistent: high-contrast type, acid green, friends mid-laugh, receipts mid-frame.</p>
+        </div>
+      </div>
+      <div class="slide">
+        <img src="assets/images/spendly/img-08.jpg" alt="Spendly social media instagram">
+      </div>
+      <div class="slide-grid-2" style="margin-top: 24px;">
+        <div class="slide"><img src="assets/images/spendly/img-09.jpg" alt="Banking is boring billboard campaign"></div>
+        <div class="slide"><img src="assets/images/spendly/img-10.jpg" alt="Spendly lifestyle photography"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-row">
+        <div class="foot-back">
+          <span class="label">Back to</span>
+          <a href="/">← All Projects</a>
+        </div>
+        <div class="foot-next">
+          <span class="label">Next project</span>
+          <a href="artworks.html">Artworks →</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>Jacqueline Lee · 2025</span>
+        <span>jacquelinejiminlee.xyz</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  // Custom cursor
+  const dot = document.querySelector('.cursor-dot');
+  const ring = document.querySelector('.cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX; my = e.clientY;
+    dot.style.left = mx + 'px';
+    dot.style.top = my + 'px';
+  });
+
+  function loop() {
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  // Hover state for links/buttons
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal, .section-head, .section-body, .slide, .slide-grid-2, .slide-grid-3, .video-wrap, .palette, .callout-grid, .highlight-box');
+  reveals.forEach(el => el.classList.add('reveal'));
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  reveals.forEach(el => io.observe(el));
+</script>
+  <script src="assets/js/nav.js" defer></script>
+</body>
+</html>

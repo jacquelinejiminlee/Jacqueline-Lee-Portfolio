@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects — Jacqueline Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --bg:#ffffff; --ink:#111; --muted:#888; --border:#ebebeb; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--ink); font-family:'DM Sans',sans-serif; font-weight:300; cursor:none; overflow-x:hidden; }
+
+/* cursor */
+#cur { position:fixed; width:8px; height:8px; background:var(--ink); border-radius:50%; pointer-events:none; z-index:999999; transform:translate(-50%,-50%); transition:width .18s,height .18s,background .18s,opacity .2s; }
+#cur.hov { width:60px; height:60px; background:transparent; border:1px solid var(--ink); }
+#cur-label { position:fixed; pointer-events:none; z-index:999998; transform:translate(-50%,-50%); font-family:'DM Mono',monospace; font-size:8px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); opacity:0; transition:opacity .2s; white-space:nowrap; }
+#cur.hov + #cur-label { opacity:1; }
+
+/* page */
+.page { padding-top:58px; min-height:100vh; }
+
+/* header */
+.projects-header {
+  padding: 64px 60px 48px;
+  border-bottom: 1px solid var(--border);
+}
+.projects-header-label {
+  font-family:'DM Mono',monospace;
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#ccc;
+  margin-bottom:12px;
+}
+.projects-header-title {
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  font-size:clamp(32px,5vw,56px);
+  letter-spacing:-0.02em;
+  color:var(--ink);
+  line-height:1.1;
+}
+
+/* project list */
+.project-list {
+  padding: 0 60px;
+}
+
+.project-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  min-height: 420px;
+  cursor: none;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.project-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-item:nth-child(even) {
+  direction: rtl;
+}
+.project-item:nth-child(even) > * {
+  direction: ltr;
+}
+
+/* image side */
+.project-img {
+  position: relative;
+  overflow: hidden;
+  background: #f0efed;
+}
+
+.project-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .9s cubic-bezier(0.25,0.46,0.45,0.94), filter .4s ease;
+  filter: grayscale(20%);
+}
+
+.project-item:hover .project-img img {
+  transform: scale(1.04);
+  filter: grayscale(0%);
+}
+
+.project-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* text side */
+.project-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px 52px;
+  position: relative;
+}
+
+.project-num {
+  font-family:'DM Mono',monospace;
+  font-size:9px;
+  letter-spacing:.16em;
+  color:#ccc;
+  text-transform:uppercase;
+}
+
+.project-category {
+  font-family:'DM Mono',monospace;
+  font-size:9px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:14px;
+}
+
+.project-name {
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  font-size:clamp(22px,3vw,36px);
+  letter-spacing:-0.02em;
+  line-height:1.15;
+  color:var(--ink);
+  margin-bottom:20px;
+  transition: letter-spacing .3s ease;
+}
+
+.project-item:hover .project-name {
+  letter-spacing: -0.01em;
+}
+
+.project-desc {
+  font-size:13px;
+  line-height:1.7;
+  color:#777;
+  max-width:340px;
+}
+
+.project-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family:'DM Mono',monospace;
+  font-size:9px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--ink);
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--ink);
+  width: fit-content;
+  transition: gap .3s ease;
+}
+
+.project-item:hover .project-cta {
+  gap: 16px;
+}
+
+.project-cta-arrow {
+  transition: transform .3s ease;
+}
+
+.project-item:hover .project-cta-arrow {
+  transform: translateX(4px);
+}
+
+/* scroll line indicator */
+.progress-line {
+  position: fixed;
+  top: 58px;
+  left: 0;
+  height: 1px;
+  background: var(--ink);
+  z-index: 100;
+  width: 0%;
+  transition: width .1s linear;
+}
+
+@media (max-width: 768px) {
+  .project-item {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .project-item:nth-child(even) { direction: ltr; }
+  .project-img { height: 260px; }
+  .project-info { padding: 32px 24px; }
+  .projects-header { padding: 40px 24px 32px; }
+  .project-list { padding: 0 24px; }
+}
+</style>
+  <link rel="stylesheet" href="assets/css/nav.css">
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-label">View</div>
+<div class="progress-line" id="progress"></div>
+
+<div class="page">
+
+  <div class="projects-header">
+    <p class="projects-header-label">Work</p>
+    <h1 class="projects-header-title">Selected<br>Projects</h1>
+  </div>
+
+  <div class="project-list">
+
+    <!-- 01 — GSSF -->
+    <a class="project-item" href="gssf.html" target="_top">
+      <div class="project-img">
+        <img src="assets/images/projects/img-01.jpg" alt="Global Student Startup Foundation">
+      </div>
+      <div class="project-info">
+        <span class="project-num">01</span>
+        <div class="project-body">
+          <p class="project-category">Brand Strategy &amp; Web Design</p>
+          <h2 class="project-name">Global Student Startup Foundation</h2>
+          <p class="project-desc">Brand identity and digital experience design for an international student entrepreneurship organization, including their flagship startup competition.</p>
+        </div>
+        <span class="project-cta">View Project <span class="project-cta-arrow">&rarr;</span></span>
+      </div>
+    </a>
+
+    <!-- 02 — Melrose Trading Post -->
+    <a class="project-item" href="mtp.html" target="_top">
+      <div class="project-img">
+        <img src="assets/images/projects/img-02.jpg" alt="Melrose Trading Post">
+      </div>
+      <div class="project-info">
+        <span class="project-num">02</span>
+        <div class="project-body">
+          <p class="project-category">Visual Design &amp; Marketing Assets</p>
+          <h2 class="project-name">Melrose Trading Post</h2>
+          <p class="project-desc">Brand strategy and social marketing pitch deck for LA's beloved Sunday flea market, developed with Trojan Marketing Group.</p>
+        </div>
+        <span class="project-cta">View Project <span class="project-cta-arrow">&rarr;</span></span>
+      </div>
+    </a>
+
+    <!-- 03 — Im'peccable Chicken -->
+    <a class="project-item" href="ic.html" target="_top">
+      <div class="project-img">
+        <img src="assets/images/projects/img-03.jpg" alt="Im'peccable Chicken">
+      </div>
+      <div class="project-info">
+        <span class="project-num">03</span>
+        <div class="project-body">
+          <p class="project-category">Brand, Packaging &amp; Visual Direction</p>
+          <h2 class="project-name">Im&apos;peccable Chicken</h2>
+          <p class="project-desc">Full brand identity, packaging system, and visual direction for a fast-casual chicken concept, including Shark Tank pitch visuals.</p>
+        </div>
+        <span class="project-cta">View Project <span class="project-cta-arrow">&rarr;</span></span>
+      </div>
+    </a>
+
+    <!-- 04 — Avécbag -->
+    <a class="project-item" href="avec.html" target="_top">
+      <div class="project-img">
+        <img src="assets/images/projects/img-04.jpg" alt="Avecbag">
+      </div>
+      <div class="project-info">
+        <span class="project-num">04</span>
+        <div class="project-body">
+          <p class="project-category">Product Design</p>
+          <h2 class="project-name">Av&eacute;cbag</h2>
+          <p class="project-desc">Product design work for Korean bag brand Av&eacute;cbag, including campaign visuals presented at Coterie New York and product line development.</p>
+        </div>
+        <span class="project-cta">View Project <span class="project-cta-arrow">&rarr;</span></span>
+      </div>
+    </a>
+
+    <!-- 05 — Spendly -->
+    <a class="project-item" href="spendly.html" target="_top">
+      <div class="project-img">
+        <img src="assets/images/projects/img-05.jpg" alt="Spendly">
+      </div>
+      <div class="project-info">
+        <span class="project-num">05</span>
+        <div class="project-body">
+          <p class="project-category">Branding &amp; App Design</p>
+          <h2 class="project-name">Spendly</h2>
+          <p class="project-desc">Brand identity and app design for a Gen Z-focused finance platform that turns spending tracking into a social, low-stakes experience.</p>
+        </div>
+        <span class="project-cta">View Project <span class="project-cta-arrow">&rarr;</span></span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<script>
+// Cursor
+const cur = document.getElementById('cur');
+const curLabel = document.getElementById('cur-label');
+let mx = 0, my = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx + 'px';
+  cur.style.top = my + 'px';
+  curLabel.style.left = mx + 'px';
+  curLabel.style.top = (my + 2) + 'px';
+});
+
+document.querySelectorAll('.project-item').forEach(el => {
+  el.addEventListener('mouseenter', () => cur.classList.add('hov'));
+  el.addEventListener('mouseleave', () => cur.classList.remove('hov'));
+});
+
+document.querySelectorAll('a:not(.project-item)').forEach(el => {
+  el.addEventListener('mouseenter', () => cur.classList.add('hov'));
+  el.addEventListener('mouseleave', () => cur.classList.remove('hov'));
+});
+
+// Scroll progress
+const progress = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.body.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progress.style.width = pct + '%';
+});
+
+// Scroll reveal
+const items = document.querySelectorAll('.project-item');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), 100);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+items.forEach(item => observer.observe(item));
+</script>
+
+  <script src="assets/js/nav.js" defer></script>
+</body>
+</html>

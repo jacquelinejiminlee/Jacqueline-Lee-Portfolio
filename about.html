@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Jacqueline Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --bg:#ffffff; --ink:#111; --muted:#888; --soft:#f5f4f2; --border:#ebebeb; }
+html { scroll-behavior: smooth; }
+body { background:var(--bg); color:var(--ink); font-family:'DM Sans',sans-serif; font-weight:300; cursor:none; min-height:100vh; }
+
+#cur { position:fixed; width:8px; height:8px; background:var(--ink); border-radius:50%; pointer-events:none; z-index:999999; transform:translate(-50%,-50%); transition:width .18s,height .18s,background .18s; will-change:left,top; }
+#cur.hov { width:26px; height:26px; background:transparent; border:1.5px solid var(--ink); }
+
+.page { padding-top:58px; min-height:100vh; }
+
+.about-wrap { max-width:1000px; width:100%; margin:0 auto; padding:72px 40px 100px; display:grid; grid-template-columns:260px 1fr; gap:80px; align-items:start; }
+
+.about-left { position:sticky; top:80px; }
+
+.photo-box { width:100%; aspect-ratio:3/4; background:var(--soft); border-radius:2px; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:20px; }
+.photo-placeholder { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.12em; color:#ccc; text-transform:uppercase; }
+
+.left-name { font-family:'DM Sans',sans-serif; font-weight:400; font-size:17px; color:var(--ink); margin-bottom:4px; letter-spacing:-0.01em; }
+.left-title { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); margin-bottom:24px; line-height:1.6; }
+
+.left-meta { display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
+.meta-row { display:flex; gap:12px; align-items:baseline; }
+.meta-label { font-family:'DM Mono',monospace; font-size:8px; letter-spacing:.14em; text-transform:uppercase; color:#ccc; min-width:64px; }
+.meta-value { font-family:'DM Sans',sans-serif; font-size:12px; font-weight:300; color:#555; line-height:1.5; }
+
+.left-links { display:flex; flex-direction:column; gap:6px; }
+.left-link { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); text-decoration:none; display:inline-flex; align-items:center; gap:6px; transition:opacity .2s; }
+.left-link:hover { opacity:0.45; }
+.left-link::before { content:'↗'; font-size:9px; }
+.left-email { font-family:'DM Mono',monospace; font-size:8px; letter-spacing:.08em; color:#aaa; margin-top:-2px; margin-left:2px; }
+
+.bio-label { font-family:'DM Mono',monospace; font-size:8px; letter-spacing:.18em; text-transform:uppercase; color:#ccc; margin-bottom:16px; }
+.bio-text { font-size:15px; line-height:1.8; color:#444; margin-bottom:56px; max-width:560px; }
+.bio-text p + p { margin-top:16px; }
+
+.section { margin-bottom:48px; }
+.section-label { font-family:'DM Mono',monospace; font-size:8px; letter-spacing:.18em; text-transform:uppercase; color:#ccc; margin-bottom:20px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+
+.entry { padding:18px 0; border-bottom:1px solid var(--border); }
+.entry:first-of-type { padding-top:0; }
+.entry-header { display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-bottom:8px; flex-wrap:wrap; }
+.entry-role { font-family:'DM Sans',sans-serif; font-size:13px; font-weight:400; color:var(--ink); letter-spacing:-0.01em; }
+.entry-date { font-family:'DM Mono',monospace; font-size:8px; letter-spacing:.1em; color:#bbb; white-space:nowrap; text-transform:uppercase; }
+.entry-company { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.1em; color:var(--muted); text-transform:uppercase; margin-bottom:10px; }
+.entry-bullets { list-style:none; display:flex; flex-direction:column; gap:5px; }
+.entry-bullets li { font-size:12px; color:#666; line-height:1.6; padding-left:12px; position:relative; }
+.entry-bullets li::before { content:'—'; position:absolute; left:0; color:#ccc; font-size:10px; }
+
+.edu-entry { padding:18px 0; border-bottom:1px solid var(--border); }
+.edu-entry:first-of-type { padding-top:0; }
+.edu-school { font-family:'DM Sans',sans-serif; font-size:13px; font-weight:400; color:var(--ink); margin-bottom:3px; }
+.edu-detail { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.09em; color:var(--muted); margin-bottom:8px; text-transform:uppercase; }
+.edu-bullets { list-style:none; display:flex; flex-direction:column; gap:4px; }
+.edu-bullets li { font-size:12px; color:#666; line-height:1.6; padding-left:12px; position:relative; }
+.edu-bullets li::before { content:'—'; position:absolute; left:0; color:#ccc; font-size:10px; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);} }
+.about-left  { animation:fadeUp .7s ease both; }
+.about-right { animation:fadeUp .7s .12s ease both; }
+
+@media (max-width:720px) {
+  .about-wrap { grid-template-columns:1fr; gap:40px; padding:40px 24px 80px; }
+  .about-left { position:static; }
+}
+</style>
+  <link rel="stylesheet" href="assets/css/nav.css">
+</head>
+<body>
+
+<div id="cur"></div>
+
+<div class="page">
+  <div class="about-wrap">
+
+    <!-- LEFT -->
+    <div class="about-left">
+      <div class="photo-box">
+        <img src="assets/images/about/img-01.jpg" alt="Jacqueline Lee" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+      </div>
+
+      <p class="left-name">Jacqueline Jimin Lee</p>
+      <p class="left-title">BFA Design · Marketing Minor<br>University of Southern California</p>
+
+      <div class="left-meta">
+        <div class="meta-row">
+          <span class="meta-label">Based in</span>
+          <span class="meta-value">Los Angeles, CA</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">Focus</span>
+          <span class="meta-value">Brand Strategy, Visual Design, Art Direction</span>
+        </div>
+      </div>
+
+      <div class="left-links">
+        <a href="mailto:jlee0792@usc.edu" class="left-link" target="_blank">Email</a>
+        <span class="left-email">jimle.0527@usc.edu</span>
+        <a href="https://www.linkedin.com/in/jacquelinejiminlee" class="left-link" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="about-right">
+
+      <p class="bio-label">About</p>
+      <div class="bio-text">
+        <p>I'm a BFA Design student at USC with a minor in Marketing, working at the intersection of brand strategy, visual identity, and art. My practice moves between fine art and commercial design — from oil paintings and sculptures to packaging systems and brand campaigns.</p>
+        <p>Having worked across startups, department stores, and creative studios in Seoul and Los Angeles — spanning brand strategy, social media direction, and commercial design — I'm now looking to move deeper into creative and art direction. I'm particularly drawn to the fashion and entertainment industries, where design, narrative, and visual identity converge.</p>
+      </div>
+
+      <!-- BRAND STRATEGY -->
+      <div class="section">
+        <p class="section-label">Brand Strategy & Marketing</p>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-role">Design Director, Brand & Social Media</span>
+            <span class="entry-date">Jan 2025 – Present</span>
+          </div>
+          <p class="entry-company">AMA USC</p>
+          <ul class="entry-bullets">
+            <li>Led visual direction and brand execution for multiple client accounts</li>
+            <li>Designed packaging, logo redesigns, and marketing assets for Im'peccable Chicken and Everflora</li>
+            <li>Directed and created social media content for Im'peccable Chicken</li>
+            <li>Contributed to visual design for Im'peccable's Shark Tank pitch (aired Oct 2025)</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-role">Brand Strategist</span>
+            <span class="entry-date">Jan 2026 – Present</span>
+          </div>
+          <p class="entry-company">Global Student Startup Foundation</p>
+          <ul class="entry-bullets">
+            <li>Developed brand positioning and visual identity for the Academy sector</li>
+            <li>Designed the Academy website with a youth-focused, global audience in mind</li>
+            <li>Established cohesive visual systems across web and program materials</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-role">Designer</span>
+            <span class="entry-date">Aug 2025 – Present</span>
+          </div>
+          <p class="entry-company">Trojan Marketing Group</p>
+          <ul class="entry-bullets">
+            <li>Designed marketing and social media assets for clients including Melrose Trading Post and Saysh</li>
+            <li>Collaborated with strategy teams to execute cohesive brand visuals</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- DESIGN -->
+      <div class="section">
+        <p class="section-label">Design</p>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-role">In-house Designer</span>
+            <span class="entry-date">Jul 2025 – Present</span>
+          </div>
+          <p class="entry-company">Im'peccable Chicken</p>
+          <ul class="entry-bullets">
+            <li>Participating as an all-round designer at a start-up brand, working on packaging, email flow, website, and more</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-role">UIUX Design Intern</span>
+            <span class="entry-date">2023 – 2024</span>
+          </div>
+          <p class="entry-company">Daylight Design Korea</p>
+          <ul class="entry-bullets">
+            <li>Contributed to UI/UX design for GS Fresh Mall Korea</li>
+            <li>Redesigned the internal library system and created a cataloging database</li>
+          </ul>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-role">Set Design Assistant</span>
+            <span class="entry-date">May 2024 – Jan 2025</span>
+          </div>
+          <p class="entry-company">Lalune Flower</p>
+          <ul class="entry-bullets">
+            <li>Assisted in commercial floral and set design for fashion and media projects</li>
+            <li>Clients included Dazed Korea and Cho Giseok (XG – Howling MV)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- EDUCATION -->
+      <div class="section">
+        <p class="section-label">Education</p>
+
+        <div class="edu-entry">
+          <p class="edu-school">University of Southern California</p>
+          <p class="edu-detail">BFA Design, Marketing Minor · 2024 – 2028</p>
+          <ul class="edu-bullets">
+            <li>Fall 2025 Undergraduate Research Associates Program Scholarship Recipient</li>
+            <li>Expected Graduation: May 2028</li>
+          </ul>
+        </div>
+
+        <div class="edu-entry">
+          <p class="edu-school">Seoul International School</p>
+          <p class="edu-detail">2017 – 2024</p>
+          <ul class="edu-bullets">
+            <li>Graduated May 2024</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const cur = document.getElementById('cur');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => cur.classList.add('hov'));
+  el.addEventListener('mouseleave', () => cur.classList.remove('hov'));
+});
+</script>
+
+  <script src="assets/js/nav.js" defer></script>
+</body>
+</html>

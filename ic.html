@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Im'peccable Chicken — Jacqueline Lee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Figtree:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --ink: #111111;
+    --muted: #9a9a9a;
+    --rule: #e8e8e8;
+    --accent: #ff4a1c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Figtree', -apple-system, sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  /* ---------- LAYOUT ---------- */
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 40px 60px 0;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    padding: 60px 0 100px;
+    align-items: start;
+  }
+
+  .hero-left {
+    padding-top: 40px;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: 100px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--ink); }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-size: 64px;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .hero-sub {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 48px;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink);
+    max-width: 460px;
+    margin-bottom: 64px;
+  }
+
+  .visit-btn {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 6px;
+    margin-bottom: 40px;
+    transition: color 0.2s;
+  }
+
+  .visit-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    row-gap: 18px;
+    font-size: 14px;
+  }
+
+  .meta-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    font-weight: 500;
+    padding-top: 2px;
+  }
+
+  .meta-value {
+    color: var(--ink);
+  }
+
+  .hero-right {
+    position: relative;
+  }
+
+  .hero-image {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    background: #f5f5f5;
+  }
+
+  /* ---------- SECTION DIVIDER ---------- */
+  .section {
+    padding: 100px 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-header {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+    align-items: start;
+  }
+
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    padding-top: 12px;
+  }
+
+  .section-title {
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    max-width: 700px;
+  }
+
+  .section-body {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+  }
+
+  .section-body .spacer {}
+
+  .section-text {
+    max-width: 640px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  .section-text p + p { margin-top: 20px; }
+
+  /* ---------- FIGURE ---------- */
+  .figure {
+    margin: 60px 0 0;
+  }
+
+  .figure-wide {
+    width: 100%;
+  }
+
+  .figure-caption {
+    margin-top: 16px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* ---------- TWO COLUMN GRID ---------- */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .grid-2 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ---------- PACKAGING OFFSET ---------- */
+  .packaging-display {
+    margin: 60px 0 0;
+    padding: 80px 0;
+    background: #fafafa;
+  }
+
+  .packaging-display img {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ---------- COLOR STUDY ---------- */
+  .color-section {
+    margin-top: 60px;
+  }
+
+  /* ---------- OUTCOMES ---------- */
+  .outcomes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin-top: 60px;
+    padding-top: 60px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .outcome {
+    padding-right: 20px;
+  }
+
+  .outcome-num {
+    font-size: 48px;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+
+  .outcome-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .outcome-text {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+
+  /* ---------- BOTTOM NAV ---------- */
+  .bottom-nav {
+    padding: 140px 0 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+  }
+
+  .all-projects-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 6px;
+    font-weight: 400;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .all-projects-link:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .next-wrap {
+    text-align: right;
+  }
+
+  .next-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  .next-title {
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+    line-height: 1.1;
+  }
+
+  .next-title:hover { color: var(--accent); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 960px) {
+    .container { padding: 24px 32px 0; }
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 48px;
+      padding: 32px 0 60px;
+    }
+    .hero-left { padding-top: 0; }
+    .back-link { margin-bottom: 40px; }
+    .hero h1 { font-size: 44px; }
+    .section { padding: 60px 0; }
+    .section-header, .section-body {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .section-title { font-size: 28px; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .outcomes { grid-template-columns: 1fr; gap: 40px; }
+    .bottom-nav { padding: 80px 0 60px; flex-direction: column; align-items: flex-start; gap: 40px; }
+    .next-wrap { text-align: left; }
+    .next-title { font-size: 28px; }
+  }
+</style>
+  <link rel="stylesheet" href="assets/css/nav.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <a href="projects.html" class="back-link">← ALL PROJECTS</a>
+
+      <div class="eyebrow">BRAND STRATEGY &middot; PACKAGING &middot; SOCIAL</div>
+      <h1>Im'peccable Chicken</h1>
+      <div class="hero-sub">AMA USC &middot; 2025</div>
+
+      <p class="hero-desc">
+        Im'peccable Chicken is a ready-to-eat chicken breast brand. As Design Director for AMA USC, I led the rebrand ahead of their Shark Tank pitch and retail launch, covering packaging, email marketing, and campaign creative.
+      </p>
+
+      <a href="https://impeccablechicken.shop/?srsltid=AfmBOop7-Rqcj856azUpDtk9XHSYvy_N-rWuIK5sqjPkse54_Ho1hu9C" class="visit-btn" target="_blank" rel="noopener">VISIT WEBSITE →</a>
+
+      <div class="meta-grid">
+        <div class="meta-label">ROLE</div>
+        <div class="meta-value">Design Director</div>
+
+        <div class="meta-label">SCOPE</div>
+        <div class="meta-value">Packaging, Email Design, Social, Brand Identity</div>
+
+        <div class="meta-label">CLIENT</div>
+        <div class="meta-value">Im'peccable Chicken &times; AMA USC</div>
+
+        <div class="meta-label">TOOLS</div>
+        <div class="meta-value">Figma, Illustrator, Photoshop, Klaviyo</div>
+
+        <div class="meta-label">YEAR</div>
+        <div class="meta-value">2025</div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <img src="assets/images/ic/img-01.jpg" alt="Im'peccable Chicken — chicken breast surrounded by fresh peppers and broccoli" class="hero-image" />
+    </div>
+  </section>
+
+  <!-- 01 — CONTEXT -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">01 / CONTEXT</div>
+      <h2 class="section-title">A ready-to-eat chicken brand moving from DTC to retail.</h2>
+    </div>
+    <div class="section-body">
+      <div class="spacer"></div>
+      <div class="section-text">
+        <p>
+          Im'peccable Chicken came to AMA USC preparing for a Shark Tank pitch and their first retail rollout. The existing packaging wasn't built for either context.
+        </p>
+        <p>
+          The goal was a visual system that could scale across flavors, work on a grocery shelf, and translate to both a pitch deck and a customer's inbox.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 — COLOR STUDY -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">02 / COLOR &amp; IDENTITY</div>
+      <h2 class="section-title">Color exploration.</h2>
+    </div>
+    <div class="section-body">
+      <div class="spacer"></div>
+      <div class="section-text">
+        <p>
+          Tested four directions against the original palette: a navy-grounded system, a warm neutral with orange accents, and two saturated directions anchored in the existing orange.
+        </p>
+      </div>
+    </div>
+
+    <div class="color-section">
+      <img src="assets/images/ic/img-02.jpg" alt="Color palette exploration" class="figure-wide" />
+      <div class="figure-caption">COLOR PALETTE EXPLORATION &middot; FOUR DIRECTIONS</div>
+    </div>
+  </section>
+
+  <!-- 03 — PACKAGING PROCESS -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">03 / PACKAGING</div>
+      <h2 class="section-title">Packaging system.</h2>
+    </div>
+    <div class="section-body">
+      <div class="spacer"></div>
+      <div class="section-text">
+        <p>
+          Ten rounds of iteration to land on the final direction: a stenciled wordmark, hero product photography, and color-coded flavor fields.
+        </p>
+        <p>
+          Three flavors — Orange Habanero, Classic Teriyaki, Original Pepper — each with its own gradient anchor and a consistent callout system for protein, calories, and tagline. The back panel covers brand voice, when to eat, and how to eat.
+        </p>
+      </div>
+    </div>
+
+    <div class="figure">
+      <img src="assets/images/ic/img-03.jpg" alt="Packaging redesign process" class="figure-wide" />
+      <div class="figure-caption">FIG. 01 &middot; PACKAGING ITERATIONS</div>
+    </div>
+
+    <div class="packaging-display">
+      <img src="assets/images/ic/img-04.jpg" alt="Final packaging — three flavors, front and back" />
+    </div>
+    <div class="figure-caption" style="padding-left: 0;">FIG. 02 &middot; FINAL PACKAGING SYSTEM</div>
+  </section>
+
+  <!-- 04 — EMAIL MARKETING -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">04 / EMAIL FLOWS</div>
+      <h2 class="section-title">Email lifecycle system.</h2>
+    </div>
+    <div class="section-body">
+      <div class="spacer"></div>
+      <div class="section-text">
+        <p>
+          A twelve-email sequence covering welcome, abandoned cart, win-back, and brand story. Built in Klaviyo, using the same color and type system as the packaging.
+        </p>
+        <p>
+          Each email is structured around one CTA and kept to three sections or fewer.
+        </p>
+      </div>
+    </div>
+
+    <div class="figure">
+      <img src="assets/images/ic/img-05.jpg" alt="Email marketing flow — 12 templates" class="figure-wide" />
+      <div class="figure-caption">FIG. 03 &middot; EMAIL LIFECYCLE FLOW &middot; 12 TEMPLATES</div>
+    </div>
+  </section>
+
+  <!-- 05 — CAMPAIGN -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">05 / CAMPAIGN</div>
+      <h2 class="section-title">Social, Shark Tank, and brand world.</h2>
+    </div>
+    <div class="section-body">
+      <div class="spacer"></div>
+      <div class="section-text">
+        <p>
+          The brand system extended into static social posts, logo exploration, and the Shark Tank pitch deck — including the set design concept for the on-stage presentation.
+        </p>
+      </div>
+    </div>
+
+    <div class="figure">
+      <img src="assets/images/ic/img-06.jpg" alt="Campaign deliverables" class="figure-wide" />
+      <div class="figure-caption">FIG. 04 &middot; CAMPAIGN DELIVERABLES</div>
+    </div>
+
+    <div class="figure">
+      <img src="assets/images/ic/img-07.jpg" alt="AMA Spring 2025 marketing recap" class="figure-wide" />
+      <div class="figure-caption">FIG. 05 &middot; AMA SPRING 2025 RECAP</div>
+    </div>
+  </section>
+
+  <!-- 06 — OUTCOMES -->
+  <section class="section">
+    <div class="section-header">
+      <div class="section-num">06 / OUTCOMES</div>
+      <h2 class="section-title">Deliverables.</h2>
+    </div>
+
+    <div class="outcomes">
+      <div class="outcome">
+        <div class="outcome-num">3</div>
+        <div class="outcome-label">Flavor SKUs</div>
+        <div class="outcome-text">Orange Habanero, Classic Teriyaki, Original Pepper. Templated for future flavor launches.</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num">12</div>
+        <div class="outcome-label">Email Templates</div>
+        <div class="outcome-text">Welcome, abandoned cart, win-back, and brand story flows deployed through Klaviyo.</div>
+      </div>
+      <div class="outcome">
+        <div class="outcome-num">1</div>
+        <div class="outcome-label">Shark Tank Pitch</div>
+        <div class="outcome-text">Presentation deck and set design concept for the televised pitch.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <a href="projects.html" class="all-projects-link">← ALL PROJECTS</a>
+    <div class="next-wrap">
+      <div class="next-label">NEXT PROJECT</div>
+      <a href="avec.html" class="next-title">Avécbag →</a>
+    </div>
+  </div>
+
+</div>
+
+  <script src="assets/js/nav.js" defer></script>
+</body>
+</html>
