@@ -2,11 +2,20 @@
   var path = window.location.pathname.replace(/^\//, "").replace(/\.html$/, "") || "index";
   var current = path === "index" ? "home" : path;
 
+  // sub-pages of a section highlight their parent nav item
+  var parentMap = {
+    liner: "projects",
+    ic: "projects",
+    gssf: "projects",
+    spendly: "projects"
+  };
+  current = parentMap[current] || current;
+
   var links = [
     { href: "index.html", label: "Home", key: "home" },
     { href: "about.html", label: "About", key: "about" },
     { href: "projects.html", label: "Projects", key: "projects" },
-    { href: "artworks.html", label: "Artworks", key: "artworks" }
+    { href: "artworks.html", label: "Creative Works", key: "artworks" }
   ];
 
   var linkHtml = links

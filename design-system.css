@@ -1,0 +1,530 @@
+/*
+  Shared design tokens for the site.
+  Colors are eyeballed from the moodboard (maroon / gray / charcoal / yellow) —
+  swap the hex values below if you have exact ones from Figma; every page
+  reads from these variables, so a swap here updates the whole site.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Miss+Fajardose&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&display=swap');
+
+/* Cross-document view transitions — a smooth crossfade between page loads,
+   no JS required. No-ops gracefully in browsers that don't support it yet. */
+@view-transition {
+  navigation: auto;
+}
+
+:root {
+  /* maroon — primary / nav */
+  --maroon-900: #2E1224;
+  --maroon-700: #4B1D38;
+  --maroon-500: #7C3A63;
+  --maroon-300: #B98BA6;
+  --maroon-100: #ECD9E4;
+
+  /* charcoal — dark "title page" backgrounds */
+  --charcoal-900: #141414;
+  --charcoal-700: #2B2B2B;
+  --charcoal-500: #4F4F4F;
+
+  /* gray — light "detail page" backgrounds */
+  --gray-400: #9A9A9A;
+  --gray-300: #C7C7C4;
+  --gray-200: #E4E4E1;
+  --gray-100: #EFEFED;
+  --paper: #FAFAF8;
+
+  /* key accent — a quiet warm clay/sand, not a bright attention color.
+     Variable names kept as --yellow-* so every existing usage (buttons,
+     stat numbers, tags, links) updates from this one place. */
+  --yellow-500: #C89A73;
+  --yellow-300: #DBBFA0;
+  --yellow-100: #EFE3D4;
+
+  --ink: #141414;
+  --ink-soft: #4A4A4A;
+  --ink-inverse: #F5F3F0;
+  --ink-inverse-soft: #C9C3C7;
+
+  --font-ui: 'Albert Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-accent: 'Miss Fajardose', cursive;
+  --font-serif: 'Fraunces', Georgia, serif;
+}
+
+/* ============ shared building blocks for the new pages ============
+   (about / projects / marketing / branding-design / liner*)
+   Existing case-study pages — gssf, spendly, ic, artworks — keep their
+   own bespoke styling; these classes are for the newly designed pages. */
+
+.ds-dark-page {
+  background: var(--charcoal-900);
+  color: var(--ink-inverse);
+  font-family: var(--font-ui);
+  min-height: 100vh;
+}
+
+.ds-light-page {
+  background: var(--gray-100);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  min-height: 100vh;
+}
+
+.ds-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.ds-eyebrow {
+  font-family: var(--font-ui);
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--gray-400);
+  margin-bottom: 18px;
+}
+.ds-light-page .ds-eyebrow { color: var(--ink-soft); }
+
+.ds-headline {
+  font-family: var(--font-ui);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  font-size: clamp(26px, 3vw, 38px);
+  max-width: 22ch;
+}
+
+.ds-accent {
+  font-family: var(--font-accent);
+  font-weight: 400;
+}
+
+.ds-body {
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 62ch;
+}
+.ds-dark-page .ds-body { color: var(--ink-inverse-soft); }
+
+.ds-body b, .ds-body strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+.ds-dark-page .ds-body b, .ds-dark-page .ds-body strong { color: var(--ink-inverse); }
+
+.ds-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 48px;
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.ds-light-page .ds-meta-row { border-top: 1px solid rgba(20,20,20,0.12); }
+
+.ds-meta-col { min-width: 140px; }
+.ds-meta-label {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--gray-400);
+  margin-bottom: 8px;
+}
+.ds-meta-value { font-size: 15px; font-weight: 400; line-height: 1.6; }
+.ds-meta-value + .ds-meta-value { margin-top: 4px; }
+
+.ds-callout {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin-top: 24px;
+}
+.ds-dark-page .ds-callout { color: var(--ink-inverse-soft); }
+.ds-callout .mark { color: var(--yellow-500); flex-shrink: 0; }
+
+.ds-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  padding: 40px;
+  border-radius: 4px;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+.ds-dark-page .ds-card { background: var(--charcoal-700); }
+.ds-dark-page .ds-card:hover { background: var(--maroon-700); transform: translateY(-2px); }
+.ds-light-page .ds-card { background: var(--paper); border: 1px solid var(--gray-200); }
+.ds-light-page .ds-card:hover { border-color: var(--maroon-500); transform: translateY(-2px); }
+
+.ds-card-eyebrow {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--maroon-300);
+  margin-bottom: 14px;
+}
+.ds-light-page .ds-card-eyebrow { color: var(--maroon-500); }
+
+.ds-card-title {
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+
+.ds-card-desc {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--ink-inverse-soft);
+}
+.ds-light-page .ds-card-desc { color: var(--ink-soft); }
+
+.ds-card-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--yellow-500);
+}
+
+/* ---------- BUTTONS ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 100px;
+  padding: 12px 22px;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+.btn-primary {
+  background: var(--maroon-700);
+  color: var(--ink-inverse);
+  border-color: var(--maroon-500);
+}
+.btn-primary:hover { background: var(--maroon-500); transform: translateY(-1px); }
+
+.btn-ghost {
+  background: rgba(255,255,255,0.04);
+  color: var(--ink-inverse);
+  border-color: rgba(255,255,255,0.12);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.2); }
+.ds-light-page .btn-ghost, .cs-body .btn-ghost.on-light {
+  background: rgba(20,20,20,0.04); color: var(--ink); border-color: rgba(20,20,20,0.12);
+}
+
+.btn-accent {
+  background: var(--yellow-500);
+  color: var(--charcoal-900);
+  border-color: var(--yellow-500);
+}
+.btn-accent:hover { background: var(--yellow-300); transform: translateY(-1px); }
+
+.ds-placeholder {
+  border: 1px dashed var(--gray-300);
+  background: repeating-linear-gradient(
+    135deg, rgba(0,0,0,0.02), rgba(0,0,0,0.02) 10px, transparent 10px, transparent 20px
+  );
+  color: var(--gray-400);
+  font-size: 13px;
+  font-weight: 400;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  border-radius: 4px;
+  padding: 24px;
+}
+.ds-dark-page .ds-placeholder {
+  border-color: var(--charcoal-500);
+  background: repeating-linear-gradient(
+    135deg, rgba(255,255,255,0.03), rgba(255,255,255,0.03) 10px, transparent 10px, transparent 20px
+  );
+}
+
+.ds-section {
+  padding: 96px 0;
+  border-top: 1px solid rgba(20,20,20,0.1);
+}
+.ds-dark-page .ds-section { border-top: 1px solid rgba(255,255,255,0.1); }
+.ds-section:first-of-type { border-top: none; }
+
+/* ============================================================
+   GRADIENT MESH / GRAIN / GLASS — the new visual language
+   (soft blurred color blobs, frosted-glass panels, film grain)
+   ============================================================ */
+
+.mesh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+.mesh-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: 0.34;
+  will-change: transform;
+  animation: meshDrift 22s ease-in-out infinite;
+}
+.mesh-blob:nth-child(2) { animation-duration: 28s; animation-direction: reverse; }
+.mesh-blob:nth-child(3) { animation-duration: 34s; }
+
+.mesh-blob.maroon { background: radial-gradient(circle, var(--maroon-500), transparent 70%); }
+.mesh-blob.yellow { background: radial-gradient(circle, var(--yellow-500), transparent 70%); }
+.mesh-blob.rose   { background: radial-gradient(circle, #C97A8F, transparent 70%); }
+.mesh-blob.teal   { background: radial-gradient(circle, #4E7C74, transparent 70%); }
+.mesh-blob.blue   { background: radial-gradient(circle, #242EC0, transparent 70%); }
+.mesh-blob.acid   { background: radial-gradient(circle, #9FCF2E, transparent 70%); }
+.mesh-blob.violet { background: radial-gradient(circle, #5D03E5, transparent 70%); }
+.mesh-blob.orange { background: radial-gradient(circle, #FF4A1C, transparent 70%); }
+.mesh-blob.terracotta { background: radial-gradient(circle, #C6603D, transparent 70%); }
+.mesh-blob.sage   { background: radial-gradient(circle, #7A9B6E, transparent 70%); }
+.mesh-blob.gold   { background: radial-gradient(circle, #D4A94E, transparent 70%); }
+.mesh-blob.plum   { background: radial-gradient(circle, #6B3552, transparent 70%); }
+
+/* neutral washes — desaturated, for the quiet Doity-style page-wide glow.
+   Reach for these instead of the saturated hues above for anything that
+   isn't a specific project's own brand color. */
+.mesh-blob.warmgray { background: radial-gradient(circle, #6b6058, transparent 70%); }
+.mesh-blob.navy   { background: radial-gradient(circle, #3b3f8a, transparent 70%); }
+.mesh-blob.coolgray { background: radial-gradient(circle, #575f66, transparent 70%); }
+.mesh-blob.stone    { background: radial-gradient(circle, #8a7f6e, transparent 70%); }
+.mesh-blob.key      { background: radial-gradient(circle, var(--yellow-500), transparent 70%); }
+
+/* ---------- PAGE-WIDE AMBIENT (ambient.js) ----------
+   A fixed, page-spanning glow behind everything, so a page never transitions
+   from "glowing hero" to "flat black" — the mood continues for the whole
+   scroll. z-index:-1 keeps it behind all normal content without needing to
+   touch every content wrapper (fixed positioning is viewport-relative, so it
+   covers the full page regardless of scroll or document height). */
+.page-ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--charcoal-900);
+}
+/* .ds-dark-page / .cs-body normally paint their own opaque background as
+   ordinary in-flow content, which sits ABOVE a z-index:-1 sibling in paint
+   order — an opaque box hides whatever is behind it regardless of z-index.
+   When ambient.js is active it adds body.has-ambient, and the base dark
+   color moves onto .page-ambient itself instead, so these become transparent
+   and the glow actually shows through. */
+body.has-ambient.cs-body,
+body.has-ambient .ds-dark-page {
+  background: transparent;
+}
+.page-ambient .mesh-blob { opacity: 0.24; filter: blur(140px); animation-duration: 46s; }
+.page-ambient .mesh-blob:nth-child(2) { animation-duration: 58s; }
+.page-ambient .mesh-blob:nth-child(3) { animation-duration: 38s; }
+.page-ambient .grain { opacity: 0.22; }
+
+@keyframes meshDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(4%, 6%) scale(1.08); }
+  66% { transform: translate(-5%, -3%) scale(0.95); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mesh-blob { animation: none; }
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
+}
+
+.hero-atmosphere {
+  position: relative;
+  overflow: hidden;
+}
+.hero-atmosphere > .cs-wrap,
+.hero-atmosphere > .ds-wrap,
+.atmosphere-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* frosted-glass surfaces */
+.glass {
+  background: rgba(255, 255, 255, 0.055);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+}
+.glass-light {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(20, 20, 20, 0.08);
+  border-radius: 20px;
+}
+
+.glass-nav {
+  background: rgba(30, 18, 24, 0.45) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* floating micro-badge (small pill label that drifts gently) */
+.float-badge {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-inverse);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  animation: floatY 6s ease-in-out infinite;
+  z-index: 3;
+}
+.float-badge.d2 { animation-delay: -2.2s; }
+.float-badge.d3 { animation-delay: -4.4s; }
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-badge { animation: none; }
+}
+
+/* ---------- SCROLL REVEAL (reveal.js) ---------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+[data-reveal].in { opacity: 1; transform: translateY(0); }
+[data-reveal="fade"] { transform: none; }
+[data-reveal="left"] { transform: translateX(-28px); }
+[data-reveal="left"].in { transform: translateX(0); }
+[data-reveal="right"] { transform: translateX(28px); }
+[data-reveal="right"].in { transform: translateX(0); }
+[data-reveal="scale"] { transform: scale(0.94); }
+[data-reveal="scale"].in { transform: scale(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+
+/* ============================================================
+   MORE GLASS — buttons, meta panels, tags
+   ============================================================ */
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  color: var(--ink-inverse);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.btn-glass:hover { background: rgba(255, 255, 255, 0.14); transform: translateY(-1px); }
+
+.glass-tag {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+/* ============================================================
+   STRUCTURAL VARIETY — pull-quote, stat banner, split section
+   Drop these into a case study between the usual eyebrow/headline
+   sections to break the repeating rhythm.
+   ============================================================ */
+
+.cs-quote {
+  padding: 96px 0;
+  text-align: center;
+}
+.cs-quote-mark {
+  font-family: var(--font-serif);
+  font-size: 64px;
+  color: var(--yellow-500);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.cs-quote-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(24px, 3.4vw, 40px);
+  line-height: 1.4;
+  max-width: 20ch;
+  margin: 0 auto 24px;
+}
+.cs-quote-attr {
+  font-size: 14px;
+  color: var(--gray-400);
+}
+
+.cs-stat-banner {
+  padding: 96px 48px;
+  border-radius: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cs-stat-banner .cs-outcome-num { font-size: clamp(48px, 6vw, 76px); }
+.cs-stat-banner .cs-outcome-label { font-size: 15px; }
+
+.cs-split {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 56px;
+  align-items: center;
+  padding: 88px 0;
+}
+.cs-split.reverse { direction: rtl; }
+.cs-split.reverse > * { direction: ltr; }
+.cs-split-media { border-radius: 16px; overflow: hidden; }
+.cs-split-media img { width: 100%; display: block; }
+
+@media (max-width: 780px) {
+  .cs-split { grid-template-columns: 1fr; }
+  .cs-split.reverse { direction: ltr; }
+  .cs-stat-banner { padding: 64px 28px; }
+}
+
+/* ============================================================
+   SCROLL PARALLAX (parallax.js) — mesh blobs drift with scroll
+   ============================================================ */
+[data-parallax] { will-change: transform; }
+
+/* A min-height combined with an inline aspect-ratio forces a minimum *width*
+   (e.g. 260px tall at 16/10 = 416px wide), which overflowed phones. Let the
+   aspect ratio alone size those placeholders, and let grid cells shrink. */
+.ds-placeholder[style*="aspect-ratio"] { min-height: 0; }
+.cs-grid-2 > * { min-width: 0; }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Miss+Fajardose&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Miss+Fajardose&family=Albert+Sans:wght@400;500&display=swap');
 
 .site-nav {
   position: fixed;
@@ -10,39 +10,52 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   padding: 0 32px;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid #ececec;
+  background: rgba(20, 20, 20, 0.45); /* neutral charcoal glass */
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
   box-sizing: border-box;
+  transition: background 0.3s ease;
+  overflow: hidden;
 }
 
 .site-nav-logo {
   font-family: 'Miss Fajardose', cursive;
   font-size: 26px;
-  color: #111;
+  color: #F5F3F0;
   text-decoration: none;
   line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .site-nav-links {
   display: flex;
   gap: 28px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  white-space: nowrap;
 }
+.site-nav-links::-webkit-scrollbar { display: none; }
 
 .site-nav-link {
-  font-family: 'DM Mono', ui-monospace, monospace;
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #444;
+  font-family: 'Albert Sans', ui-sans-serif, sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #C9C3C7;
   text-decoration: none;
   transition: color 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.site-nav-link:hover,
+.site-nav-link:hover {
+  color: #F5F3F0;
+}
 .site-nav-link.is-current {
-  color: #111;
+  color: #F5F3F0;
+  font-weight: 500;
 }
 
 body:not(.overlay-nav) {
@@ -50,11 +63,12 @@ body:not(.overlay-nav) {
 }
 
 body.overlay-nav .site-nav {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(20, 20, 20, 0.32);
 }
 
 @media (max-width: 560px) {
-  .site-nav { padding: 0 18px; }
-  .site-nav-links { gap: 16px; }
-  .site-nav-logo { font-size: 22px; }
+  .site-nav { padding: 0 16px; gap: 8px; }
+  .site-nav-links { gap: 14px; }
+  .site-nav-link { font-size: 13px; }
+  .site-nav-logo { font-size: 20px; }
 }
