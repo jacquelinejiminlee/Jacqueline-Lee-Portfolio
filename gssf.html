@@ -4,469 +4,574 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>GSSF — Jacqueline Jimin Lee</title>
+<link rel="stylesheet" href="design-system.css">
+<link rel="stylesheet" href="case-study.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;800&display=swap" rel="stylesheet">
 <style>
+  /*
+    Page built from the GSSF 2026 brand pieces (locked logo vectors, color
+    families, pill buttons, coolicons) but laid out as a case study: each
+    section breaks the brand into individual elements, and every element gets
+    a visual plus one short note on why. Text sizes: label 14, heading 28,
+    body 17, note 14.
+  */
   :root {
-    --bg: #ffffff;
-    --ink: #0a0a0a;
-    --muted: #8a8a8a;
-    --rule: #e8e8e8;
+    --g-lightest: #F1F1F1;
+    --g-card: #E6E6E6;
+    --g-darkest: #1C1C1C;
+    --g-80: #5A5A5A;
+    --g-60: #838383;
+    --g-40: #ACACAC;
+
+    --navy: #161727;  --navy-80: #444552; --navy-60: #73747D; --navy-40: #A2A2A9; --navy-20: #D0D1D4;
+    --gssc: #242EC0;  --gssc-80: #5058CD; --gssc-60: #7C82D9; --gssc-40: #A7ABE6; --gssc-20: #D3D5F2;
+    --media: #7B3AC6; --media-80: #9561D1; --media-60: #B089DD; --media-40: #CAB0E8; --media-20: #E5D8F4;
+    --labs: #39CABB;  --labs-80: #61D5C9; --labs-60: #88DFD6; --labs-40: #B0EAE4; --labs-20: #D7F4F1;
+
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body.gssf-page { background: var(--g-lightest); color: var(--g-darkest); font-family: 'Inter', sans-serif; letter-spacing: -0.01em; }
+  .gssf-page figure { margin: 0; }
+  .gssf-page img { display: block; max-width: 100%; }
 
-  html, body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'DM Sans', -apple-system, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    line-height: 1.5;
-  }
+  [data-program="gssf"]  { --key: var(--navy);  --k80: var(--navy-80);  --k60: var(--navy-60);  --k40: var(--navy-40);  --k20: var(--navy-20);  --on-key: var(--g-lightest); }
+  [data-program="gssc"]  { --key: var(--gssc);  --k80: var(--gssc-80);  --k60: var(--gssc-60);  --k40: var(--gssc-40);  --k20: var(--gssc-20);  --on-key: var(--g-lightest); }
+  [data-program="media"] { --key: var(--media); --k80: var(--media-80); --k60: var(--media-60); --k40: var(--media-40); --k20: var(--media-20); --on-key: var(--g-lightest); }
+  [data-program="labs"]  { --key: var(--labs);  --k80: var(--labs-80);  --k60: var(--labs-60);  --k40: var(--labs-40);  --k20: var(--labs-20);  --on-key: var(--g-darkest); }
 
-  /* ===== HERO ===== */
-  .hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    padding: 80px 60px 100px 60px;
-    align-items: start;
-  }
+  /* Logos: one sizing rule (--s = seal size), ratios locked to the Figma vectors */
+  .lg { display: block; flex-shrink: 0; color: inherit; --s: 64px; }
+  .lg-gssf  { width: var(--s); height: var(--s); }
+  .lg-gssc  { width: calc(var(--s) * 0.89); height: var(--s); }
+  .lg-media, .lg-labs { width: var(--s); height: calc(var(--s) * 1.3); }
 
-  .hero-left {
-    padding-top: 20px;
-    max-width: 540px;
+  /* Buttons: pill, Inter Semi Bold, coolicon */
+  .gbtn {
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 40px; padding: 0 18px 0 20px; border-radius: 999px;
+    font: 600 14px/1 'Inter', sans-serif; letter-spacing: -0.01em;
+    text-decoration: none; white-space: nowrap;
+    border: 1.5px solid transparent; transition: transform 0.2s ease;
   }
+  .gbtn svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .gbtn:hover { transform: translateY(-1px); }
+  .gbtn.s { height: 32px; padding: 0 12px 0 14px; font-size: 13px; gap: 6px; }
+  .gbtn.l { height: 52px; padding: 0 24px 0 26px; font-size: 18px; }
+  .gbtn.l svg { width: 20px; height: 20px; }
+  .gbtn.fill-light { background: var(--g-lightest); color: var(--g-darkest); }
+  .gbtn.line-light { border-color: var(--g-lightest); color: var(--g-lightest); }
+  .gbtn.fill-dark  { background: var(--g-darkest); color: var(--g-lightest); }
+  .gbtn.line-dark  { border-color: var(--g-darkest); color: var(--g-darkest); }
+  .gbtn.fill-key   { background: var(--key); color: var(--on-key); }
+  .gbtn.line-key   { border-color: var(--key); color: var(--key); }
 
-  .eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    color: var(--muted);
-    margin-bottom: 32px;
-    text-transform: uppercase;
-  }
+  /* ---------- type scale ---------- */
+  .label { font-size: 14px; font-weight: 600; color: var(--g-60); margin-bottom: 14px; }
+  .h2 { font-weight: 800; font-size: clamp(24px, 2.4vw, 28px); letter-spacing: -0.025em; line-height: 1.2; margin-bottom: 14px; }
+  .body { font-size: 17px; line-height: 1.6; color: var(--g-80); max-width: 52ch; }
+  .note { margin-top: 14px; font-size: 14px; line-height: 1.5; color: var(--g-80); max-width: 44ch; }
+  .note b { display: block; color: var(--g-darkest); font-weight: 600; margin-bottom: 2px; }
 
-  .title {
-    font-size: 76px;
-    font-weight: 500;
-    line-height: 1.0;
-    letter-spacing: -0.02em;
-    margin-bottom: 36px;
-  }
+  /* ---------- hero ---------- */
+  .g-hero { position: relative; overflow: hidden; background: linear-gradient(140deg, var(--navy) 0%, #24253a 50%, var(--navy-80) 100%); color: var(--g-lightest); }
+  .g-hero::after { content: ""; position: absolute; inset: 0; background-image: var(--grain); opacity: 0.16; mix-blend-mode: screen; pointer-events: none; }
+  .g-hero-inner { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; padding: 128px 0 80px; }
+  .g-back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--navy-40); text-decoration: none; margin-bottom: 48px; }
+  .g-back svg { width: 16px; height: 16px; }
+  .g-back:hover { color: var(--g-lightest); }
+  .g-h1 { font-weight: 800; font-size: clamp(48px, 6vw, 80px); letter-spacing: -0.03em; line-height: 1; margin-bottom: 16px; }
+  .g-hero .body { color: var(--navy-40); margin-bottom: 32px; }
+  .g-hero .lg { --s: clamp(96px, 12vw, 152px); color: var(--g-lightest); }
+  .g-meta { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 40px; font-size: 14px; color: var(--navy-40); }
+  .g-meta b { color: var(--g-lightest); font-weight: 600; }
 
-  .subline {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    color: var(--muted);
-    margin-bottom: 56px;
-    text-transform: uppercase;
-  }
+  /* ---------- layout ---------- */
+  .g-section { padding: 128px 0 0; scroll-margin-top: 72px; }
+  .g-head { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: baseline; margin-bottom: 48px; }
+  .g-head .h2 { margin-bottom: 0; }
+  .g-sub { margin: 72px 0 24px; font-size: 17px; font-weight: 600; }
+  .g-card { background: var(--g-card); border-radius: 10px; }
+  .g-shot { border-radius: 10px; overflow: hidden; background: var(--g-card); }
+  .g-shot img { width: 100%; }
+  .g-grid { display: grid; gap: 20px; }
+  .g-grid.c2 { grid-template-columns: repeat(2, 1fr); }
+  .g-grid.c3 { grid-template-columns: repeat(3, 1fr); }
+  .g-grid.c4 { grid-template-columns: repeat(4, 1fr); }
+  .tile { aspect-ratio: 16 / 10; border-radius: 10px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .tile.grain::after { content: ""; position: absolute; inset: 0; background-image: var(--grain); opacity: 0.18; mix-blend-mode: screen; pointer-events: none; }
+  .tile > * { position: relative; z-index: 1; }
 
-  .description {
-    font-size: 17px;
-    line-height: 1.55;
-    margin-bottom: 56px;
-    max-width: 460px;
-  }
+  /* structure */
+  .g-arch { padding: 36px; display: grid; gap: 32px; }
+  .g-arch-parent { display: flex; align-items: center; gap: 16px; color: var(--navy); }
+  .g-arch-kids { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: end; padding-top: 32px; border-top: 1px solid var(--g-40); }
+  .g-arch-kid { display: flex; flex-direction: column; gap: 12px; }
+  .g-arch-kid .lg { --s: 48px; }
+  .g-arch .tag { font-size: 14px; font-weight: 600; color: var(--g-darkest); }
+  .g-names { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .g-name { border-radius: 10px; padding: 22px 20px; background: var(--gssc-20); color: var(--gssc); font-weight: 800; font-size: 20px; letter-spacing: -0.02em; }
 
-  .visit-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 1px solid var(--ink);
-    padding-bottom: 4px;
-    margin-bottom: 64px;
-    transition: gap 0.3s ease;
-  }
-  .visit-link:hover { gap: 16px; }
+  /* logo family table */
+  .g-family-row { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 16px; align-items: center; padding: 18px 0; border-top: 1px solid var(--g-40); }
+  .g-family-row:last-child { border-bottom: 1px solid var(--g-40); }
+  .g-family-row .tile { aspect-ratio: auto; height: 132px; }
+  .g-family-row .tile .lg { --s: 56px; }
+  .t-light { background: var(--g-card); color: var(--key); }
+  .t-dark  { background: var(--g-card); color: var(--g-darkest); }
+  .t-key   { background: var(--key); color: var(--on-key); }
+  .t-grad  { background: linear-gradient(140deg, var(--key), var(--k40)); color: var(--on-key); }
+  .g-family-cols { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 16px; font-size: 14px; color: var(--g-60); padding-bottom: 12px; }
 
-  .meta {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    row-gap: 18px;
-    column-gap: 32px;
-    font-size: 15px;
-  }
-  .meta-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    color: var(--muted);
-    text-transform: uppercase;
-    padding-top: 3px;
-  }
+  .seal-card { border-radius: 10px; padding: 40px; aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center; }
+  .seal-card .lg { --s: 120px; }
 
-  .hero-right {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-    background: #f5f5f5;
-  }
-  .hero-right img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+  /* color */
+  .g-fam { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: center; padding: 20px 0; border-top: 1px solid var(--g-40); }
+  .g-fam:last-of-type { border-bottom: 1px solid var(--g-40); }
+  .g-fam .note { margin-top: 0; }
+  .g-strip { display: grid; grid-template-columns: 2.2fr repeat(4, 1fr); height: 96px; border-radius: 10px; overflow: hidden; }
+  .g-strip > div { padding: 12px 14px; font-size: 13px; font-weight: 600; display: flex; flex-direction: column; justify-content: space-between; color: var(--g-lightest); }
+  .g-strip > div span { font-weight: 400; opacity: 0.85; }
+  .g-strip .lt { color: var(--g-darkest); }
+  .g-shades { display: grid; grid-template-columns: repeat(5, 1fr); height: 72px; border-radius: 10px; overflow: hidden; }
+  .g-shades > div { padding: 12px 14px; font-size: 13px; font-weight: 600; display: flex; align-items: flex-end; }
 
-  /* ===== PROCESS SECTIONS ===== */
-  section {
-    padding: 80px 60px;
-    border-top: 1px solid var(--rule);
-  }
+  .g-reskin { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .g-switch { display: inline-flex; gap: 4px; padding: 4px; background: var(--g-card); border-radius: 999px; margin: 8px 0 32px; }
+  .g-switch button { height: 32px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; font: 600 13px/1 'Inter', sans-serif; color: var(--g-80); cursor: pointer; }
+  .g-switch button[aria-pressed="true"] { background: var(--g-darkest); color: var(--g-lightest); }
+  .g-mix { display: flex; height: 56px; border-radius: 8px; overflow: hidden; }
+  .g-mix > div { display: flex; align-items: flex-end; padding: 8px 10px; font-size: 12px; font-weight: 600; transition: background 0.4s ease; }
+  .g-mix .m1 { flex: 55; background: var(--g-lightest); outline: 1px solid var(--g-40); outline-offset: -1px; }
+  .g-mix .m2 { flex: 25; background: var(--key); color: var(--on-key); }
+  .g-mix .m3 { flex: 10; background: var(--k40); }
+  .g-mix .m4 { flex: 10; background: var(--g-darkest); color: var(--g-lightest); }
+  .g-post { position: relative; aspect-ratio: 4 / 5; max-width: 420px; width: 100%; justify-self: end; border-radius: 12px; overflow: hidden; background: linear-gradient(150deg, var(--key) 0%, var(--k40) 100%); color: var(--on-key); transition: background 0.5s ease; }
+  .g-post::after { content: ""; position: absolute; inset: 0; background-image: var(--grain); opacity: 0.18; mix-blend-mode: screen; pointer-events: none; }
+  .g-post-frame { position: absolute; inset: 20px; border: 1px solid color-mix(in srgb, currentColor 45%, transparent); border-radius: 4px; padding: 22px; display: flex; flex-direction: column; z-index: 1; }
+  .g-post-title { font-weight: 800; font-size: 34px; letter-spacing: -0.03em; line-height: 1.05; }
+  .g-post-sub { font-size: 14px; margin-top: 10px; opacity: 0.85; }
+  .g-post-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; }
+  .g-post-foot .lg { --s: 40px; }
+  .g-post .gbtn { background: var(--g-lightest); color: var(--g-darkest); }
+  [data-program="labs"] .g-post .gbtn { background: var(--g-darkest); color: var(--g-lightest); }
 
-  .section-head {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 32px;
-    margin-bottom: 48px;
-    max-width: 1400px;
-  }
-  .step-marker {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    color: var(--muted);
-    text-transform: uppercase;
-    padding-top: 6px;
-  }
-  .section-title {
-    font-size: 28px;
-    font-weight: 500;
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-    margin-bottom: 16px;
-    max-width: 720px;
-  }
-  .section-body {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #2a2a2a;
-    max-width: 680px;
-  }
+  .grad { aspect-ratio: 4 / 5; }
+  .grad.t { background: linear-gradient(160deg, var(--key), var(--k40)); }
+  .grad.d { background: linear-gradient(160deg, var(--key), var(--g-darkest)); }
 
-  .img-block { margin-top: 16px; }
+  /* type */
+  .g-weights { padding: 32px 36px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .g-weights div { font-size: clamp(44px, 5vw, 64px); letter-spacing: -0.03em; line-height: 1; }
+  .g-weights span { display: block; font-size: 13px; font-weight: 600; color: var(--g-60); letter-spacing: 0; margin-top: 12px; }
 
-  .img {
-    width: 100%;
-    overflow: hidden;
-    background: #f5f5f5;
-  }
-  .img img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
+  /* components */
+  .g-sizes { padding: 32px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; min-height: 180px; }
+  .g-btn-card { border-radius: 10px; aspect-ratio: 16 / 10; padding: 20px; display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; position: relative; overflow: hidden; background: linear-gradient(150deg, var(--key), var(--k40)); }
+  .g-btn-card::after { content: ""; position: absolute; inset: 0; background-image: var(--grain); opacity: 0.18; mix-blend-mode: screen; }
+  .g-btn-card .gbtn { position: relative; z-index: 1; }
+  [data-program="labs"].g-btn-card .gbtn.fill-light { background: var(--g-darkest); color: var(--g-lightest); }
+  [data-program="labs"].g-btn-card .gbtn.line-light { border-color: var(--g-darkest); color: var(--g-darkest); }
 
-  .img.logo-on-light {
-    background: #fff;
-    border: 1px solid var(--rule);
-    aspect-ratio: 4 / 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 80px;
-  }
-  .img.logo-on-light img {
-    width: 50%;
-    height: auto;
-    object-fit: contain;
-  }
+  /* applications */
+  .g-gallery { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab; }
+  .g-gallery::-webkit-scrollbar { display: none; }
+  .g-gallery figure { flex: 0 0 78%; scroll-snap-align: start; }
+  .g-gallery img { border-radius: 10px; width: 100%; }
+  .g-arrows { display: flex; gap: 8px; margin-top: 20px; }
+  .g-arrow { width: 40px; height: 40px; border-radius: 999px; border: 1.5px solid var(--g-darkest); background: transparent; color: var(--g-darkest); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+  .g-arrow svg { width: 16px; height: 16px; }
+  .g-arrow:hover { background: var(--g-darkest); color: var(--g-lightest); }
 
-  .img.logo-on-dark {
-    background: #0a0a0a;
-    aspect-ratio: 4 / 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 80px;
-  }
-  .img.logo-on-dark img {
-    width: 50%;
-    height: auto;
-    object-fit: contain;
-  }
+  /* footer */
+  .g-footer { display: flex; justify-content: space-between; align-items: center; padding: 140px 0 88px; }
+  .g-footer a { display: inline-flex; align-items: center; gap: 8px; color: var(--g-darkest); text-decoration: none; font-size: 17px; font-weight: 600; }
+  .g-footer a.back { color: var(--g-60); font-weight: 400; font-size: 14px; }
+  .g-footer svg { width: 18px; height: 18px; transition: transform 0.2s; }
+  .g-footer a:not(.back):hover svg { transform: translateX(3px); }
 
-  .img.slide {
-    aspect-ratio: 16 / 9;
-    background: #000;
-  }
-  .img.slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
+  /* nav + rail on Lightest */
+  .gssf-page .site-nav { background: rgba(241, 241, 241, 0.78); }
+  .gssf-page .site-nav-logo, .gssf-page .site-nav-link.is-current, .gssf-page .site-nav-link:hover { color: var(--g-darkest); }
+  .gssf-page .site-nav-link { color: var(--g-80); }
+  .gssf-page .cs-rail-bar { background: var(--g-40); }
+  .gssf-page .cs-rail-num { color: var(--g-40); }
+  .gssf-page .cs-rail-label { display: none; }
+  .gssf-page .cs-rail-item.is-active .cs-rail-bar { background: var(--g-darkest); }
+  .gssf-page .cs-rail-item.is-active .cs-rail-num { color: var(--g-darkest); }
 
-  .img.screenshot {
-    aspect-ratio: 16 / 10;
-    background: #f5f5f5;
+  @media (max-width: 900px) {
+    .g-hero-inner { flex-direction: column-reverse; align-items: flex-start; padding-top: 104px; }
+    .g-head, .g-reskin, .g-fam { grid-template-columns: 1fr; gap: 20px; }
+    .g-post { justify-self: start; }
+    .g-grid.c3, .g-grid.c4 { grid-template-columns: repeat(2, 1fr); }
+    .g-family-cols { display: none; }
+    .g-family-row { grid-template-columns: repeat(3, 1fr); }
+    .g-family-row > .note { grid-column: 1 / -1; margin-top: 0; }
   }
-  .img.screenshot img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .img.event {
-    aspect-ratio: 16 / 9;
-  }
-  .img.event img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .caption {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-top: 12px;
-  }
-
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-
-  /* ===== PROJECT NAV ===== */
-  .project-nav {
-    padding: 200px 60px 160px 60px;
-    border-top: 1px solid var(--rule);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: end;
-    gap: 40px;
-  }
-  .all-projects {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.2em;
-    color: var(--ink);
-    text-decoration: none;
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--ink);
-    padding-bottom: 6px;
-    justify-self: start;
-    transition: opacity 0.2s;
-  }
-  .all-projects:hover { opacity: 0.5; }
-
-  .next-project {
-    justify-self: end;
-    text-align: right;
-    text-decoration: none;
-    color: var(--ink);
-    display: block;
-  }
-  .next-project-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    display: block;
-  }
-  .next-project-title {
-    font-size: 56px;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: -0.02em;
-    display: inline-flex;
-    align-items: center;
-    gap: 24px;
-    transition: gap 0.3s ease;
-  }
-  .next-project:hover .next-project-title { gap: 32px; }
-  .next-project-arrow {
-    font-weight: 400;
-  }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 960px) {
-    .hero {
-      grid-template-columns: 1fr;
-      gap: 40px;
-      padding: 40px 24px 60px 24px;
-    }
-    .title { font-size: 48px; }
-    section { padding: 56px 24px; }
-    .section-head { grid-template-columns: 1fr; gap: 12px; }
-    .section-title { font-size: 22px; }
-    .two-col { grid-template-columns: 1fr; }
-    .img.logo-on-light, .img.logo-on-dark { padding: 48px; aspect-ratio: 1 / 1; }
-    .img.logo-on-light img, .img.logo-on-dark img { width: 60%; }
-    .project-nav {
-      grid-template-columns: 1fr;
-      padding: 100px 24px 80px 24px;
-      gap: 60px;
-    }
-    .next-project { justify-self: start; text-align: left; }
-    .next-project-title { font-size: 36px; gap: 16px; }
+  @media (max-width: 560px) {
+    .g-section { padding-top: 96px; }
+    .g-grid.c2 { grid-template-columns: 1fr; }
+    .g-arch { padding: 24px; }
+    .g-arch-kid .lg { --s: 36px; }
+    .g-family-row .tile { height: 96px; }
+    .g-family-row .tile .lg { --s: 40px; }
+    .g-strip { grid-template-columns: repeat(4, 1fr); grid-template-rows: 56px 40px; height: auto; }
+    .g-strip > div:first-child { grid-column: 1 / -1; }
+    .g-strip > div:not(:first-child) span { display: none; }
+    .g-shades > div { font-size: 10px; padding: 8px; }
+    .g-weights { grid-template-columns: repeat(2, 1fr); padding: 24px; }
+    .g-switch button { padding: 0 11px; }
+    .g-footer { padding: 96px 0 64px; }
   }
 </style>
-  <link rel="stylesheet" href="assets/css/nav.css">
+<link rel="stylesheet" href="nav.css">
 </head>
-<body>
+<body class="cs-body gssf-page">
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-left">
-    <div class="eyebrow">Brand Identity &amp; Web Design</div>
-    <h1 class="title">GSSF</h1>
-    <div class="subline">Global Student Startup Foundation · 2025</div>
-    <p class="description">
-      Brand identity and homepage design for the Global Student Startup Foundation, a non-profit supporting undergraduate founders.
-    </p>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+<!-- Exported from the GSSF Brand Guideline Figma (Components / Logo). Locked vector assets: each symbol keeps its original viewBox, so the ratio is fixed. Fill is currentColor. -->
+<symbol id="logo-gssf" viewBox="0 0 200 200">
+<path d="M72.9221 159.877C66.7884 159.877 61.1301 158.568 56.9918 156.189C51.9561 153.296 49.1795 148.877 48.9629 143.411L48.9212 142.382L60.7935 142.132L60.9186 143.024C61.2744 145.548 62.9335 149.869 70.054 150.464C70.9599 150.539 71.891 150.578 72.8165 150.578C82.3267 150.578 84.2969 146.94 84.7029 145.375C85.7842 141.204 82.7076 139.545 77.3935 138.219C75.3233 137.702 73.0472 137.319 70.6374 136.91C65.8604 136.101 60.9161 135.262 56.9612 133.286C52.2838 130.949 49.8272 127.411 49.4518 122.467C49.1408 118.37 50.3106 114.602 52.8344 111.572C55.2714 108.646 58.851 106.548 63.1812 105.503C65.8961 104.847 68.8646 104.502 71.7629 104.502C81.7599 104.502 93.7186 108.737 94.5327 120.68L94.605 121.758H82.6965L82.5684 120.891C82.2127 118.479 80.9203 116.667 78.725 115.508C76.8238 114.502 74.2169 113.971 71.188 113.971C70.3514 113.971 69.4842 114.012 68.6114 114.09C65.9352 114.335 63.434 115.486 62.0859 117.092C61.194 118.156 60.8161 119.379 60.9604 120.724C61.2689 123.598 63.7174 124.484 67.1412 125.418C69.345 126.021 71.9131 126.463 74.631 126.936C79.3531 127.753 84.2361 128.597 88.2965 130.415C93.1182 132.572 95.8446 135.731 96.6284 140.07C98.2459 149.022 92.3037 156.597 81.8459 158.926C79.0501 159.549 75.965 159.877 72.9221 159.877Z" fill="currentColor"/>
+<path d="M129.129 96.1506C122.995 96.1506 117.337 94.8417 113.199 92.463C108.163 89.5698 105.386 85.1506 105.17 79.6842L105.128 78.6557L117 78.406L117.125 79.2979C117.481 81.8213 119.14 86.143 126.261 86.7379C127.167 86.8128 128.098 86.8515 129.023 86.8515C138.534 86.8515 140.504 83.2136 140.91 81.6489C141.991 77.4774 138.914 75.8183 133.6 74.4928C131.53 73.9757 129.254 73.5923 126.844 73.1838C122.067 72.3749 117.123 71.5357 113.168 69.5596C108.491 67.2225 106.034 63.6847 105.659 58.7404C105.348 54.6438 106.517 50.8753 109.041 47.846C111.478 44.9196 115.058 42.8213 119.388 41.7764C122.103 41.1205 125.071 40.7759 127.97 40.7759C137.967 40.7759 149.925 45.0115 150.74 56.9536L150.812 58.0319H138.903L138.775 57.1647C138.419 54.7523 137.127 52.9404 134.932 51.7813C133.031 50.7753 130.424 50.2447 127.394 50.2447C126.558 50.2447 125.691 50.2864 124.818 50.3643C122.142 50.6085 119.641 51.7591 118.293 53.3655C117.401 54.4298 117.023 55.6528 117.167 56.9979C117.476 59.8715 119.924 60.7583 123.348 61.6919C125.552 62.2949 128.12 62.737 130.838 63.2094C135.56 64.0264 140.443 64.8715 144.503 66.6889C149.325 68.8455 152.051 72.0055 152.835 76.3438C154.453 85.2953 148.511 92.8715 138.053 95.2004C135.257 95.823 132.172 96.1506 129.129 96.1506Z" fill="currentColor"/>
+<path d="M73.7565 96.1506C72.0804 96.1506 70.2825 96.0425 68.4037 95.8255C63.2676 95.2366 58.6238 93.077 54.9718 89.5834C51.5395 86.3013 49.1135 81.9991 47.9574 77.1442C45.4812 66.7417 47.3263 56.3225 52.8931 49.2774C57.6344 43.2745 64.6714 40.1006 73.2395 40.1006C74.3123 40.1006 75.4238 40.1506 76.5412 40.2507C81.3825 40.6814 85.971 42.4796 89.4612 45.3115C93.1799 48.3268 95.4948 52.3013 96.1565 56.8034L96.3233 57.9374L85.2314 58.1817L85.0314 57.4064C84.0978 53.7906 80.4846 49.5694 73.3672 49.5694C69.4348 49.5694 65.7663 51.0089 63.3093 53.5157C57.6455 59.2936 56.8314 74.4425 61.831 80.9876C64.4157 84.3698 69.268 86.4711 74.5012 86.4711C78.9561 86.4711 82.8608 84.9089 85.2178 82.1825C85.4093 81.9604 86.3599 80.6349 86.6655 80.14V75.0013H74.3595V65.8136L75.3599 65.8021C77.611 65.7774 79.8927 65.7659 82.1438 65.7659C84.6672 65.7659 87.2272 65.78 89.7506 65.8106C91.7961 65.8357 93.8663 65.8689 95.9033 65.9136L96.8927 65.9357V82.2825L96.8706 82.3885C96.7927 82.7468 96.5178 83.2638 95.1782 85.226L95.0365 85.4345C90.1561 92.6408 83.1974 96.1425 73.7621 96.1425L73.7565 96.1506Z" fill="currentColor"/>
+<path d="M120.98 137.402V159.521H109.346V106.834H149.074V116.105H120.98V128.239" fill="currentColor"/>
+<path d="M145.659 129.79H114.857V138.794H145.659V129.79Z" fill="currentColor"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M200 200H0V0H200V200ZM7.66016 7.65918V192.341H192.341V7.65918H7.66016Z" fill="currentColor"/>
+</symbol>
+<symbol id="logo-gssc" viewBox="0 0 178 200">
+<path d="M44.8957 93.6263C42.0992 93.6263 39.0925 93.4452 35.9555 93.0829C27.3774 92.0976 19.6181 88.4896 13.5179 82.6575C7.7799 77.1731 3.72997 69.9861 1.80282 61.879C-2.33404 44.5056 0.745061 27.1033 10.0476 15.3303C17.9663 5.30329 29.7176 0 44.0336 0C45.8231 0 47.6778 0.0869436 49.547 0.253577C57.6323 0.978074 65.2974 3.97748 71.1296 8.70841C77.3382 13.7436 81.207 20.38 82.3155 27.9075L82.5908 29.7984L64.0658 30.2041L63.7325 28.9073C62.1749 22.8723 56.1398 15.8157 44.2509 15.8157C37.6797 15.8157 31.5578 18.221 27.4499 22.4086C17.988 32.0588 16.6332 57.3654 24.9794 68.298C29.2974 73.9491 37.4044 77.4556 46.1418 77.4556C53.5824 77.4556 60.1101 74.8474 64.0441 70.2976C64.3628 69.9281 65.9495 67.7112 66.4639 66.8852V58.3H45.91V42.9552L47.5836 42.9407C51.3437 42.8973 55.1545 42.8828 58.9146 42.8828C63.1312 42.8828 67.4057 42.9118 71.6223 42.9552C75.0416 42.9987 78.4974 43.0567 81.9025 43.1291L83.5544 43.1653V70.4715L83.5182 70.6526C83.3878 71.2539 82.9313 72.1161 80.6926 75.3908L80.4536 75.7386C72.3033 87.7724 60.6752 93.6263 44.9174 93.6263H44.8957Z" fill="currentColor"/>
+<path d="M137.502 92.5106C127.257 92.5106 117.81 90.3226 110.891 86.3524C102.48 81.52 97.8428 74.1374 97.4806 65.0088L97.4154 63.2917L117.245 62.8715L117.455 64.364C118.049 68.5806 120.817 75.7965 132.713 76.7891C134.227 76.9122 135.777 76.9774 137.328 76.9774C153.216 76.9774 156.505 70.8989 157.179 68.2835C158.983 61.3139 153.846 58.5463 144.971 56.3294C141.515 55.4672 137.712 54.8224 133.684 54.1414C125.7 52.7866 117.448 51.3883 110.84 48.0919C103.023 44.1869 98.9223 38.275 98.292 30.023C97.7704 23.1765 99.7265 16.8879 103.943 11.8237C108.015 6.93339 113.992 3.4341 121.222 1.68807C125.758 0.594083 130.713 0.0144899 135.56 0.0144899C152.252 0.0144899 172.234 7.09278 173.589 27.0381L173.712 28.8421H153.817L153.6 27.3931C153.006 23.3649 150.847 20.3365 147.181 18.4021C144.008 16.7213 139.653 15.8374 134.589 15.8374C133.191 15.8374 131.742 15.9026 130.286 16.0403C125.816 16.446 121.635 18.3659 119.389 21.0538C117.897 22.8288 117.267 24.8719 117.506 27.125C118.02 31.9284 122.113 33.4064 127.83 34.9641C131.51 35.9711 135.799 36.7101 140.342 37.4998C148.231 38.8618 156.382 40.2746 163.163 43.3102C171.22 46.9109 175.769 52.1925 177.081 59.4374C179.783 74.391 169.858 87.0479 152.39 90.9312C147.717 91.9672 142.566 92.5178 137.487 92.5178L137.502 92.5106Z" fill="currentColor"/>
+<path d="M42.2597 199.736C32.0154 199.736 22.568 197.548 15.6491 193.577C7.23768 188.745 2.60091 181.362 2.23866 172.234L2.17348 170.517L22.0029 170.097L22.213 171.589C22.8071 175.806 25.5746 183.022 37.4708 184.014C38.985 184.137 40.5354 184.202 42.0858 184.202C57.974 184.202 61.2632 178.124 61.937 175.509C63.7409 168.539 58.6043 165.771 49.7292 163.554C46.2734 162.692 42.4698 162.047 38.4416 161.366C30.4577 160.012 22.2057 158.613 15.5983 155.317C7.78104 151.412 3.6804 145.5 3.05009 137.248C2.52845 130.402 4.48458 124.113 8.70113 119.049C12.7727 114.158 18.7499 110.659 25.9803 108.913C30.5157 107.819 35.4712 107.24 40.3181 107.24C57.0104 107.24 76.9919 114.318 78.3467 134.263L78.4699 136.067H58.5753L58.358 134.618C57.7639 130.59 55.6049 127.562 51.9389 125.627C48.7657 123.946 44.4115 123.062 39.3472 123.062C37.949 123.062 36.5 123.128 35.0438 123.265C30.5736 123.671 26.3933 125.591 24.1474 128.279C22.6549 130.054 22.0246 132.097 22.2637 134.35C22.7781 139.153 26.8715 140.631 32.5877 142.189C36.2681 143.196 40.5571 143.935 45.0997 144.725C52.9895 146.087 61.14 147.5 67.9213 150.535C75.9776 154.136 80.5275 159.418 81.8388 166.662C84.5412 181.616 74.6156 194.273 57.148 198.156C52.4751 199.192 47.3239 199.743 42.2452 199.743L42.2597 199.736Z" fill="currentColor"/>
+<path d="M138.694 199.989C134.97 199.938 125.486 199.699 116.394 193.737C113.119 191.592 110.192 188.904 107.656 185.702C98.2743 173.871 94.9996 155.636 99.1075 138.117C101.303 128.757 106.15 120.998 113.134 115.68C120.045 110.42 128.913 107.638 138.781 107.645C140.788 107.645 142.867 107.761 144.946 107.993C153.111 108.891 160.371 111.884 165.927 116.651C171.557 121.476 175.317 128.011 176.803 135.545C177.042 136.734 177.281 137.915 177.513 139.103C170.999 139.103 164.486 139.103 157.973 139.11C157.697 137.907 157.219 136.212 156.364 134.278C156.364 134.278 155.806 133.031 155.22 132.003C153.756 129.467 147.62 123.83 139.172 123.83C132.746 123.83 126.732 126.526 123.088 131.046C119.444 135.567 117.278 143.182 117.133 151.941C116.995 160.345 118.763 168.394 121.864 173.465C125.689 179.732 132.434 183.471 139.904 183.471C142.106 183.471 147.453 183.362 152.307 179.399C157.154 175.443 158.386 170.184 158.69 168.604C165.036 168.669 171.391 168.735 177.737 168.8C177.165 172.132 174.788 183.435 164.797 191.513C157.27 197.598 148.916 199.033 146.127 199.482C145.301 199.612 142.483 200.04 138.708 199.989H138.694Z" fill="currentColor"/>
+</symbol>
+<symbol id="logo-media" viewBox="0 0 200 260">
+<path d="M73.0157 159.467C66.9033 159.467 61.2645 158.162 57.1405 155.791C52.1221 152.909 49.3551 148.505 49.1392 143.057L49.0977 142.032L60.9291 141.783L61.0537 142.672C61.4082 145.187 63.0617 149.494 70.1575 150.086C71.0603 150.161 71.9882 150.2 72.9105 150.2C82.3879 150.2 84.3513 146.574 84.7559 145.015C85.8334 140.858 82.7675 139.204 77.4718 137.884C75.4087 137.368 73.1404 136.986 70.7389 136.579C65.9784 135.773 61.0512 134.937 57.1099 132.967C52.4486 130.638 50.0005 127.112 49.6265 122.186C49.3165 118.103 50.4822 114.348 52.9974 111.329C55.426 108.412 58.9932 106.321 63.3085 105.28C66.014 104.626 68.9723 104.283 71.8605 104.283C81.8231 104.283 93.7405 108.504 94.5518 120.405L94.6238 121.479H82.7564L82.6288 120.615C82.2743 118.211 80.9864 116.406 78.7987 115.25C76.9039 114.248 74.3061 113.719 71.2876 113.719C70.4539 113.719 69.5897 113.76 68.7199 113.838C66.053 114.082 63.5604 115.228 62.2169 116.829C61.3281 117.89 60.9515 119.109 61.0953 120.449C61.4027 123.313 63.8428 124.196 67.2548 125.127C69.451 125.728 72.0102 126.168 74.7187 126.639C79.4246 127.453 84.2907 128.295 88.3371 130.107C93.1422 132.256 95.8591 135.404 96.6403 139.728C98.2521 148.649 92.3305 156.198 81.9087 158.519C79.1226 159.14 76.0482 159.467 73.0157 159.467Z" fill="currentColor"/>
+<path d="M129.029 95.9602C122.916 95.9602 117.277 94.6558 113.153 92.2853C108.135 89.4021 105.368 84.9982 105.152 79.5507L105.111 78.5257L116.942 78.2768L117.067 79.1656C117.421 81.6803 119.074 85.9871 126.17 86.58C127.073 86.6546 128.001 86.6932 128.923 86.6932C138.401 86.6932 140.364 83.0679 140.769 81.5086C141.846 77.3515 138.78 75.6981 133.485 74.3771C131.422 73.8619 129.153 73.4798 126.752 73.0727C121.991 72.2665 117.064 71.4303 113.123 69.4609C108.461 67.132 106.013 63.6063 105.639 58.6791C105.329 54.5967 106.495 50.8412 109.01 47.8223C111.439 44.906 115.006 42.8149 119.321 41.7737C122.027 41.1201 124.985 40.7766 127.873 40.7766C137.836 40.7766 149.753 44.9976 150.565 56.8985L150.637 57.9731H138.769L138.642 57.1088C138.287 54.7048 136.999 52.8992 134.811 51.744C132.917 50.7415 130.319 50.2127 127.3 50.2127C126.467 50.2127 125.603 50.2543 124.733 50.3319C122.066 50.5753 119.573 51.722 118.23 53.3228C117.341 54.3834 116.964 55.6021 117.108 56.9426C117.416 59.8063 119.856 60.69 123.268 61.6204C125.464 62.2213 128.023 62.6619 130.732 63.1327C135.437 63.9469 140.304 64.789 144.35 66.6002C149.155 68.7494 151.872 71.8985 152.653 76.2218C154.265 85.1424 148.343 92.6924 137.922 95.0133C135.135 95.6337 132.061 95.9602 129.029 95.9602Z" fill="currentColor"/>
+<path d="M73.8473 95.9602C72.1769 95.9602 70.3852 95.8525 68.513 95.6363C63.3946 95.0494 58.7668 92.8972 55.1274 89.4157C51.7069 86.1449 49.2894 81.8576 48.1372 77.0195C45.6696 66.6528 47.5083 56.2696 53.0559 49.2488C57.7808 43.2666 64.7935 40.1036 73.3321 40.1036C74.4011 40.1036 75.5088 40.1535 76.6224 40.2532C81.4469 40.6825 86.0196 42.4744 89.4978 45.2966C93.2037 48.3015 95.5106 52.2622 96.17 56.7488L96.3362 57.8789L85.2826 58.1223L85.0833 57.3497C84.1529 53.7464 80.5522 49.5397 73.4593 49.5397C69.5405 49.5397 65.8847 50.9743 63.4361 53.4725C57.7918 59.2304 56.9806 74.3271 61.9629 80.8496C64.5387 84.22 69.3743 86.3141 74.5894 86.3141C79.0289 86.3141 82.9201 84.7573 85.269 82.0404C85.4598 81.819 86.4072 80.498 86.7117 80.0049V74.8839H74.4482V65.7279L75.4452 65.7165C77.6885 65.6919 79.9623 65.6804 82.2056 65.6804C84.7203 65.6804 87.2714 65.6944 89.7861 65.725C91.8246 65.75 93.8877 65.7831 95.9177 65.8276L96.9036 65.8496V82.14L96.8816 82.2456C96.8039 82.6027 96.53 83.1179 95.1951 85.0733L95.0538 85.2811C90.1903 92.4626 83.2556 95.9522 73.8528 95.9522L73.8473 95.9602Z" fill="currentColor"/>
+<path d="M120.908 137.069V159.112H109.314V106.607H148.905V115.846H120.908V127.938" fill="currentColor"/>
+<path d="M145.502 129.483H114.806V138.457H145.502V129.483Z" fill="currentColor"/>
+<path d="M28.9331 225.887H37.4714L46.4893 247.888H46.8729L55.8909 225.887H64.4286V258.632H57.7136V237.319H57.4418L48.9674 258.472H44.3949L35.9204 237.239H35.6487V258.632H28.9331V225.887ZM70.1326 258.632V225.887H92.1975V231.595H77.0561V239.397H91.0624V245.106H77.0561V252.924H92.2613V258.632H70.1326ZM109.31 258.632H97.702V225.887H109.405C112.699 225.887 115.535 226.542 117.912 227.853C120.289 229.154 122.117 231.024 123.396 233.465C124.686 235.907 125.33 238.827 125.33 242.227C125.33 245.639 124.686 248.569 123.396 251.021C122.117 253.473 120.278 255.354 117.88 256.665C115.492 257.976 112.635 258.632 109.31 258.632ZM104.625 252.7H109.022C111.069 252.7 112.79 252.338 114.186 251.613C115.593 250.878 116.649 249.742 117.352 248.207C118.066 246.662 118.423 244.668 118.423 242.227C118.423 239.808 118.066 237.831 117.352 236.296C116.649 234.76 115.599 233.631 114.202 232.906C112.806 232.181 111.085 231.818 109.038 231.818H104.625V252.7ZM137.382 225.887V258.632H130.459V225.887H137.382ZM148.723 258.632H141.304L152.608 225.887H161.529L172.818 258.632H165.399L157.196 233.369H156.941L148.723 258.632ZM148.259 245.761H165.783V251.165H148.259V245.761Z" fill="currentColor"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M199.796 199.593H0.203613V0H199.796V199.593ZM8.11963 7.91602V191.677H191.88V7.91602H8.11963Z" fill="currentColor"/>
+</symbol>
+<symbol id="logo-labs" viewBox="0 0 200 260">
+<path d="M73.0157 159.467C66.9032 159.467 61.2645 158.162 57.1404 155.791C52.1221 152.909 49.3551 148.505 49.1392 143.057L49.0977 142.032L60.929 141.783L61.0537 142.672C61.4082 145.187 63.0616 149.494 70.1575 150.086C71.0603 150.161 71.9882 150.2 72.9105 150.2C82.3879 150.2 84.3513 146.574 84.7559 145.015C85.8334 140.858 82.7674 139.204 77.4717 137.884C75.4087 137.368 73.1404 136.986 70.7389 136.579C65.9784 135.773 61.0512 134.937 57.1099 132.967C52.4486 130.638 50.0005 127.112 49.6265 122.186C49.3165 118.103 50.4822 114.348 52.9974 111.329C55.426 108.412 58.9932 106.321 63.3084 105.28C66.014 104.626 68.9722 104.283 71.8605 104.283C81.8231 104.283 93.7405 108.504 94.5517 120.405L94.6238 121.479H82.7564L82.6288 120.615C82.2743 118.211 80.9864 116.406 78.7986 115.25C76.9039 114.248 74.3061 113.719 71.2876 113.719C70.4539 113.719 69.5897 113.76 68.7199 113.838C66.053 114.082 63.5603 115.228 62.2169 116.829C61.3281 117.89 60.9515 119.109 61.0953 120.449C61.4027 123.313 63.8428 124.196 67.2548 125.127C69.451 125.728 72.0102 126.168 74.7187 126.639C79.4246 127.453 84.2907 128.295 88.3371 130.107C93.1422 132.256 95.8591 135.404 96.6403 139.728C98.2521 148.649 92.3305 156.198 81.9087 158.519C79.1226 159.14 76.0482 159.467 73.0157 159.467Z" fill="currentColor"/>
+<path d="M129.029 95.9602C122.916 95.9602 117.277 94.6558 113.153 92.2853C108.135 89.4021 105.368 84.9982 105.152 79.5507L105.11 78.5257L116.942 78.2768L117.067 79.1656C117.421 81.6803 119.074 85.9871 126.17 86.58C127.073 86.6546 128.001 86.6932 128.923 86.6932C138.401 86.6932 140.364 83.0679 140.769 81.5086C141.846 77.3515 138.78 75.6981 133.485 74.3771C131.421 73.8619 129.153 73.4798 126.752 73.0727C121.991 72.2665 117.064 71.4303 113.123 69.4609C108.461 67.132 106.013 63.6063 105.639 58.6791C105.329 54.5967 106.495 50.8412 109.01 47.8223C111.439 44.906 115.006 42.8149 119.321 41.7737C122.027 41.1201 124.985 40.7766 127.873 40.7766C137.836 40.7766 149.753 44.9976 150.565 56.8985L150.637 57.9731H138.769L138.642 57.1088C138.287 54.7048 136.999 52.8992 134.811 51.744C132.917 50.7415 130.319 50.2127 127.3 50.2127C126.467 50.2127 125.603 50.2543 124.733 50.3319C122.066 50.5753 119.573 51.722 118.23 53.3228C117.341 54.3834 116.964 55.6021 117.108 56.9426C117.416 59.8063 119.856 60.69 123.268 61.6204C125.464 62.2213 128.023 62.6619 130.732 63.1327C135.437 63.9469 140.303 64.789 144.35 66.6002C149.155 68.7494 151.872 71.8985 152.653 76.2218C154.265 85.1424 148.343 92.6924 137.922 95.0133C135.135 95.6337 132.061 95.9602 129.029 95.9602Z" fill="currentColor"/>
+<path d="M73.8473 95.9602C72.1769 95.9602 70.3852 95.8525 68.513 95.6363C63.3945 95.0494 58.7667 92.8972 55.1274 89.4157C51.7069 86.1449 49.2893 81.8576 48.1372 77.0195C45.6695 66.6528 47.5083 56.2696 53.0559 49.2488C57.7808 43.2666 64.7935 40.1036 73.332 40.1036C74.4011 40.1036 75.5088 40.1535 76.6223 40.2532C81.4469 40.6825 86.0196 42.4744 89.4977 45.2966C93.2036 48.3015 95.5106 52.2622 96.17 56.7488L96.3362 57.8789L85.2826 58.1223L85.0833 57.3497C84.1529 53.7464 80.5521 49.5397 73.4593 49.5397C69.5405 49.5397 65.8846 50.9743 63.4361 53.4725C57.7918 59.2304 56.9806 74.3271 61.9629 80.8496C64.5387 84.22 69.3743 86.3141 74.5894 86.3141C79.0289 86.3141 82.9201 84.7573 85.269 82.0404C85.4598 81.819 86.4072 80.498 86.7117 80.0049V74.8839H74.4482V65.7279L75.4451 65.7165C77.6884 65.6919 79.9623 65.6804 82.2056 65.6804C84.7203 65.6804 87.2714 65.6944 89.7861 65.725C91.8246 65.75 93.8877 65.7831 95.9176 65.8276L96.9036 65.8496V82.14L96.8815 82.2456C96.8039 82.6027 96.53 83.1179 95.195 85.0733L95.0538 85.2811C90.1903 92.4626 83.2555 95.9522 73.8528 95.9522L73.8473 95.9602Z" fill="currentColor"/>
+<path d="M120.908 137.069V159.112H109.314V106.607H148.905V115.846H120.908V127.938" fill="currentColor"/>
+<path d="M145.502 129.483H114.806V138.457H145.502V129.483Z" fill="currentColor"/>
+<path d="M20.4629 258.632H13.0444L24.3484 225.887H33.2703L44.5584 258.632H37.1394L28.9373 233.369H28.6814L20.4629 258.632ZM19.9996 245.761H37.5231V251.165H19.9996V245.761ZM55.4228 225.887V258.632H48.4998V225.887H55.4228ZM71.5399 258.632V225.887H78.4629V252.924H92.5014V258.632H71.5399ZM103.566 258.632H96.1468L107.451 225.887H116.373L127.661 258.632H120.242L112.04 233.369H111.784L103.566 258.632ZM103.102 245.761H120.626V251.165H103.102V245.761ZM131.602 258.632V225.887H144.713C147.122 225.887 149.132 226.244 150.741 226.958C152.35 227.672 153.561 228.663 154.371 229.932C155.181 231.189 155.586 232.639 155.586 234.281C155.586 235.56 155.33 236.684 154.818 237.654C154.307 238.614 153.603 239.403 152.708 240.021C151.823 240.629 150.81 241.06 149.67 241.316V241.636C150.917 241.689 152.084 242.041 153.171 242.691C154.269 243.341 155.159 244.253 155.841 245.425C156.524 246.587 156.865 247.973 156.865 249.582C156.865 251.32 156.433 252.871 155.569 254.235C154.717 255.589 153.454 256.66 151.78 257.449C150.107 258.237 148.044 258.632 145.593 258.632H131.602ZM138.526 252.972H144.169C146.099 252.972 147.506 252.604 148.391 251.869C149.276 251.122 149.718 250.131 149.718 248.894C149.718 247.989 149.499 247.189 149.062 246.497C148.625 245.804 148.002 245.26 147.192 244.865C146.392 244.471 145.438 244.274 144.329 244.274H138.526V252.972ZM138.526 239.589H143.658C144.606 239.589 145.449 239.424 146.184 239.093C146.93 238.753 147.517 238.273 147.943 237.654C148.38 237.036 148.599 236.296 148.599 235.432C148.599 234.249 148.177 233.295 147.335 232.57C146.504 231.845 145.321 231.483 143.786 231.483H138.526V239.589ZM179.134 235.304C179.005 234.014 178.457 233.012 177.487 232.298C176.517 231.584 175.2 231.227 173.537 231.227C172.407 231.227 171.453 231.387 170.675 231.707C169.897 232.016 169.3 232.448 168.885 233.002C168.479 233.556 168.277 234.185 168.277 234.889C168.256 235.474 168.378 235.986 168.644 236.423C168.922 236.86 169.3 237.239 169.78 237.558C170.26 237.868 170.814 238.139 171.443 238.374C172.071 238.598 172.743 238.789 173.457 238.949L176.399 239.653C177.828 239.973 179.139 240.399 180.333 240.932C181.526 241.465 182.561 242.121 183.434 242.899C184.308 243.677 184.985 244.594 185.465 245.649C185.955 246.704 186.206 247.914 186.216 249.279C186.206 251.282 185.694 253.02 184.681 254.491C183.68 255.951 182.23 257.087 180.333 257.897C178.446 258.696 176.17 259.096 173.505 259.096C170.862 259.096 168.559 258.691 166.598 257.881C164.648 257.07 163.123 255.871 162.025 254.283C160.938 252.684 160.368 250.707 160.315 248.351H167.014C167.088 249.449 167.403 250.366 167.957 251.101C168.522 251.826 169.273 252.375 170.212 252.748C171.16 253.11 172.231 253.292 173.425 253.292C174.598 253.292 175.616 253.121 176.479 252.78C177.353 252.439 178.03 251.965 178.51 251.357C178.99 250.749 179.229 250.051 179.229 249.262C179.229 248.527 179.011 247.909 178.574 247.408C178.147 246.907 177.518 246.48 176.687 246.129C175.866 245.777 174.859 245.457 173.665 245.169L170.1 244.274C167.339 243.603 165.159 242.553 163.56 241.124C161.961 239.696 161.167 237.772 161.178 235.352C161.167 233.369 161.695 231.637 162.761 230.156C163.837 228.674 165.314 227.518 167.19 226.686C169.066 225.855 171.197 225.439 173.585 225.439C176.015 225.439 178.137 225.855 179.949 226.686C181.772 227.518 183.189 228.674 184.202 230.156C185.214 231.637 185.737 233.354 185.769 235.304H179.134Z" fill="currentColor"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M199.796 199.593H0.203613V0H199.796V199.593ZM8.11963 7.91602V191.677H191.88V7.91602H8.11963Z" fill="currentColor"/>
+</symbol>
+</svg>
 
-    <a href="https://foundation.globalstudentstartup.org/" target="_blank" rel="noopener" class="visit-link">VISIT WEBSITE →</a>
 
-    <div class="meta">
-      <div class="meta-label">Role</div>
-      <div>Brand &amp; Web Designer</div>
+<!-- coolicons (outlined) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6 6m-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M10 5H8.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C5 6.52 5 7.08 5 8.2v7.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874C6.52 19 7.08 19 8.2 19h7.6c1.12 0 1.68 0 2.108-.218a2 2 0 0 0 .874-.874C19 17.48 19 16.92 19 15.8V14m1-5V4m0 0h-5m5 0-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
 
-      <div class="meta-label">Client</div>
-      <div>Global Student Startup Foundation</div>
-
-      <div class="meta-label">Scope</div>
-      <div>Brand Identity, Web Design</div>
-
-      <div class="meta-label">Tools</div>
-      <div>Figma, Webflow</div>
-
-      <div class="meta-label">Year</div>
-      <div>2025</div>
-    </div>
-  </div>
-
-  <div class="hero-right">
-    <img src="assets/images/gssf/img-01.jpg" alt="2025 GSSC closing ceremony in Seoul" />
-  </div>
-</div>
-
-<!-- STEP 01 — LOGO -->
-<section>
-  <div class="section-head">
-    <div class="step-marker">Step 01 — Logo</div>
-    <div>
-      <h2 class="section-title">Logo</h2>
-      <p class="section-body">A stacked GS/SF monogram inside a square frame. The square shape later became the container for sub-brand variants.</p>
-    </div>
-  </div>
-
-  <div class="two-col">
-    <div>
-      <div class="img logo-on-light">
-        <img src="assets/images/gssf/img-02.png" alt="GSSF logo in blue" />
+<header class="g-hero">
+  <div class="cs-wrap">
+    <div class="g-hero-inner">
+      <div>
+        <a href="projects.html" class="g-back"><svg><use href="#i-arrow-left"/></svg>Projects</a>
+        <h1 class="g-h1">GSSF Rebrand</h1>
+        <p class="body">A new identity and brand guideline for the Global Student Startup Foundation and its three programs.</p>
+        <a href="https://foundation.globalstudentstartup.org/" class="gbtn fill-light" target="_blank" rel="noopener">Visit website<svg><use href="#i-external"/></svg></a>
+        <div class="g-meta">
+          <span><b>Role</b> Brand designer</span>
+          <span><b>Year</b> 2026</span>
+          <span><b>Scope</b> Logo system, color, type, components, 41-page guideline</span>
+        </div>
       </div>
-      <div class="caption">Primary — Blue on white</div>
+      <svg class="lg lg-gssf" role="img" aria-label="GSSF seal"><use href="#logo-gssf"/></svg>
     </div>
-    <div>
-      <div class="img logo-on-dark">
-        <img src="assets/images/gssf/img-03.png" alt="GSSF logo in light grey on black" />
+  </div>
+</header>
+
+<main class="cs-wrap">
+
+  <!-- PROBLEM -->
+  <section class="g-section" data-toc="Overview">
+    <div class="g-head" data-reveal="fade">
+      <div><h2 class="h2">Overview</h2></div>
+      <p class="body">GSSF runs four programs, but GSSC, the competition, was the name people knew. Every program used its blue and logo, so Media and AI Labs looked like part of the competition.</p>
+    </div>
+    <div class="g-grid c2">
+      <figure data-reveal="scale"><div class="g-shot"><img src="gssf/brand/page-05.jpg" alt="Missions page for GSSF, GSSC, GSSF Media and GSSF AI Labs" loading="lazy"></div>
+        <figcaption class="note"><b>Missions</b>A foundation, a competition, a media team and an internship. They needed to look related, but not identical.</figcaption></figure>
+      <figure data-reveal="scale"><div class="g-shot"><img src="gssf/brand/page-01.jpg" alt="Brand guideline cover" loading="lazy"></div>
+        <figcaption class="note"><b>Goal</b>One family that a sponsor, a student or a YouTube viewer can read at a glance.</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- STRUCTURE -->
+  <section class="g-section" data-toc="Brand foundations">
+    <div class="g-head" data-reveal="fade">
+      <div><h2 class="h2">Brand foundations</h2></div>
+      <p class="body">Before designing anything, I set up how the four programs relate to each other.</p>
+    </div>
+    <div class="g-grid c2" style="align-items:start;">
+      <div data-reveal="scale">
+        <div class="g-card g-arch">
+          <div class="g-arch-parent"><svg class="lg lg-gssf" role="img" aria-label="GSSF"><use href="#logo-gssf"/></svg><span class="tag">GSSF</span></div>
+          <div class="g-arch-kids">
+            <div class="g-arch-kid" style="color:var(--gssc)"><svg class="lg lg-gssc" role="img" aria-label="GSSC"><use href="#logo-gssc"/></svg><span class="tag">GSSC</span></div>
+            <div class="g-arch-kid" style="color:var(--media)"><svg class="lg lg-media" role="img" aria-label="GSSF Media"><use href="#logo-media"/></svg><span class="tag">GSSF Media</span></div>
+            <div class="g-arch-kid" style="color:var(--labs)"><svg class="lg lg-labs" role="img" aria-label="GSSF AI Labs"><use href="#logo-labs"/></svg><span class="tag">GSSF AI Labs</span></div>
+          </div>
+        </div>
+        <p class="note"><b>Brand architecture</b>GSSF is the nonprofit that runs everything, so it's the parent. Media and AI Labs are foundation programs, not part of the competition, so they follow GSSF.</p>
       </div>
-      <div class="caption">Reverse — Grey on black</div>
+      <div data-reveal="scale">
+        <div class="g-names">
+          <div class="g-name">GSSC 2027</div><div class="g-name">GSSC x EWHA</div><div class="g-name">GSSC @ ALC</div><div class="g-name">GSSC x INDIA</div>
+        </div>
+        <p class="note"><b>Naming system</b>GSSC keeps its own name since it's the event people know. "GSSC" alone means the Seoul Finals; "x" and "@" mark selections and host events.</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- STEP 02 — TYPE & COLOR -->
-<section>
-  <div class="section-head">
-    <div class="step-marker">Step 02 — Type &amp; Color</div>
-    <div>
-      <h2 class="section-title">Typography and color</h2>
-      <p class="section-body">Noto Sans for official copy, VCR OSD Mono for accents. The palette is built around blue (#242EC0), with deep indigo, black, and lavender as supporting tones.</p>
+  <!-- LOGO -->
+  <section class="g-section" data-toc="Logo">
+    <div class="g-head" data-reveal="fade">
+      <div><h2 class="h2">Logo</h2></div>
+      <p class="body">All four logos share the same stacked letters. The box is what changes.</p>
     </div>
-  </div>
 
-  <div class="img-block">
-    <div class="img slide">
-      <img src="assets/images/gssf/img-04.png" alt="Brand guide page showing typography and color palette" />
+    <div class="g-grid c2">
+      <div data-reveal="scale">
+        <div class="seal-card g-card" style="color:var(--navy)"><svg class="lg lg-gssf" role="img" aria-label="GSSF seal"><use href="#logo-gssf"/></svg></div>
+        <p class="note"><b>GSSF seal</b>The square works like a seal: steady and official. Anything inside it belongs to GSSF.</p>
+      </div>
+      <div data-reveal="scale">
+        <div class="seal-card" style="background:var(--gssc);color:var(--g-lightest)"><svg class="lg lg-gssc" role="img" aria-label="GSSC monogram"><use href="#logo-gssc"/></svg></div>
+        <p class="note"><b>GSSC monogram</b>It's the competition, not a foundation program, so I left it open. It also kept the monogram people already recognized.</p>
+      </div>
     </div>
-    <div class="caption">Brand guide — type and color</div>
-  </div>
-</section>
 
-<!-- STEP 03 — LOGO SYSTEM -->
-<section>
-  <div class="section-head">
-    <div class="step-marker">Step 03 — Logo System</div>
-    <div>
-      <h2 class="section-title">Sub-brand variants</h2>
-      <p class="section-body">The foundation runs multiple programs (GSSC, Academy), so I extended the logo into a system. Each variant uses the same square frame.</p>
+    <h3 class="g-sub" data-reveal="fade">Logo family</h3>
+    <div data-reveal="fade">
+      <div class="g-family-cols"><div></div><div>Key color</div><div>Darkest</div><div>On its color</div></div>
+      <div class="g-family-row" data-program="gssf">
+        <p class="note" style="margin:0"><b>GSSF</b>Partnerships, sponsorship decks, official documents.</p>
+        <div class="tile t-light"><svg class="lg lg-gssf" aria-label="GSSF"><use href="#logo-gssf"/></svg></div>
+        <div class="tile t-dark"><svg class="lg lg-gssf" aria-hidden="true"><use href="#logo-gssf"/></svg></div>
+        <div class="tile t-key"><svg class="lg lg-gssf" aria-hidden="true"><use href="#logo-gssf"/></svg></div>
+      </div>
+      <div class="g-family-row" data-program="gssc">
+        <p class="note" style="margin:0"><b>GSSC</b>Campus selections, qualifiers and the Seoul Finals.</p>
+        <div class="tile t-light"><svg class="lg lg-gssc" aria-label="GSSC"><use href="#logo-gssc"/></svg></div>
+        <div class="tile t-dark"><svg class="lg lg-gssc" aria-hidden="true"><use href="#logo-gssc"/></svg></div>
+        <div class="tile t-key"><svg class="lg lg-gssc" aria-hidden="true"><use href="#logo-gssc"/></svg></div>
+      </div>
+      <div class="g-family-row" data-program="media">
+        <p class="note" style="margin:0"><b>GSSF Media</b>YouTube and social. Name sits under the seal.</p>
+        <div class="tile t-light"><svg class="lg lg-media" aria-label="GSSF Media"><use href="#logo-media"/></svg></div>
+        <div class="tile t-dark"><svg class="lg lg-media" aria-hidden="true"><use href="#logo-media"/></svg></div>
+        <div class="tile t-key"><svg class="lg lg-media" aria-hidden="true"><use href="#logo-media"/></svg></div>
+      </div>
+      <div class="g-family-row" data-program="labs">
+        <p class="note" style="margin:0"><b>GSSF AI Labs</b>Products and recruiting. Darkest on teal, since white fails contrast.</p>
+        <div class="tile t-light"><svg class="lg lg-labs" aria-label="GSSF AI Labs"><use href="#logo-labs"/></svg></div>
+        <div class="tile t-dark"><svg class="lg lg-labs" aria-hidden="true"><use href="#logo-labs"/></svg></div>
+        <div class="tile t-key"><svg class="lg lg-labs" aria-hidden="true"><use href="#logo-labs"/></svg></div>
+      </div>
     </div>
-  </div>
 
-  <div class="img-block">
-    <div class="img slide">
-      <img src="assets/images/gssf/img-05.png" alt="Brand guide page showing logo and sub-brand variations" />
+    <div class="g-grid c2" style="margin-top:72px;">
+      <figure data-reveal="scale"><div class="g-shot"><img src="gssf/guide/clearspace.jpg" alt="Clear space and minimum size page" loading="lazy"></div>
+        <figcaption class="note"><b>Clear space</b>Spacing is based on the logo's own height, so it scales with it. Below 48 px the letters blur together.</figcaption></figure>
+      <figure data-reveal="scale"><div class="g-shot"><img src="gssf/guide/cobrand.jpg" alt="Co-branding with a partner university" loading="lazy"></div>
+        <figcaption class="note"><b>Co-branding</b>Partner logos match our height and stay in their own colors, with a thin divider between.</figcaption></figure>
     </div>
-    <div class="caption">Brand guide — logo system</div>
-  </div>
-</section>
+  </section>
 
-<!-- STEP 04 — WEBSITE: PROGRAMS -->
-<section>
-  <div class="section-head">
-    <div class="step-marker">Step 04 — Website</div>
-    <div>
-      <h2 class="section-title">Programs section</h2>
-      <p class="section-body">The homepage covers the foundation's six programs. I designed a card grid so each program gets equal weight, and so the layout can scale as more programs are added.</p>
+  <!-- COLOR -->
+  <section class="g-section" data-toc="Color">
+    <div class="g-head" data-reveal="fade">
+      <div><h2 class="h2">Color</h2></div>
+      <p class="body">Each program has its own color family. Grays are the only colors they share.</p>
     </div>
-  </div>
 
-  <div class="img-block">
-    <div class="img screenshot">
-      <img src="assets/images/gssf/img-06.png" alt="GSSF website showing six program cards" />
+    <h3 class="g-sub" data-reveal="fade" style="margin-top:0">Color system</h3>
+    <div data-reveal="fade">
+      <div class="g-fam" data-program="gssf">
+        <div class="g-strip"><div style="background:var(--key)"><b>GSSF Navy</b><span>#161727</span></div><div style="background:var(--k80)">80</div><div style="background:var(--k60)">60</div><div class="lt" style="background:var(--k40)">40</div><div class="lt" style="background:var(--k20)">20</div></div>
+        <p class="note"><b>Navy</b>Calm and steady for the parent. Dark enough to work almost like a neutral, so it never competes with the programs.</p>
+      </div>
+      <div class="g-fam" data-program="gssc">
+        <div class="g-strip"><div style="background:var(--key)"><b>GSSC Blue</b><span>#242EC0</span></div><div style="background:var(--k80)">80</div><div style="background:var(--k60)">60</div><div class="lt" style="background:var(--k40)">40</div><div class="lt" style="background:var(--k20)">20</div></div>
+        <p class="note"><b>Blue</b>GSSC's existing color. I kept it so students and schools still recognize it, but now only GSSC uses it.</p>
+      </div>
+      <div class="g-fam" data-program="media">
+        <div class="g-strip"><div style="background:var(--key)"><b>Media Purple</b><span>#7B3AC6</span></div><div style="background:var(--k80)">80</div><div style="background:var(--k60)">60</div><div class="lt" style="background:var(--k40)">40</div><div class="lt" style="background:var(--k20)">20</div></div>
+        <p class="note"><b>Purple</b>More expressive, for a program built on storytelling. Far enough from blue that a video never reads as a GSSC post.</p>
+      </div>
+      <div class="g-fam" data-program="labs">
+        <div class="g-strip"><div class="lt" style="background:var(--key)"><b>AI Labs Teal</b><span>#39CABB</span></div><div class="lt" style="background:var(--k80)">80</div><div class="lt" style="background:var(--k60)">60</div><div class="lt" style="background:var(--k40)">40</div><div class="lt" style="background:var(--k20)">20</div></div>
+        <p class="note"><b>Teal</b>Fresh and a little techy for a product team, and the furthest from blue and purple.</p>
+      </div>
+      <div class="g-fam">
+        <div class="g-shades"><div style="background:#1C1C1C;color:var(--g-lightest)">Darkest</div><div style="background:#5A5A5A;color:var(--g-lightest)">80</div><div style="background:#838383;color:var(--g-lightest)">60</div><div style="background:#ACACAC">40</div><div style="background:#F1F1F1;outline:1px solid var(--g-40);outline-offset:-1px">Lightest</div></div>
+        <p class="note"><b>Shades</b>The only colors every program can use. Darkest and Lightest replace pure black and white, which felt too harsh.</p>
+      </div>
     </div>
-    <div class="caption">Homepage — Programs section</div>
-  </div>
-</section>
 
-<!-- STEP 05 — WEBSITE: NETWORK -->
-<section>
-  <div class="section-head">
-    <div class="step-marker">Step 05 — Network Section</div>
-    <div>
-      <h2 class="section-title">Global Network section</h2>
-      <p class="section-body">A separate section for the foundation's network — mentors, partner universities, and sponsors. Three pillars with a tab system for switching between them.</p>
+    <h3 class="g-sub" data-reveal="fade">Color usage</h3>
+    <div class="g-reskin" id="reskin" data-program="gssc">
+      <div data-reveal="fade">
+        <p class="body">If two program colors share a post, people can't tell whose it is. So each layout uses one family plus grays. Same post, four programs:</p>
+        <div class="g-switch" role="group" aria-label="Program" style="margin-top:20px;">
+          <button type="button" data-set="gssf" aria-pressed="false">GSSF</button>
+          <button type="button" data-set="gssc" aria-pressed="true">GSSC</button>
+          <button type="button" data-set="media" aria-pressed="false">Media</button>
+          <button type="button" data-set="labs" aria-pressed="false">AI Labs</button>
+        </div>
+        <div class="g-mix"><div class="m1">55%</div><div class="m2">25%</div><div class="m3">10%</div><div class="m4">10%</div></div>
+        <p class="note"><b>Proportions</b>Mostly Lightest, one key color, tints for depth, Darkest for text.</p>
+      </div>
+      <div class="g-post" data-reveal="scale">
+        <div class="g-post-frame">
+          <div class="g-post-title" data-f="title">GSSC x EWHA</div>
+          <div class="g-post-sub" data-f="sub">Selection round for the Seoul Finals 2027</div>
+          <div class="g-post-foot">
+            <svg class="lg lg-gssc" data-f="logo" aria-hidden="true"><use href="#logo-gssc"/></svg>
+            <span class="gbtn s"><span data-f="cta">Apply</span><svg><use href="#i-arrow-right"/></svg></span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="img-block">
-    <div class="img screenshot">
-      <img src="assets/images/gssf/img-07.png" alt="GSSF website Global Network section" />
+    <h3 class="g-sub" data-reveal="fade">Gradients</h3>
+    <div class="g-grid c4" data-reveal="fade">
+      <div class="tile grad t grain" data-program="gssf"></div>
+      <div class="tile grad d grain" data-program="gssc"></div>
+      <div class="tile grad t grain" data-program="media"></div>
+      <div class="tile grad d grain" data-program="labs"></div>
     </div>
-    <div class="caption">Homepage — Global Network section</div>
-  </div>
-</section>
+    <p class="note"><b>Grain</b>A light noise layer makes the gradients feel less flat and more like print. Each gradient stays inside one family.</p>
+  </section>
 
+  <!-- TYPE -->
+  <section class="g-section" data-toc="Typography">
+    <div class="g-head" data-reveal="fade">
+      <div><h2 class="h2">Typography</h2></div>
+      <p class="body">One typeface for everything, plus a script for creative assets.</p>
+    </div>
+    <div data-reveal="scale">
+      <div class="g-card g-weights">
+        <div style="font-weight:200">Aa<span>Extra Light</span></div>
+        <div style="font-weight:400">Aa<span>Regular</span></div>
+        <div style="font-weight:600">Aa<span>Semi Bold</span></div>
+        <div style="font-weight:800">Aa<span>Extra Bold</span></div>
+      </div>
+      <p class="note"><b>Inter</b>Free, clean and readable at any size. Four weights cover everything from quotes to stats.</p>
+    </div>
+    <div class="g-grid c2" style="margin-top:40px;">
+      <figure data-reveal="scale"><div class="g-shot"><img src="gssf/guide/hierarchy.jpg" alt="Type hierarchy page" loading="lazy"></div>
+        <figcaption class="note"><b>Type hierarchy</b>Each weight has one job, so volunteers don't have to guess which size to use.</figcaption></figure>
+      <figure data-reveal="scale"><div class="g-shot"><img src="gssf/brand/page-27.jpg" alt="Aston Script capital on a GSSC recruitment poster" loading="lazy"></div>
+        <figcaption class="note"><b>Aston Script</b>One script capital on creative posts only. Never more than two words, so it stays special.</figcaption></figure>
+    </div>
+  </section>
 
-<!-- PROJECT NAV -->
-<nav class="project-nav">
-  <a href="projects.html" class="all-projects">← All Projects</a>
-  <a href="mtp.html" class="next-project">
-    <span class="next-project-label">Next Project</span>
-    <span class="next-project-title">
-      Melrose Trading Post
-      <span class="next-project-arrow">→</span>
-    </span>
-  </a>
-</nav>
+  <!-- COMPONENTS -->
+  <section class="g-section" data-toc="Components">
+    <div class="g-head" data-reveal="fade">
+      <div><h2 class="h2">Components</h2></div>
+      <p class="body">Most assets are made by student volunteers, so the logos, buttons and icons are Figma components they can drop in.</p>
+    </div>
+    <div class="g-grid c2">
+      <div data-reveal="scale">
+        <div class="g-card g-sizes"><a class="gbtn s fill-dark" href="#reskin">Apply<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn fill-dark" href="#reskin">Apply<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn l fill-dark" href="#reskin">Apply<svg><use href="#i-arrow-right"/></svg></a></div>
+        <p class="note"><b>Button sizes</b>Small for socials, medium for web, large for posters.</p>
+      </div>
+      <div data-reveal="scale">
+        <div class="g-card g-sizes"><a class="gbtn fill-dark" href="#reskin">Apply<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn line-dark" href="#reskin">Learn more</a></div>
+        <p class="note"><b>Button styles</b>The outline style is for a second, smaller action, so the main one is always obvious.</p>
+      </div>
+    </div>
+    <div class="g-grid c4" style="margin-top:40px;" data-reveal="fade">
+      <div class="g-btn-card" data-program="gssf"><a class="gbtn s fill-light" href="#reskin">Partner<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn s line-light" href="#reskin">Learn more</a></div>
+      <div class="g-btn-card" data-program="gssc"><a class="gbtn s fill-light" href="#reskin">Apply<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn s line-light" href="#reskin">Learn more</a></div>
+      <div class="g-btn-card" data-program="media"><a class="gbtn s fill-light" href="#reskin">Watch<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn s line-light" href="#reskin">Learn more</a></div>
+      <div class="g-btn-card" data-program="labs"><a class="gbtn s fill-light" href="#reskin">Apply<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn s line-light" href="#reskin">Learn more</a></div>
+    </div>
+    <p class="note"><b>Program colors</b>Same component, every program's colors already set up. On teal it flips to Darkest.</p>
+    <figure style="margin-top:40px;" data-reveal="scale"><div class="g-shot"><img src="gssf/guide/icons.jpg" alt="Icon library page" loading="lazy"></div>
+      <figcaption class="note"><b>Icons</b>One outlined set (coolicons) with the same line weight as Inter, so icons and text feel like one piece.</figcaption></figure>
+  </section>
 
-  <script src="assets/js/nav.js" defer></script>
+  <!-- IN USE -->
+  <section class="g-section" data-toc="Applications">
+    <div class="g-head" data-reveal="fade">
+      <div><h2 class="h2">Applications</h2></div>
+      <p class="body">Each asset belongs to one program.</p>
+    </div>
+    <div class="g-gallery" id="gallery" data-reveal="fade">
+      <figure><img src="gssf/guide/finals-photo.jpg" alt="GSSC 2026 finalists on stage at the Asian Leadership Conference in Seoul" loading="lazy"><figcaption class="note"><b>GSSC @ Asian Leadership Conference</b>Co-branding on stage in Seoul.</figcaption></figure>
+      <figure><img src="gssf/brand/page-38.jpg" alt="YouTube channel art and thumbnails for GSSF Media" loading="lazy"><figcaption class="note"><b>YouTube</b>GSSF Media in purple, logo in the same corner every time.</figcaption></figure>
+      <figure><img src="gssf/brand/page-39.jpg" alt="Instagram posts for each program" loading="lazy"><figcaption class="note"><b>Instagram</b>Each post belongs to one program.</figcaption></figure>
+      <figure><img src="gssf/guide/ig73.jpg" alt="Instagram templates" loading="lazy"><figcaption class="note"><b>Instagram templates</b>Ready-made layouts for volunteers.</figcaption></figure>
+      <figure><img src="gssf/brand/page-40.jpg" alt="Presentation deck templates" loading="lazy"><figcaption class="note"><b>Decks</b>Navy for partnership and sponsor decks.</figcaption></figure>
+      <figure><img src="gssf/guide/docs.jpg" alt="Document templates" loading="lazy"><figcaption class="note"><b>Documents</b>Letterheads and official docs.</figcaption></figure>
+    </div>
+    <div class="g-arrows">
+      <button class="g-arrow" type="button" data-dir="-1" aria-label="Previous"><svg><use href="#i-arrow-left"/></svg></button>
+      <button class="g-arrow" type="button" data-dir="1" aria-label="Next"><svg><use href="#i-arrow-right"/></svg></button>
+    </div>
+  </section>
+
+  <footer class="g-footer">
+    <a href="projects.html" class="back"><svg><use href="#i-arrow-left"/></svg>Projects</a>
+    <a href="spendly.html">Next: Spendly<svg><use href="#i-arrow-right"/></svg></a>
+  </footer>
+
+</main>
+
+<script src="nav.js" defer></script>
+<script src="parallax.js" defer></script>
+<script src="reveal.js" defer></script>
+<script src="case-toc.js" defer></script>
+<script>
+(function () {
+  // Same post, re-skinned per program
+  var copy = {
+    gssf:  { title: 'Talent is global.', sub: 'Opportunity is not.', cta: 'Partner with us', logo: 'gssf' },
+    gssc:  { title: 'GSSC x EWHA', sub: 'Selection round for the Seoul Finals 2027', cta: 'Apply', logo: 'gssc' },
+    media: { title: 'Founders in the room', sub: 'New episode on YouTube', cta: 'Watch now', logo: 'media' },
+    labs:  { title: 'Build with AI Labs', sub: 'Hiring PMs and AI engineers', cta: 'Apply', logo: 'labs' }
+  };
+  var box = document.getElementById('reskin');
+  var buttons = box.querySelectorAll('.g-switch button');
+  var logo = box.querySelector('[data-f="logo"]');
+  Array.prototype.forEach.call(buttons, function (b) {
+    b.addEventListener('click', function () {
+      var p = b.getAttribute('data-set'), c = copy[p];
+      box.setAttribute('data-program', p);
+      Array.prototype.forEach.call(buttons, function (x) { x.setAttribute('aria-pressed', x === b); });
+      ['title', 'sub', 'cta'].forEach(function (k) { box.querySelector('[data-f="' + k + '"]').textContent = c[k]; });
+      logo.setAttribute('class', 'lg lg-' + c.logo);
+      logo.querySelector('use').setAttribute('href', '#logo-' + c.logo);
+    });
+  });
+
+  // Gallery: arrows + mouse drag
+  var g = document.getElementById('gallery');
+  Array.prototype.forEach.call(document.querySelectorAll('.g-arrow'), function (a) {
+    a.addEventListener('click', function () { g.scrollBy({ left: g.clientWidth * 0.78 * Number(a.getAttribute('data-dir')), behavior: 'smooth' }); });
+  });
+  var down = false, x0 = 0, l0 = 0;
+  g.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') return; down = true; x0 = e.clientX; l0 = g.scrollLeft; g.style.scrollSnapType = 'none'; });
+  window.addEventListener('pointerup', function () { if (!down) return; down = false; g.style.scrollSnapType = ''; });
+  g.addEventListener('pointermove', function (e) { if (down) g.scrollLeft = l0 - (e.clientX - x0); });
+})();
+</script>
 </body>
 </html>
