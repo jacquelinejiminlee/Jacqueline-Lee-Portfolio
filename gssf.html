@@ -3,43 +3,32 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>GSSF — Jacqueline Jimin Lee</title>
+<title>GSSF — Jacqueline Lee</title>
 <link rel="stylesheet" href="design-system.css">
 <link rel="stylesheet" href="case-study.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;800&display=swap" rel="stylesheet">
 <style>
   /*
-    Page built from the GSSF 2026 brand pieces (locked logo vectors, color
-    families, pill buttons, coolicons) but laid out as a case study: each
-    section breaks the brand into individual elements, and every element gets
-    a visual plus one short note on why. Text sizes: label 14, heading 28,
-    body 17, note 14.
+    Same case-study template as the other projects (case-study.css). The GSSF
+    brand only appears inside the visuals: locked logo vectors, color families,
+    gradients and buttons, set in the brand's own typeface (Inter).
   */
   :root {
-    --g-lightest: #F1F1F1;
-    --g-card: #E6E6E6;
-    --g-darkest: #1C1C1C;
-    --g-80: #5A5A5A;
-    --g-60: #838383;
-    --g-40: #ACACAC;
-
+    --b-lightest: #F1F1F1;
+    --b-card: #E6E6E6;
+    --b-darkest: #1C1C1C;
     --navy: #161727;  --navy-80: #444552; --navy-60: #73747D; --navy-40: #A2A2A9; --navy-20: #D0D1D4;
     --gssc: #242EC0;  --gssc-80: #5058CD; --gssc-60: #7C82D9; --gssc-40: #A7ABE6; --gssc-20: #D3D5F2;
     --media: #7B3AC6; --media-80: #9561D1; --media-60: #B089DD; --media-40: #CAB0E8; --media-20: #E5D8F4;
     --labs: #39CABB;  --labs-80: #61D5C9; --labs-60: #88DFD6; --labs-40: #B0EAE4; --labs-20: #D7F4F1;
-
     --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
+  [data-program="gssf"]  { --key: var(--navy);  --k80: var(--navy-80);  --k60: var(--navy-60);  --k40: var(--navy-40);  --k20: var(--navy-20);  --on-key: var(--b-lightest); }
+  [data-program="gssc"]  { --key: var(--gssc);  --k80: var(--gssc-80);  --k60: var(--gssc-60);  --k40: var(--gssc-40);  --k20: var(--gssc-20);  --on-key: var(--b-lightest); }
+  [data-program="media"] { --key: var(--media); --k80: var(--media-80); --k60: var(--media-60); --k40: var(--media-40); --k20: var(--media-20); --on-key: var(--b-lightest); }
+  [data-program="labs"]  { --key: var(--labs);  --k80: var(--labs-80);  --k60: var(--labs-60);  --k40: var(--labs-40);  --k20: var(--labs-20);  --on-key: var(--b-darkest); }
 
-  body.gssf-page { background: var(--g-lightest); color: var(--g-darkest); font-family: 'Inter', sans-serif; letter-spacing: -0.01em; }
-  .gssf-page figure { margin: 0; }
-  .gssf-page img { display: block; max-width: 100%; }
-
-  [data-program="gssf"]  { --key: var(--navy);  --k80: var(--navy-80);  --k60: var(--navy-60);  --k40: var(--navy-40);  --k20: var(--navy-20);  --on-key: var(--g-lightest); }
-  [data-program="gssc"]  { --key: var(--gssc);  --k80: var(--gssc-80);  --k60: var(--gssc-60);  --k40: var(--gssc-40);  --k20: var(--gssc-20);  --on-key: var(--g-lightest); }
-  [data-program="media"] { --key: var(--media); --k80: var(--media-80); --k60: var(--media-60); --k40: var(--media-40); --k20: var(--media-20); --on-key: var(--g-lightest); }
-  [data-program="labs"]  { --key: var(--labs);  --k80: var(--labs-80);  --k60: var(--labs-60);  --k40: var(--labs-40);  --k20: var(--labs-20);  --on-key: var(--g-darkest); }
+  .brand { font-family: 'Inter', sans-serif; letter-spacing: -0.01em; }
 
   /* Logos: one sizing rule (--s = seal size), ratios locked to the Figma vectors */
   .lg { display: block; flex-shrink: 0; color: inherit; --s: 64px; }
@@ -47,189 +36,126 @@
   .lg-gssc  { width: calc(var(--s) * 0.89); height: var(--s); }
   .lg-media, .lg-labs { width: var(--s); height: calc(var(--s) * 1.3); }
 
-  /* Buttons: pill, Inter Semi Bold, coolicon */
-  .gbtn {
-    display: inline-flex; align-items: center; gap: 8px;
-    height: 40px; padding: 0 18px 0 20px; border-radius: 999px;
-    font: 600 14px/1 'Inter', sans-serif; letter-spacing: -0.01em;
-    text-decoration: none; white-space: nowrap;
-    border: 1.5px solid transparent; transition: transform 0.2s ease;
-  }
-  .gbtn svg { width: 16px; height: 16px; flex-shrink: 0; }
-  .gbtn:hover { transform: translateY(-1px); }
-  .gbtn.s { height: 32px; padding: 0 12px 0 14px; font-size: 13px; gap: 6px; }
-  .gbtn.l { height: 52px; padding: 0 24px 0 26px; font-size: 18px; }
-  .gbtn.l svg { width: 20px; height: 20px; }
-  .gbtn.fill-light { background: var(--g-lightest); color: var(--g-darkest); }
-  .gbtn.line-light { border-color: var(--g-lightest); color: var(--g-lightest); }
-  .gbtn.fill-dark  { background: var(--g-darkest); color: var(--g-lightest); }
-  .gbtn.line-dark  { border-color: var(--g-darkest); color: var(--g-darkest); }
-  .gbtn.fill-key   { background: var(--key); color: var(--on-key); }
-  .gbtn.line-key   { border-color: var(--key); color: var(--key); }
+  /* short notes under each visual */
+  .cs-note { margin-top: 14px; font-size: 14px; line-height: 1.55; color: var(--ink-inverse-soft); max-width: 46ch; }
+  .cs-note b { display: block; font-weight: 500; color: var(--ink-inverse); margin-bottom: 2px; }
 
-  /* ---------- type scale ---------- */
-  .label { font-size: 14px; font-weight: 600; color: var(--g-60); margin-bottom: 14px; }
-  .h2 { font-weight: 800; font-size: clamp(24px, 2.4vw, 28px); letter-spacing: -0.025em; line-height: 1.2; margin-bottom: 14px; }
-  .body { font-size: 17px; line-height: 1.6; color: var(--g-80); max-width: 52ch; }
-  .note { margin-top: 14px; font-size: 14px; line-height: 1.5; color: var(--g-80); max-width: 44ch; }
-  .note b { display: block; color: var(--g-darkest); font-weight: 600; margin-bottom: 2px; }
-
-  /* ---------- hero ---------- */
-  .g-hero { position: relative; overflow: hidden; background: linear-gradient(140deg, var(--navy) 0%, #24253a 50%, var(--navy-80) 100%); color: var(--g-lightest); }
-  .g-hero::after { content: ""; position: absolute; inset: 0; background-image: var(--grain); opacity: 0.16; mix-blend-mode: screen; pointer-events: none; }
-  .g-hero-inner { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: flex-end; gap: 48px; padding: 128px 0 80px; }
-  .g-back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--navy-40); text-decoration: none; margin-bottom: 48px; }
-  .g-back svg { width: 16px; height: 16px; }
-  .g-back:hover { color: var(--g-lightest); }
-  .g-h1 { font-weight: 800; font-size: clamp(48px, 6vw, 80px); letter-spacing: -0.03em; line-height: 1; margin-bottom: 16px; }
-  .g-hero .body { color: var(--navy-40); margin-bottom: 32px; }
-  .g-hero .lg { --s: clamp(96px, 12vw, 152px); color: var(--g-lightest); }
-  .g-meta { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 40px; font-size: 14px; color: var(--navy-40); }
-  .g-meta b { color: var(--g-lightest); font-weight: 600; }
-
-  /* ---------- layout ---------- */
-  .g-section { padding: 128px 0 0; scroll-margin-top: 72px; }
-  .g-head { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; align-items: baseline; margin-bottom: 48px; }
-  .g-head .h2 { margin-bottom: 0; }
-  .g-sub { margin: 72px 0 24px; font-size: 17px; font-weight: 600; }
-  .g-card { background: var(--g-card); border-radius: 10px; }
-  .g-shot { border-radius: 10px; overflow: hidden; background: var(--g-card); }
-  .g-shot img { width: 100%; }
-  .g-grid { display: grid; gap: 20px; }
-  .g-grid.c2 { grid-template-columns: repeat(2, 1fr); }
-  .g-grid.c3 { grid-template-columns: repeat(3, 1fr); }
-  .g-grid.c4 { grid-template-columns: repeat(4, 1fr); }
-  .tile { aspect-ratio: 16 / 10; border-radius: 10px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-  .tile.grain::after { content: ""; position: absolute; inset: 0; background-image: var(--grain); opacity: 0.18; mix-blend-mode: screen; pointer-events: none; }
+  .tile { border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .tile.grain::after, .grainy::after { content: ""; position: absolute; inset: 0; background-image: var(--grain); opacity: 0.18; mix-blend-mode: screen; pointer-events: none; }
   .tile > * { position: relative; z-index: 1; }
-
-  /* structure */
-  .g-arch { padding: 36px; display: grid; gap: 32px; }
-  .g-arch-parent { display: flex; align-items: center; gap: 16px; color: var(--navy); }
-  .g-arch-kids { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: end; padding-top: 32px; border-top: 1px solid var(--g-40); }
-  .g-arch-kid { display: flex; flex-direction: column; gap: 12px; }
-  .g-arch-kid .lg { --s: 48px; }
-  .g-arch .tag { font-size: 14px; font-weight: 600; color: var(--g-darkest); }
-  .g-names { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .g-name { border-radius: 10px; padding: 22px 20px; background: var(--gssc-20); color: var(--gssc); font-weight: 800; font-size: 20px; letter-spacing: -0.02em; }
-
-  /* logo family table */
-  .g-family-row { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 16px; align-items: center; padding: 18px 0; border-top: 1px solid var(--g-40); }
-  .g-family-row:last-child { border-bottom: 1px solid var(--g-40); }
-  .g-family-row .tile { aspect-ratio: auto; height: 132px; }
-  .g-family-row .tile .lg { --s: 56px; }
-  .t-light { background: var(--g-card); color: var(--key); }
-  .t-dark  { background: var(--g-card); color: var(--g-darkest); }
+  .t-light { background: var(--b-lightest); color: var(--key); }
+  .t-dark  { background: var(--b-card); color: var(--b-darkest); }
   .t-key   { background: var(--key); color: var(--on-key); }
-  .t-grad  { background: linear-gradient(140deg, var(--key), var(--k40)); color: var(--on-key); }
-  .g-family-cols { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 16px; font-size: 14px; color: var(--g-60); padding-bottom: 12px; }
 
-  .seal-card { border-radius: 10px; padding: 40px; aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+  .grid-4 > *, .cs-grid-2 > * { min-width: 0; }
+  .cs-grid-2 figure { margin: 0; }
+
+  /* hero visual */
+  .gssf-hero-media { background: linear-gradient(150deg, var(--navy) 0%, #2a2b44 55%, var(--navy-80) 100%); display: flex; align-items: center; justify-content: center; position: relative; }
+  .gssf-hero-media .lg { --s: 38%; width: 38%; height: auto; aspect-ratio: 1; color: var(--b-lightest); position: relative; z-index: 1; }
+
+  /* brand architecture */
+  .arch { padding: 36px; display: grid; gap: 28px; background: var(--b-lightest); border-radius: 8px; color: var(--b-darkest); }
+  .arch-parent { display: flex; align-items: center; gap: 16px; color: var(--navy); }
+  .arch-kids { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: end; padding-top: 28px; border-top: 1px solid #ACACAC; }
+  .arch-kid { display: flex; flex-direction: column; gap: 12px; }
+  .arch-kid .lg { --s: 48px; }
+  .arch .tag { font-size: 14px; font-weight: 600; color: var(--b-darkest); }
+  .names { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .name { border-radius: 8px; padding: 22px 20px; background: var(--gssc-20); color: var(--gssc); font-weight: 800; font-size: 20px; letter-spacing: -0.02em; }
+
+  /* logo */
+  .seal-card { aspect-ratio: 16 / 10; }
   .seal-card .lg { --s: 120px; }
+  .family { margin-top: 48px; }
+  .family-row { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 16px; align-items: center; padding: 16px 0; border-top: 1px solid rgba(255,255,255,0.1); }
+  .family-row .tile { height: 120px; }
+  .family-row .tile .lg { --s: 52px; }
+  .family-row .cs-note { margin: 0; }
 
   /* color */
-  .g-fam { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: center; padding: 20px 0; border-top: 1px solid var(--g-40); }
-  .g-fam:last-of-type { border-bottom: 1px solid var(--g-40); }
-  .g-fam .note { margin-top: 0; }
-  .g-strip { display: grid; grid-template-columns: 2.2fr repeat(4, 1fr); height: 96px; border-radius: 10px; overflow: hidden; }
-  .g-strip > div { padding: 12px 14px; font-size: 13px; font-weight: 600; display: flex; flex-direction: column; justify-content: space-between; color: var(--g-lightest); }
-  .g-strip > div span { font-weight: 400; opacity: 0.85; }
-  .g-strip .lt { color: var(--g-darkest); }
-  .g-shades { display: grid; grid-template-columns: repeat(5, 1fr); height: 72px; border-radius: 10px; overflow: hidden; }
-  .g-shades > div { padding: 12px 14px; font-size: 13px; font-weight: 600; display: flex; align-items: flex-end; }
+  .fam { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: center; padding: 16px 0; border-top: 1px solid rgba(255,255,255,0.1); }
+  .fam .cs-note { margin: 0; }
+  .strip { display: grid; grid-template-columns: 2.2fr repeat(4, 1fr); height: 92px; border-radius: 8px; overflow: hidden; }
+  .strip > div { padding: 12px 14px; font-size: 13px; font-weight: 600; display: flex; flex-direction: column; justify-content: space-between; color: var(--b-lightest); }
+  .strip > div span { font-weight: 400; opacity: 0.85; }
+  .strip .lt { color: var(--b-darkest); }
+  .strip, .shades { box-shadow: 0 0 0 1px rgba(255,255,255,0.08); }
+  .shades { display: grid; grid-template-columns: repeat(5, 1fr); height: 72px; border-radius: 8px; overflow: hidden; }
+  .shades > div { padding: 12px 14px; font-size: 13px; font-weight: 600; display: flex; align-items: flex-end; color: var(--b-darkest); }
 
-  .g-reskin { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-  .g-switch { display: inline-flex; gap: 4px; padding: 4px; background: var(--g-card); border-radius: 999px; margin: 8px 0 32px; }
-  .g-switch button { height: 32px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; font: 600 13px/1 'Inter', sans-serif; color: var(--g-80); cursor: pointer; }
-  .g-switch button[aria-pressed="true"] { background: var(--g-darkest); color: var(--g-lightest); }
-  .g-mix { display: flex; height: 56px; border-radius: 8px; overflow: hidden; }
-  .g-mix > div { display: flex; align-items: flex-end; padding: 8px 10px; font-size: 12px; font-weight: 600; transition: background 0.4s ease; }
-  .g-mix .m1 { flex: 55; background: var(--g-lightest); outline: 1px solid var(--g-40); outline-offset: -1px; }
-  .g-mix .m2 { flex: 25; background: var(--key); color: var(--on-key); }
-  .g-mix .m3 { flex: 10; background: var(--k40); }
-  .g-mix .m4 { flex: 10; background: var(--g-darkest); color: var(--g-lightest); }
-  .g-post { position: relative; aspect-ratio: 4 / 5; max-width: 420px; width: 100%; justify-self: end; border-radius: 12px; overflow: hidden; background: linear-gradient(150deg, var(--key) 0%, var(--k40) 100%); color: var(--on-key); transition: background 0.5s ease; }
-  .g-post::after { content: ""; position: absolute; inset: 0; background-image: var(--grain); opacity: 0.18; mix-blend-mode: screen; pointer-events: none; }
-  .g-post-frame { position: absolute; inset: 20px; border: 1px solid color-mix(in srgb, currentColor 45%, transparent); border-radius: 4px; padding: 22px; display: flex; flex-direction: column; z-index: 1; }
-  .g-post-title { font-weight: 800; font-size: 34px; letter-spacing: -0.03em; line-height: 1.05; }
-  .g-post-sub { font-size: 14px; margin-top: 10px; opacity: 0.85; }
-  .g-post-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; }
-  .g-post-foot .lg { --s: 40px; }
-  .g-post .gbtn { background: var(--g-lightest); color: var(--g-darkest); }
-  [data-program="labs"] .g-post .gbtn { background: var(--g-darkest); color: var(--g-lightest); }
+  .reskin { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin-top: 64px; }
+  .switch { display: inline-flex; gap: 4px; padding: 4px; border-radius: 999px; margin: 20px 0 28px; background: rgba(255,255,255,0.06); }
+  .switch button { height: 32px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; font: 500 13px/1 var(--font-ui); color: var(--ink-inverse-soft); cursor: pointer; }
+  .switch button[aria-pressed="true"] { background: var(--ink-inverse); color: var(--charcoal-900); }
+  .mix { display: flex; height: 52px; border-radius: 8px; overflow: hidden; }
+  .mix > div { display: flex; align-items: flex-end; padding: 8px 10px; font-size: 12px; font-weight: 600; transition: background 0.4s ease; color: var(--b-darkest); }
+  .mix .m1 { flex: 55; background: var(--b-lightest); }
+  .mix .m2 { flex: 25; background: var(--key); color: var(--on-key); }
+  .mix .m3 { flex: 10; background: var(--k40); }
+  .mix .m4 { flex: 10; background: var(--b-darkest); color: var(--b-lightest); }
+  .post { position: relative; aspect-ratio: 4 / 5; max-width: 400px; width: 100%; justify-self: end; border-radius: 10px; overflow: hidden; background: linear-gradient(150deg, var(--key) 0%, var(--k40) 100%); color: var(--on-key); transition: background 0.5s ease; }
+  .post-frame { position: absolute; inset: 20px; border: 1px solid color-mix(in srgb, currentColor 45%, transparent); border-radius: 4px; padding: 22px; display: flex; flex-direction: column; z-index: 1; }
+  .post-title { font-weight: 800; font-size: 32px; letter-spacing: -0.03em; line-height: 1.05; }
+  .post-sub { font-size: 14px; margin-top: 10px; opacity: 0.85; }
+  .post-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; }
+  .post-foot .lg { --s: 40px; }
 
   .grad { aspect-ratio: 4 / 5; }
   .grad.t { background: linear-gradient(160deg, var(--key), var(--k40)); }
-  .grad.d { background: linear-gradient(160deg, var(--key), var(--g-darkest)); }
+  .grad.d { background: linear-gradient(160deg, var(--key), var(--b-darkest)); }
 
   /* type */
-  .g-weights { padding: 32px 36px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .g-weights div { font-size: clamp(44px, 5vw, 64px); letter-spacing: -0.03em; line-height: 1; }
-  .g-weights span { display: block; font-size: 13px; font-weight: 600; color: var(--g-60); letter-spacing: 0; margin-top: 12px; }
+  .weights { padding: 32px 36px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; background: var(--b-lightest); color: var(--b-darkest); border-radius: 8px; margin-top: 40px; }
+  .weights div { font-size: clamp(44px, 5vw, 64px); letter-spacing: -0.03em; line-height: 1; }
+  .weights span { display: block; font-size: 13px; font-weight: 600; color: #838383; letter-spacing: 0; margin-top: 12px; }
 
-  /* components */
-  .g-sizes { padding: 32px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; min-height: 180px; }
-  .g-btn-card { border-radius: 10px; aspect-ratio: 16 / 10; padding: 20px; display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; position: relative; overflow: hidden; background: linear-gradient(150deg, var(--key), var(--k40)); }
-  .g-btn-card::after { content: ""; position: absolute; inset: 0; background-image: var(--grain); opacity: 0.18; mix-blend-mode: screen; }
-  .g-btn-card .gbtn { position: relative; z-index: 1; }
-  [data-program="labs"].g-btn-card .gbtn.fill-light { background: var(--g-darkest); color: var(--g-lightest); }
-  [data-program="labs"].g-btn-card .gbtn.line-light { border-color: var(--g-darkest); color: var(--g-darkest); }
+  /* brand buttons (guideline 6.1) */
+  .gbtn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 14px; border-radius: 999px; font: 600 13px/1 'Inter', sans-serif; letter-spacing: -0.01em; white-space: nowrap; border: 1.5px solid transparent; position: relative; z-index: 1; }
+  .gbtn svg { width: 16px; height: 16px; }
+  .gbtn.m { height: 40px; padding: 0 18px 0 20px; font-size: 14px; gap: 8px; }
+  .gbtn.l { height: 52px; padding: 0 24px 0 26px; font-size: 18px; gap: 8px; }
+  .gbtn.l svg { width: 20px; height: 20px; }
+  .gbtn.fill-light { background: var(--b-lightest); color: var(--b-darkest); }
+  .gbtn.line-light { border-color: var(--b-lightest); color: var(--b-lightest); }
+  .gbtn.fill-dark  { background: var(--b-darkest); color: var(--b-lightest); }
+  .gbtn.line-dark  { border-color: var(--b-darkest); color: var(--b-darkest); }
+  [data-program="labs"] .gbtn.fill-light { background: var(--b-darkest); color: var(--b-lightest); }
+  [data-program="labs"] .gbtn.line-light { border-color: var(--b-darkest); color: var(--b-darkest); }
+  .btn-board { background: var(--b-lightest); border-radius: 8px; padding: 32px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; min-height: 168px; }
+  .btn-card { border-radius: 8px; aspect-ratio: 16 / 10; padding: 18px; display: flex; align-items: flex-end; gap: 8px; flex-wrap: wrap; position: relative; overflow: hidden; background: linear-gradient(150deg, var(--key), var(--k40)); }
 
-  /* applications */
-  .g-gallery { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab; }
-  .g-gallery::-webkit-scrollbar { display: none; }
-  .g-gallery figure { flex: 0 0 78%; scroll-snap-align: start; }
-  .g-gallery img { border-radius: 10px; width: 100%; }
-  .g-arrows { display: flex; gap: 8px; margin-top: 20px; }
-  .g-arrow { width: 40px; height: 40px; border-radius: 999px; border: 1.5px solid var(--g-darkest); background: transparent; color: var(--g-darkest); display: flex; align-items: center; justify-content: center; cursor: pointer; }
-  .g-arrow svg { width: 16px; height: 16px; }
-  .g-arrow:hover { background: var(--g-darkest); color: var(--g-lightest); }
+  /* applications gallery */
+  .gallery { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab; margin-top: 40px; }
+  .gallery::-webkit-scrollbar { display: none; }
+  .gallery figure { flex: 0 0 78%; scroll-snap-align: start; margin: 0; }
+  .gallery img { border-radius: 8px; width: 100%; display: block; }
+  .gallery-nav { display: flex; gap: 8px; margin-top: 20px; }
 
-  /* footer */
-  .g-footer { display: flex; justify-content: space-between; align-items: center; padding: 140px 0 88px; }
-  .g-footer a { display: inline-flex; align-items: center; gap: 8px; color: var(--g-darkest); text-decoration: none; font-size: 17px; font-weight: 600; }
-  .g-footer a.back { color: var(--g-60); font-weight: 400; font-size: 14px; }
-  .g-footer svg { width: 18px; height: 18px; transition: transform 0.2s; }
-  .g-footer a:not(.back):hover svg { transform: translateX(3px); }
-
-  /* nav + rail on Lightest */
-  .gssf-page .site-nav { background: rgba(241, 241, 241, 0.78); }
-  .gssf-page .site-nav-logo, .gssf-page .site-nav-link.is-current, .gssf-page .site-nav-link:hover { color: var(--g-darkest); }
-  .gssf-page .site-nav-link { color: var(--g-80); }
-  .gssf-page .cs-rail-bar { background: var(--g-40); }
-  .gssf-page .cs-rail-num { color: var(--g-40); }
-  .gssf-page .cs-rail-label { display: none; }
-  .gssf-page .cs-rail-item.is-active .cs-rail-bar { background: var(--g-darkest); }
-  .gssf-page .cs-rail-item.is-active .cs-rail-num { color: var(--g-darkest); }
-
-  @media (max-width: 900px) {
-    .g-hero-inner { flex-direction: column-reverse; align-items: flex-start; padding-top: 104px; }
-    .g-head, .g-reskin, .g-fam { grid-template-columns: 1fr; gap: 20px; }
-    .g-post { justify-self: start; }
-    .g-grid.c3, .g-grid.c4 { grid-template-columns: repeat(2, 1fr); }
-    .g-family-cols { display: none; }
-    .g-family-row { grid-template-columns: repeat(3, 1fr); }
-    .g-family-row > .note { grid-column: 1 / -1; margin-top: 0; }
+  @media (max-width: 860px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .reskin, .fam { grid-template-columns: 1fr; gap: 20px; }
+    .post { justify-self: start; }
+    .family-row { grid-template-columns: repeat(3, 1fr); }
+    .family-row > .cs-note { grid-column: 1 / -1; }
   }
   @media (max-width: 560px) {
-    .g-section { padding-top: 96px; }
-    .g-grid.c2 { grid-template-columns: 1fr; }
-    .g-arch { padding: 24px; }
-    .g-arch-kid .lg { --s: 36px; }
-    .g-family-row .tile { height: 96px; }
-    .g-family-row .tile .lg { --s: 40px; }
-    .g-strip { grid-template-columns: repeat(4, 1fr); grid-template-rows: 56px 40px; height: auto; }
-    .g-strip > div:first-child { grid-column: 1 / -1; }
-    .g-strip > div:not(:first-child) span { display: none; }
-    .g-shades > div { font-size: 10px; padding: 8px; }
-    .g-weights { grid-template-columns: repeat(2, 1fr); padding: 24px; }
-    .g-switch button { padding: 0 11px; }
-    .g-footer { padding: 96px 0 64px; }
+    .arch { padding: 24px; }
+    .arch-kid .lg { --s: 36px; }
+    .family-row .tile { height: 92px; }
+    .family-row .tile .lg { --s: 38px; }
+    .strip { grid-template-columns: repeat(4, 1fr); grid-template-rows: 56px 40px; height: auto; }
+    .strip > div:first-child { grid-column: 1 / -1; }
+    .strip > div:not(:first-child) span { display: none; }
+    .shades > div { font-size: 10px; padding: 8px; }
+    .weights { grid-template-columns: repeat(2, 1fr); padding: 24px; }
+    .switch button { padding: 0 11px; }
   }
 </style>
 <link rel="stylesheet" href="nav.css">
 </head>
-<body class="cs-body gssf-page">
+<body class="cs-body">
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
 <!-- Exported from the GSSF Brand Guideline Figma (Components / Logo). Locked vector assets: each symbol keeps its original viewBox, so the ratio is fixed. Fill is currentColor. -->
@@ -268,310 +194,325 @@
 </svg>
 
 
-<!-- coolicons (outlined) -->
+<!-- coolicons (outlined), used by the brand buttons -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
   <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m0 0-6-6m6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5m0 0 6 6m-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-external" viewBox="0 0 24 24"><path d="M10 5H8.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C5 6.52 5 7.08 5 8.2v7.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874C6.52 19 7.08 19 8.2 19h7.6c1.12 0 1.68 0 2.108-.218a2 2 0 0 0 .874-.874C19 17.48 19 16.92 19 15.8V14m1-5V4m0 0h-5m5 0-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
-<header class="g-hero">
+<section class="hero-atmosphere">
+  <div class="mesh">
+    <div class="mesh-blob navy" style="width:40vw; height:40vw; top:-20%; left:-10%; opacity:0.4;"></div>
+    <div class="mesh-blob coolgray" style="width:26vw; height:26vw; bottom:-12%; right:4%; opacity:0.3;"></div>
+  </div>
+  <div class="grain"></div>
   <div class="cs-wrap">
-    <div class="g-hero-inner">
+    <div class="cs-hero">
       <div>
-        <a href="projects.html" class="g-back"><svg><use href="#i-arrow-left"/></svg>Projects</a>
-        <h1 class="g-h1">GSSF Rebrand</h1>
-        <p class="body">A new identity and brand guideline for the Global Student Startup Foundation and its three programs.</p>
-        <a href="https://foundation.globalstudentstartup.org/" class="gbtn fill-light" target="_blank" rel="noopener">Visit website<svg><use href="#i-external"/></svg></a>
-        <div class="g-meta">
-          <span><b>Role</b> Brand designer</span>
-          <span><b>Year</b> 2026</span>
-          <span><b>Scope</b> Logo system, color, type, components, 41-page guideline</span>
+        <a href="projects.html" class="cs-back">← Projects</a>
+        <div class="cs-eyebrow">Brand Strategy · Brand Identity · 2026</div>
+        <h1 class="cs-h1">GSSF</h1>
+        <div class="cs-sub">Global Student Startup Foundation</div>
+        <p class="cs-desc">A rebrand for the Global Student Startup Foundation and its three programs: a new brand structure, logo family, color system and a 41-page brand guideline.</p>
+        <a href="https://foundation.globalstudentstartup.org/" class="cs-visit btn btn-ghost" target="_blank" rel="noopener">
+          Visit website
+          <svg viewBox="0 0 20 20" fill="none"><path d="M8 5H5a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-3M12 4h4v4M8 12l8-8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+
+        <div class="cs-meta">
+          <div><div class="cs-meta-label">Role</div><div class="cs-meta-value">Brand Strategist &amp; Brand Designer</div></div>
+          <div><div class="cs-meta-label">Client</div><div class="cs-meta-value">Global Student Startup Foundation</div></div>
+          <div><div class="cs-meta-label">Scope</div><div class="cs-meta-value">Brand Architecture, Logo System, Color, Type, Guidelines</div></div>
+          <div><div class="cs-meta-label">Tools</div><div class="cs-meta-value">Figma, Illustrator</div></div>
         </div>
       </div>
-      <svg class="lg lg-gssf" role="img" aria-label="GSSF seal"><use href="#logo-gssf"/></svg>
+      <div class="cs-hero-media gssf-hero-media grainy">
+        <svg class="lg lg-gssf" role="img" aria-label="GSSF seal"><use href="#logo-gssf"/></svg>
+      </div>
     </div>
   </div>
-</header>
+</section>
 
-<main class="cs-wrap">
+<div class="cs-wrap">
 
-  <!-- PROBLEM -->
-  <section class="g-section" data-toc="Overview">
-    <div class="g-head" data-reveal="fade">
-      <div><h2 class="h2">Overview</h2></div>
-      <p class="body">GSSF runs four programs, but GSSC, the competition, was the name people knew. Every program used its blue and logo, so Media and AI Labs looked like part of the competition.</p>
+  <section class="cs-section" data-toc="Problem">
+    <div class="cs-section-head">
+      <div class="cs-section-num">Problem</div>
+      <div>
+        <h2 class="cs-section-title">Everything looked like GSSC</h2>
+        <p class="cs-section-body">GSSF runs four programs, but GSSC, the competition, was the name people knew. Every program used its blue and logo, so Media and AI Labs looked like part of the competition instead of the foundation.</p>
+      </div>
     </div>
-    <div class="g-grid c2">
-      <figure data-reveal="scale"><div class="g-shot"><img src="gssf/brand/page-05.jpg" alt="Missions page for GSSF, GSSC, GSSF Media and GSSF AI Labs" loading="lazy"></div>
-        <figcaption class="note"><b>Missions</b>A foundation, a competition, a media team and an internship. They needed to look related, but not identical.</figcaption></figure>
-      <figure data-reveal="scale"><div class="g-shot"><img src="gssf/brand/page-01.jpg" alt="Brand guideline cover" loading="lazy"></div>
-        <figcaption class="note"><b>Goal</b>One family that a sponsor, a student or a YouTube viewer can read at a glance.</figcaption></figure>
+    <div class="cs-grid-2">
+      <figure><img src="gssf/brand/page-05.jpg" alt="Missions page for GSSF, GSSC, GSSF Media and GSSF AI Labs" loading="lazy" /><figcaption class="cs-note"><b>Missions</b>A foundation, a competition, a media team and an internship. They needed to look related, but not identical.</figcaption></figure>
+      <figure><img src="gssf/brand/page-01.jpg" alt="Brand guideline cover" loading="lazy" /><figcaption class="cs-note"><b>Goal</b>One family that a sponsor, a student or a YouTube viewer can read at a glance.</figcaption></figure>
     </div>
   </section>
 
-  <!-- STRUCTURE -->
-  <section class="g-section" data-toc="Brand foundations">
-    <div class="g-head" data-reveal="fade">
-      <div><h2 class="h2">Brand foundations</h2></div>
-      <p class="body">Before designing anything, I set up how the four programs relate to each other.</p>
+  <section class="cs-section" data-toc="Solution">
+    <div class="cs-section-head">
+      <div class="cs-section-num">Brand foundations</div>
+      <div>
+        <h2 class="cs-section-title">Brand architecture</h2>
+        <p class="cs-section-body">Before designing anything, I set up how the four programs relate. GSSF is the nonprofit that runs everything, so it became the parent brand.</p>
+      </div>
     </div>
-    <div class="g-grid c2" style="align-items:start;">
-      <div data-reveal="scale">
-        <div class="g-card g-arch">
-          <div class="g-arch-parent"><svg class="lg lg-gssf" role="img" aria-label="GSSF"><use href="#logo-gssf"/></svg><span class="tag">GSSF</span></div>
-          <div class="g-arch-kids">
-            <div class="g-arch-kid" style="color:var(--gssc)"><svg class="lg lg-gssc" role="img" aria-label="GSSC"><use href="#logo-gssc"/></svg><span class="tag">GSSC</span></div>
-            <div class="g-arch-kid" style="color:var(--media)"><svg class="lg lg-media" role="img" aria-label="GSSF Media"><use href="#logo-media"/></svg><span class="tag">GSSF Media</span></div>
-            <div class="g-arch-kid" style="color:var(--labs)"><svg class="lg lg-labs" role="img" aria-label="GSSF AI Labs"><use href="#logo-labs"/></svg><span class="tag">GSSF AI Labs</span></div>
+    <div class="cs-grid-2 brand" style="align-items:start;">
+      <div>
+        <div class="arch">
+          <div class="arch-parent"><svg class="lg lg-gssf" role="img" aria-label="GSSF"><use href="#logo-gssf"/></svg><span class="tag">GSSF</span></div>
+          <div class="arch-kids">
+            <div class="arch-kid" style="color:var(--gssc)"><svg class="lg lg-gssc" role="img" aria-label="GSSC"><use href="#logo-gssc"/></svg><span class="tag">GSSC</span></div>
+            <div class="arch-kid" style="color:var(--media)"><svg class="lg lg-media" role="img" aria-label="GSSF Media"><use href="#logo-media"/></svg><span class="tag">GSSF Media</span></div>
+            <div class="arch-kid" style="color:var(--labs)"><svg class="lg lg-labs" role="img" aria-label="GSSF AI Labs"><use href="#logo-labs"/></svg><span class="tag">GSSF AI Labs</span></div>
           </div>
         </div>
-        <p class="note"><b>Brand architecture</b>GSSF is the nonprofit that runs everything, so it's the parent. Media and AI Labs are foundation programs, not part of the competition, so they follow GSSF.</p>
+        <p class="cs-note"><b>Media and AI Labs follow GSSF</b>They're foundation programs that run all year, not parts of the competition, so they use the GSSF seal and name.</p>
       </div>
-      <div data-reveal="scale">
-        <div class="g-names">
-          <div class="g-name">GSSC 2027</div><div class="g-name">GSSC x EWHA</div><div class="g-name">GSSC @ ALC</div><div class="g-name">GSSC x INDIA</div>
-        </div>
-        <p class="note"><b>Naming system</b>GSSC keeps its own name since it's the event people know. "GSSC" alone means the Seoul Finals; "x" and "@" mark selections and host events.</p>
+      <div>
+        <div class="names"><div class="name">GSSC 2027</div><div class="name">GSSC x EWHA</div><div class="name">GSSC @ ALC</div><div class="name">GSSC x INDIA</div></div>
+        <p class="cs-note"><b>Naming system</b>GSSC keeps its own name since it's the event people know. "GSSC" alone means the Seoul Finals; "x" and "@" mark selections and host events.</p>
       </div>
     </div>
   </section>
 
-  <!-- LOGO -->
-  <section class="g-section" data-toc="Logo">
-    <div class="g-head" data-reveal="fade">
-      <div><h2 class="h2">Logo</h2></div>
-      <p class="body">All four logos share the same stacked letters. The box is what changes.</p>
-    </div>
-
-    <div class="g-grid c2">
-      <div data-reveal="scale">
-        <div class="seal-card g-card" style="color:var(--navy)"><svg class="lg lg-gssf" role="img" aria-label="GSSF seal"><use href="#logo-gssf"/></svg></div>
-        <p class="note"><b>GSSF seal</b>The square works like a seal: steady and official. Anything inside it belongs to GSSF.</p>
-      </div>
-      <div data-reveal="scale">
-        <div class="seal-card" style="background:var(--gssc);color:var(--g-lightest)"><svg class="lg lg-gssc" role="img" aria-label="GSSC monogram"><use href="#logo-gssc"/></svg></div>
-        <p class="note"><b>GSSC monogram</b>It's the competition, not a foundation program, so I left it open. It also kept the monogram people already recognized.</p>
+  <section class="cs-section" data-toc="Logo">
+    <div class="cs-section-head">
+      <div class="cs-section-num">Logo</div>
+      <div>
+        <h2 class="cs-section-title">Logo family</h2>
+        <p class="cs-section-body">All four logos share the same stacked letters. The box is what changes: it marks everything that belongs to the foundation.</p>
       </div>
     </div>
-
-    <h3 class="g-sub" data-reveal="fade">Logo family</h3>
-    <div data-reveal="fade">
-      <div class="g-family-cols"><div></div><div>Key color</div><div>Darkest</div><div>On its color</div></div>
-      <div class="g-family-row" data-program="gssf">
-        <p class="note" style="margin:0"><b>GSSF</b>Partnerships, sponsorship decks, official documents.</p>
+    <div class="cs-grid-2">
+      <div>
+        <div class="tile seal-card" style="background:var(--b-lightest);color:var(--navy)"><svg class="lg lg-gssf" role="img" aria-label="GSSF seal"><use href="#logo-gssf"/></svg></div>
+        <p class="cs-note"><b>GSSF seal</b>The square works like a seal: steady and official. Anything inside it belongs to GSSF.</p>
+      </div>
+      <div>
+        <div class="tile seal-card grain" style="background:var(--gssc);color:var(--b-lightest)"><svg class="lg lg-gssc" role="img" aria-label="GSSC monogram"><use href="#logo-gssc"/></svg></div>
+        <p class="cs-note"><b>GSSC monogram</b>It's the competition, not a foundation program, so I left it open. That also kept the monogram people already recognized.</p>
+      </div>
+    </div>
+    <div class="family brand" data-reveal="fade">
+      <div class="family-row" data-program="gssf">
+        <p class="cs-note"><b>GSSF</b>Partnerships, sponsor decks, official documents.</p>
         <div class="tile t-light"><svg class="lg lg-gssf" aria-label="GSSF"><use href="#logo-gssf"/></svg></div>
         <div class="tile t-dark"><svg class="lg lg-gssf" aria-hidden="true"><use href="#logo-gssf"/></svg></div>
         <div class="tile t-key"><svg class="lg lg-gssf" aria-hidden="true"><use href="#logo-gssf"/></svg></div>
       </div>
-      <div class="g-family-row" data-program="gssc">
-        <p class="note" style="margin:0"><b>GSSC</b>Campus selections, qualifiers and the Seoul Finals.</p>
+      <div class="family-row" data-program="gssc">
+        <p class="cs-note"><b>GSSC</b>Campus selections, qualifiers and the Seoul Finals.</p>
         <div class="tile t-light"><svg class="lg lg-gssc" aria-label="GSSC"><use href="#logo-gssc"/></svg></div>
         <div class="tile t-dark"><svg class="lg lg-gssc" aria-hidden="true"><use href="#logo-gssc"/></svg></div>
         <div class="tile t-key"><svg class="lg lg-gssc" aria-hidden="true"><use href="#logo-gssc"/></svg></div>
       </div>
-      <div class="g-family-row" data-program="media">
-        <p class="note" style="margin:0"><b>GSSF Media</b>YouTube and social. Name sits under the seal.</p>
+      <div class="family-row" data-program="media">
+        <p class="cs-note"><b>GSSF Media</b>YouTube and social. Name sits under the seal.</p>
         <div class="tile t-light"><svg class="lg lg-media" aria-label="GSSF Media"><use href="#logo-media"/></svg></div>
         <div class="tile t-dark"><svg class="lg lg-media" aria-hidden="true"><use href="#logo-media"/></svg></div>
         <div class="tile t-key"><svg class="lg lg-media" aria-hidden="true"><use href="#logo-media"/></svg></div>
       </div>
-      <div class="g-family-row" data-program="labs">
-        <p class="note" style="margin:0"><b>GSSF AI Labs</b>Products and recruiting. Darkest on teal, since white fails contrast.</p>
+      <div class="family-row" data-program="labs">
+        <p class="cs-note"><b>GSSF AI Labs</b>Products and recruiting. Darkest on teal, since white fails contrast.</p>
         <div class="tile t-light"><svg class="lg lg-labs" aria-label="GSSF AI Labs"><use href="#logo-labs"/></svg></div>
         <div class="tile t-dark"><svg class="lg lg-labs" aria-hidden="true"><use href="#logo-labs"/></svg></div>
         <div class="tile t-key"><svg class="lg lg-labs" aria-hidden="true"><use href="#logo-labs"/></svg></div>
       </div>
     </div>
-
-    <div class="g-grid c2" style="margin-top:72px;">
-      <figure data-reveal="scale"><div class="g-shot"><img src="gssf/guide/clearspace.jpg" alt="Clear space and minimum size page" loading="lazy"></div>
-        <figcaption class="note"><b>Clear space</b>Spacing is based on the logo's own height, so it scales with it. Below 48 px the letters blur together.</figcaption></figure>
-      <figure data-reveal="scale"><div class="g-shot"><img src="gssf/guide/cobrand.jpg" alt="Co-branding with a partner university" loading="lazy"></div>
-        <figcaption class="note"><b>Co-branding</b>Partner logos match our height and stay in their own colors, with a thin divider between.</figcaption></figure>
+    <div class="cs-grid-2">
+      <figure><img src="gssf/guide/clearspace.jpg" alt="Clear space and minimum size page" loading="lazy" /><figcaption class="cs-note"><b>Clear space</b>Spacing is based on the logo's own height, so it scales with it. Below 48 px the letters blur together.</figcaption></figure>
+      <figure><img src="gssf/guide/cobrand.jpg" alt="Co-branding with a partner university" loading="lazy" /><figcaption class="cs-note"><b>Co-branding</b>Partner logos match our height and keep their own colors, with a thin divider between.</figcaption></figure>
     </div>
   </section>
 
-  <!-- COLOR -->
-  <section class="g-section" data-toc="Color">
-    <div class="g-head" data-reveal="fade">
-      <div><h2 class="h2">Color</h2></div>
-      <p class="body">Each program has its own color family. Grays are the only colors they share.</p>
-    </div>
-
-    <h3 class="g-sub" data-reveal="fade" style="margin-top:0">Color system</h3>
-    <div data-reveal="fade">
-      <div class="g-fam" data-program="gssf">
-        <div class="g-strip"><div style="background:var(--key)"><b>GSSF Navy</b><span>#161727</span></div><div style="background:var(--k80)">80</div><div style="background:var(--k60)">60</div><div class="lt" style="background:var(--k40)">40</div><div class="lt" style="background:var(--k20)">20</div></div>
-        <p class="note"><b>Navy</b>Calm and steady for the parent. Dark enough to work almost like a neutral, so it never competes with the programs.</p>
-      </div>
-      <div class="g-fam" data-program="gssc">
-        <div class="g-strip"><div style="background:var(--key)"><b>GSSC Blue</b><span>#242EC0</span></div><div style="background:var(--k80)">80</div><div style="background:var(--k60)">60</div><div class="lt" style="background:var(--k40)">40</div><div class="lt" style="background:var(--k20)">20</div></div>
-        <p class="note"><b>Blue</b>GSSC's existing color. I kept it so students and schools still recognize it, but now only GSSC uses it.</p>
-      </div>
-      <div class="g-fam" data-program="media">
-        <div class="g-strip"><div style="background:var(--key)"><b>Media Purple</b><span>#7B3AC6</span></div><div style="background:var(--k80)">80</div><div style="background:var(--k60)">60</div><div class="lt" style="background:var(--k40)">40</div><div class="lt" style="background:var(--k20)">20</div></div>
-        <p class="note"><b>Purple</b>More expressive, for a program built on storytelling. Far enough from blue that a video never reads as a GSSC post.</p>
-      </div>
-      <div class="g-fam" data-program="labs">
-        <div class="g-strip"><div class="lt" style="background:var(--key)"><b>AI Labs Teal</b><span>#39CABB</span></div><div class="lt" style="background:var(--k80)">80</div><div class="lt" style="background:var(--k60)">60</div><div class="lt" style="background:var(--k40)">40</div><div class="lt" style="background:var(--k20)">20</div></div>
-        <p class="note"><b>Teal</b>Fresh and a little techy for a product team, and the furthest from blue and purple.</p>
-      </div>
-      <div class="g-fam">
-        <div class="g-shades"><div style="background:#1C1C1C;color:var(--g-lightest)">Darkest</div><div style="background:#5A5A5A;color:var(--g-lightest)">80</div><div style="background:#838383;color:var(--g-lightest)">60</div><div style="background:#ACACAC">40</div><div style="background:#F1F1F1;outline:1px solid var(--g-40);outline-offset:-1px">Lightest</div></div>
-        <p class="note"><b>Shades</b>The only colors every program can use. Darkest and Lightest replace pure black and white, which felt too harsh.</p>
+  <section class="cs-section" data-toc="Color">
+    <div class="cs-section-head">
+      <div class="cs-section-num">Color</div>
+      <div>
+        <h2 class="cs-section-title">Color system</h2>
+        <p class="cs-section-body">Each program has its own color family so it's recognizable on its own, even as a thumbnail. Grays are the only colors they share.</p>
       </div>
     </div>
+    <div class="brand" data-reveal="fade">
+      <div class="fam" data-program="gssf">
+        <div class="strip"><div style="background:var(--key)"><b>GSSF Navy</b><span>#161727</span></div><div style="background:var(--k80)">80</div><div style="background:var(--k60)">60</div><div class="lt" style="background:var(--k40)">40</div><div class="lt" style="background:var(--k20)">20</div></div>
+        <p class="cs-note"><b>Navy</b>Calm and steady for the parent. Dark enough to work almost like a neutral, so it never competes with the programs.</p>
+      </div>
+      <div class="fam" data-program="gssc">
+        <div class="strip"><div style="background:var(--key)"><b>GSSC Blue</b><span>#242EC0</span></div><div style="background:var(--k80)">80</div><div style="background:var(--k60)">60</div><div class="lt" style="background:var(--k40)">40</div><div class="lt" style="background:var(--k20)">20</div></div>
+        <p class="cs-note"><b>Blue</b>GSSC's existing color. I kept it so students and schools still recognize it, but now only GSSC uses it.</p>
+      </div>
+      <div class="fam" data-program="media">
+        <div class="strip"><div style="background:var(--key)"><b>Media Purple</b><span>#7B3AC6</span></div><div style="background:var(--k80)">80</div><div style="background:var(--k60)">60</div><div class="lt" style="background:var(--k40)">40</div><div class="lt" style="background:var(--k20)">20</div></div>
+        <p class="cs-note"><b>Purple</b>More expressive, for a program built on storytelling. Far enough from blue that a video never reads as a GSSC post.</p>
+      </div>
+      <div class="fam" data-program="labs">
+        <div class="strip"><div class="lt" style="background:var(--key)"><b>AI Labs Teal</b><span>#39CABB</span></div><div class="lt" style="background:var(--k80)">80</div><div class="lt" style="background:var(--k60)">60</div><div class="lt" style="background:var(--k40)">40</div><div class="lt" style="background:var(--k20)">20</div></div>
+        <p class="cs-note"><b>Teal</b>Fresh and a little techy for a product team, and the furthest from blue and purple.</p>
+      </div>
+      <div class="fam">
+        <div class="shades"><div style="background:#1C1C1C;color:var(--b-lightest)">Darkest</div><div style="background:#5A5A5A;color:var(--b-lightest)">80</div><div style="background:#838383;color:var(--b-lightest)">60</div><div style="background:#ACACAC">40</div><div style="background:#F1F1F1">Lightest</div></div>
+        <p class="cs-note"><b>Shades</b>The only colors every program can use. Darkest and Lightest replace pure black and white, which felt too harsh.</p>
+      </div>
+    </div>
 
-    <h3 class="g-sub" data-reveal="fade">Color usage</h3>
-    <div class="g-reskin" id="reskin" data-program="gssc">
-      <div data-reveal="fade">
-        <p class="body">If two program colors share a post, people can't tell whose it is. So each layout uses one family plus grays. Same post, four programs:</p>
-        <div class="g-switch" role="group" aria-label="Program" style="margin-top:20px;">
+    <div class="reskin" id="reskin" data-program="gssc">
+      <div>
+        <h3 class="cs-section-title">Color usage</h3>
+        <p class="cs-section-body">If two program colors share a post, people can't tell whose it is. So each layout uses one family plus grays. Same post, four programs:</p>
+        <div class="switch" role="group" aria-label="Program">
           <button type="button" data-set="gssf" aria-pressed="false">GSSF</button>
           <button type="button" data-set="gssc" aria-pressed="true">GSSC</button>
           <button type="button" data-set="media" aria-pressed="false">Media</button>
           <button type="button" data-set="labs" aria-pressed="false">AI Labs</button>
         </div>
-        <div class="g-mix"><div class="m1">55%</div><div class="m2">25%</div><div class="m3">10%</div><div class="m4">10%</div></div>
-        <p class="note"><b>Proportions</b>Mostly Lightest, one key color, tints for depth, Darkest for text.</p>
+        <div class="mix brand"><div class="m1">55%</div><div class="m2">25%</div><div class="m3">10%</div><div class="m4">10%</div></div>
+        <p class="cs-note"><b>Proportions</b>Mostly Lightest, one key color, tints for depth, Darkest for text.</p>
       </div>
-      <div class="g-post" data-reveal="scale">
-        <div class="g-post-frame">
-          <div class="g-post-title" data-f="title">GSSC x EWHA</div>
-          <div class="g-post-sub" data-f="sub">Selection round for the Seoul Finals 2027</div>
-          <div class="g-post-foot">
+      <div class="post brand grainy" data-reveal="scale">
+        <div class="post-frame">
+          <div class="post-title" data-f="title">GSSC x EWHA</div>
+          <div class="post-sub" data-f="sub">Selection round for the Seoul Finals 2027</div>
+          <div class="post-foot">
             <svg class="lg lg-gssc" data-f="logo" aria-hidden="true"><use href="#logo-gssc"/></svg>
-            <span class="gbtn s"><span data-f="cta">Apply</span><svg><use href="#i-arrow-right"/></svg></span>
+            <span class="gbtn fill-light"><span data-f="cta">Apply</span><svg><use href="#i-arrow-right"/></svg></span>
           </div>
         </div>
       </div>
     </div>
 
-    <h3 class="g-sub" data-reveal="fade">Gradients</h3>
-    <div class="g-grid c4" data-reveal="fade">
+    <div class="grid-4">
       <div class="tile grad t grain" data-program="gssf"></div>
       <div class="tile grad d grain" data-program="gssc"></div>
       <div class="tile grad t grain" data-program="media"></div>
       <div class="tile grad d grain" data-program="labs"></div>
     </div>
-    <p class="note"><b>Grain</b>A light noise layer makes the gradients feel less flat and more like print. Each gradient stays inside one family.</p>
+    <p class="cs-note"><b>Gradients</b>Every gradient stays inside one family and carries a light grain, so it feels less flat and more like print.</p>
   </section>
 
-  <!-- TYPE -->
-  <section class="g-section" data-toc="Typography">
-    <div class="g-head" data-reveal="fade">
-      <div><h2 class="h2">Typography</h2></div>
-      <p class="body">One typeface for everything, plus a script for creative assets.</p>
-    </div>
-    <div data-reveal="scale">
-      <div class="g-card g-weights">
-        <div style="font-weight:200">Aa<span>Extra Light</span></div>
-        <div style="font-weight:400">Aa<span>Regular</span></div>
-        <div style="font-weight:600">Aa<span>Semi Bold</span></div>
-        <div style="font-weight:800">Aa<span>Extra Bold</span></div>
-      </div>
-      <p class="note"><b>Inter</b>Free, clean and readable at any size. Four weights cover everything from quotes to stats.</p>
-    </div>
-    <div class="g-grid c2" style="margin-top:40px;">
-      <figure data-reveal="scale"><div class="g-shot"><img src="gssf/guide/hierarchy.jpg" alt="Type hierarchy page" loading="lazy"></div>
-        <figcaption class="note"><b>Type hierarchy</b>Each weight has one job, so volunteers don't have to guess which size to use.</figcaption></figure>
-      <figure data-reveal="scale"><div class="g-shot"><img src="gssf/brand/page-27.jpg" alt="Aston Script capital on a GSSC recruitment poster" loading="lazy"></div>
-        <figcaption class="note"><b>Aston Script</b>One script capital on creative posts only. Never more than two words, so it stays special.</figcaption></figure>
-    </div>
-  </section>
-
-  <!-- COMPONENTS -->
-  <section class="g-section" data-toc="Components">
-    <div class="g-head" data-reveal="fade">
-      <div><h2 class="h2">Components</h2></div>
-      <p class="body">Most assets are made by student volunteers, so the logos, buttons and icons are Figma components they can drop in.</p>
-    </div>
-    <div class="g-grid c2">
-      <div data-reveal="scale">
-        <div class="g-card g-sizes"><a class="gbtn s fill-dark" href="#reskin">Apply<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn fill-dark" href="#reskin">Apply<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn l fill-dark" href="#reskin">Apply<svg><use href="#i-arrow-right"/></svg></a></div>
-        <p class="note"><b>Button sizes</b>Small for socials, medium for web, large for posters.</p>
-      </div>
-      <div data-reveal="scale">
-        <div class="g-card g-sizes"><a class="gbtn fill-dark" href="#reskin">Apply<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn line-dark" href="#reskin">Learn more</a></div>
-        <p class="note"><b>Button styles</b>The outline style is for a second, smaller action, so the main one is always obvious.</p>
+  <section class="cs-section" data-toc="Typography">
+    <div class="cs-section-head">
+      <div class="cs-section-num">Typography</div>
+      <div>
+        <h2 class="cs-section-title">Font choices</h2>
+        <p class="cs-section-body">One typeface for everything, plus a script for creative assets.</p>
       </div>
     </div>
-    <div class="g-grid c4" style="margin-top:40px;" data-reveal="fade">
-      <div class="g-btn-card" data-program="gssf"><a class="gbtn s fill-light" href="#reskin">Partner<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn s line-light" href="#reskin">Learn more</a></div>
-      <div class="g-btn-card" data-program="gssc"><a class="gbtn s fill-light" href="#reskin">Apply<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn s line-light" href="#reskin">Learn more</a></div>
-      <div class="g-btn-card" data-program="media"><a class="gbtn s fill-light" href="#reskin">Watch<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn s line-light" href="#reskin">Learn more</a></div>
-      <div class="g-btn-card" data-program="labs"><a class="gbtn s fill-light" href="#reskin">Apply<svg><use href="#i-arrow-right"/></svg></a><a class="gbtn s line-light" href="#reskin">Learn more</a></div>
+    <div class="weights brand">
+      <div style="font-weight:200">Aa<span>Extra Light</span></div>
+      <div style="font-weight:400">Aa<span>Regular</span></div>
+      <div style="font-weight:600">Aa<span>Semi Bold</span></div>
+      <div style="font-weight:800">Aa<span>Extra Bold</span></div>
     </div>
-    <p class="note"><b>Program colors</b>Same component, every program's colors already set up. On teal it flips to Darkest.</p>
-    <figure style="margin-top:40px;" data-reveal="scale"><div class="g-shot"><img src="gssf/guide/icons.jpg" alt="Icon library page" loading="lazy"></div>
-      <figcaption class="note"><b>Icons</b>One outlined set (coolicons) with the same line weight as Inter, so icons and text feel like one piece.</figcaption></figure>
-  </section>
-
-  <!-- IN USE -->
-  <section class="g-section" data-toc="Applications">
-    <div class="g-head" data-reveal="fade">
-      <div><h2 class="h2">Applications</h2></div>
-      <p class="body">Each asset belongs to one program.</p>
-    </div>
-    <div class="g-gallery" id="gallery" data-reveal="fade">
-      <figure><img src="gssf/guide/finals-photo.jpg" alt="GSSC 2026 finalists on stage at the Asian Leadership Conference in Seoul" loading="lazy"><figcaption class="note"><b>GSSC @ Asian Leadership Conference</b>Co-branding on stage in Seoul.</figcaption></figure>
-      <figure><img src="gssf/brand/page-38.jpg" alt="YouTube channel art and thumbnails for GSSF Media" loading="lazy"><figcaption class="note"><b>YouTube</b>GSSF Media in purple, logo in the same corner every time.</figcaption></figure>
-      <figure><img src="gssf/brand/page-39.jpg" alt="Instagram posts for each program" loading="lazy"><figcaption class="note"><b>Instagram</b>Each post belongs to one program.</figcaption></figure>
-      <figure><img src="gssf/guide/ig73.jpg" alt="Instagram templates" loading="lazy"><figcaption class="note"><b>Instagram templates</b>Ready-made layouts for volunteers.</figcaption></figure>
-      <figure><img src="gssf/brand/page-40.jpg" alt="Presentation deck templates" loading="lazy"><figcaption class="note"><b>Decks</b>Navy for partnership and sponsor decks.</figcaption></figure>
-      <figure><img src="gssf/guide/docs.jpg" alt="Document templates" loading="lazy"><figcaption class="note"><b>Documents</b>Letterheads and official docs.</figcaption></figure>
-    </div>
-    <div class="g-arrows">
-      <button class="g-arrow" type="button" data-dir="-1" aria-label="Previous"><svg><use href="#i-arrow-left"/></svg></button>
-      <button class="g-arrow" type="button" data-dir="1" aria-label="Next"><svg><use href="#i-arrow-right"/></svg></button>
+    <p class="cs-note"><b>Inter</b>Free, clean and readable at any size. Four weights cover everything from quotes to stats.</p>
+    <div class="cs-grid-2">
+      <figure><img src="gssf/guide/hierarchy.jpg" alt="Type hierarchy page" loading="lazy" /><figcaption class="cs-note"><b>Type hierarchy</b>Each weight has one job, so volunteers don't have to guess which size to use.</figcaption></figure>
+      <figure><img src="gssf/brand/page-27.jpg" alt="Aston Script capital on a GSSC recruitment poster" loading="lazy" /><figcaption class="cs-note"><b>Aston Script</b>One script capital on creative posts only. Never more than two words, so it stays special.</figcaption></figure>
     </div>
   </section>
 
-  <footer class="g-footer">
-    <a href="projects.html" class="back"><svg><use href="#i-arrow-left"/></svg>Projects</a>
-    <a href="spendly.html">Next: Spendly<svg><use href="#i-arrow-right"/></svg></a>
-  </footer>
+  <section class="cs-section" data-toc="Components">
+    <div class="cs-section-head">
+      <div class="cs-section-num">Components</div>
+      <div>
+        <h2 class="cs-section-title">Buttons and icons</h2>
+        <p class="cs-section-body">Most assets are made by student volunteers, so the logos, buttons and icons are Figma components they can drop in.</p>
+      </div>
+    </div>
+    <div class="cs-grid-2 brand">
+      <div>
+        <div class="btn-board"><span class="gbtn fill-dark">Apply<svg><use href="#i-arrow-right"/></svg></span><span class="gbtn m fill-dark">Apply<svg><use href="#i-arrow-right"/></svg></span><span class="gbtn l fill-dark">Apply<svg><use href="#i-arrow-right"/></svg></span></div>
+        <p class="cs-note"><b>Button sizes</b>Small for socials, medium for web, large for posters.</p>
+      </div>
+      <div>
+        <div class="btn-board"><span class="gbtn m fill-dark">Apply<svg><use href="#i-arrow-right"/></svg></span><span class="gbtn m line-dark">Learn more</span></div>
+        <p class="cs-note"><b>Button styles</b>The outline style is for a second, smaller action, so the main one is always obvious.</p>
+      </div>
+    </div>
+    <div class="grid-4 brand">
+      <div class="btn-card grainy" data-program="gssf"><span class="gbtn fill-light">Partner<svg><use href="#i-arrow-right"/></svg></span><span class="gbtn line-light">Learn more</span></div>
+      <div class="btn-card grainy" data-program="gssc"><span class="gbtn fill-light">Apply<svg><use href="#i-arrow-right"/></svg></span><span class="gbtn line-light">Learn more</span></div>
+      <div class="btn-card grainy" data-program="media"><span class="gbtn fill-light">Watch<svg><use href="#i-arrow-right"/></svg></span><span class="gbtn line-light">Learn more</span></div>
+      <div class="btn-card grainy" data-program="labs"><span class="gbtn fill-light">Apply<svg><use href="#i-arrow-right"/></svg></span><span class="gbtn line-light">Learn more</span></div>
+    </div>
+    <p class="cs-note"><b>Program colors</b>Same component, every program's colors already set up. On teal it flips to Darkest.</p>
+    <div class="cs-figure">
+      <img src="gssf/guide/icons.jpg" alt="Icon library page" loading="lazy" />
+      <p class="cs-note"><b>Icons</b>One outlined set (coolicons) with the same line weight as the type, so icons and text feel like one piece.</p>
+    </div>
+  </section>
 
-</main>
+  <section class="cs-section" data-toc="Applications">
+    <div class="cs-section-head">
+      <div class="cs-section-num">Applications</div>
+      <div>
+        <h2 class="cs-section-title">The system in use</h2>
+        <p class="cs-section-body">Each asset belongs to one program: Media runs YouTube in purple, recruitment runs in GSSC blue, decks stay navy.</p>
+      </div>
+    </div>
+    <div class="gallery" id="gallery">
+      <figure><img src="gssf/guide/finals-photo.jpg" alt="GSSC 2026 finalists on stage at the Asian Leadership Conference in Seoul" loading="lazy" /><figcaption class="cs-note"><b>GSSC @ Asian Leadership Conference</b>Co-branding on stage in Seoul.</figcaption></figure>
+      <figure><img src="gssf/brand/page-38.jpg" alt="YouTube channel art and thumbnails for GSSF Media" loading="lazy" /><figcaption class="cs-note"><b>YouTube</b>GSSF Media in purple, logo in the same corner every time.</figcaption></figure>
+      <figure><img src="gssf/brand/page-39.jpg" alt="Instagram posts for each program" loading="lazy" /><figcaption class="cs-note"><b>Instagram</b>Each post belongs to one program.</figcaption></figure>
+      <figure><img src="gssf/guide/ig73.jpg" alt="Instagram templates" loading="lazy" /><figcaption class="cs-note"><b>Instagram templates</b>Ready-made layouts for volunteers.</figcaption></figure>
+      <figure><img src="gssf/brand/page-40.jpg" alt="Presentation deck templates" loading="lazy" /><figcaption class="cs-note"><b>Decks</b>Navy for partnership and sponsor decks.</figcaption></figure>
+      <figure><img src="gssf/guide/docs.jpg" alt="Document templates" loading="lazy" /><figcaption class="cs-note"><b>Documents</b>Letterheads and official docs.</figcaption></figure>
+    </div>
+    <div class="gallery-nav">
+      <button class="btn btn-ghost" type="button" data-dir="-1" aria-label="Previous">←</button>
+      <button class="btn btn-ghost" type="button" data-dir="1" aria-label="Next">→</button>
+    </div>
+  </section>
 
-<script src="nav.js" defer></script>
-<script src="parallax.js" defer></script>
-<script src="reveal.js" defer></script>
-<script src="case-toc.js" defer></script>
-<script>
-(function () {
-  // Same post, re-skinned per program
-  var copy = {
-    gssf:  { title: 'Talent is global.', sub: 'Opportunity is not.', cta: 'Partner with us', logo: 'gssf' },
-    gssc:  { title: 'GSSC x EWHA', sub: 'Selection round for the Seoul Finals 2027', cta: 'Apply', logo: 'gssc' },
-    media: { title: 'Founders in the room', sub: 'New episode on YouTube', cta: 'Watch now', logo: 'media' },
-    labs:  { title: 'Build with AI Labs', sub: 'Hiring PMs and AI engineers', cta: 'Apply', logo: 'labs' }
-  };
-  var box = document.getElementById('reskin');
-  var buttons = box.querySelectorAll('.g-switch button');
-  var logo = box.querySelector('[data-f="logo"]');
-  Array.prototype.forEach.call(buttons, function (b) {
-    b.addEventListener('click', function () {
-      var p = b.getAttribute('data-set'), c = copy[p];
-      box.setAttribute('data-program', p);
-      Array.prototype.forEach.call(buttons, function (x) { x.setAttribute('aria-pressed', x === b); });
-      ['title', 'sub', 'cta'].forEach(function (k) { box.querySelector('[data-f="' + k + '"]').textContent = c[k]; });
-      logo.setAttribute('class', 'lg lg-' + c.logo);
-      logo.querySelector('use').setAttribute('href', '#logo-' + c.logo);
+  <div class="cs-footer">
+    <a href="projects.html" class="cs-footer-back">← Projects</a>
+    <a href="spendly.html" class="cs-footer-next">
+      <span class="cs-footer-next-label">Next project</span>
+      <span class="cs-footer-next-title">Spendly →</span>
+    </a>
+  </div>
+
+</div>
+
+  <script src="nav.js" defer></script>
+  <script src="ambient.js" defer></script>
+  <script src="parallax.js" defer></script>
+  <script src="reveal.js" defer></script>
+  <script src="case-toc.js" defer></script>
+  <script>
+  (function () {
+    // Same post, re-skinned per program
+    var copy = {
+      gssf:  { title: 'Talent is global.', sub: 'Opportunity is not.', cta: 'Partner with us', logo: 'gssf' },
+      gssc:  { title: 'GSSC x EWHA', sub: 'Selection round for the Seoul Finals 2027', cta: 'Apply', logo: 'gssc' },
+      media: { title: 'Founders in the room', sub: 'New episode on YouTube', cta: 'Watch now', logo: 'media' },
+      labs:  { title: 'Build with AI Labs', sub: 'Hiring PMs and AI engineers', cta: 'Apply', logo: 'labs' }
+    };
+    var box = document.getElementById('reskin');
+    var buttons = box.querySelectorAll('.switch button');
+    var logo = box.querySelector('[data-f="logo"]');
+    Array.prototype.forEach.call(buttons, function (b) {
+      b.addEventListener('click', function () {
+        var p = b.getAttribute('data-set'), c = copy[p];
+        box.setAttribute('data-program', p);
+        Array.prototype.forEach.call(buttons, function (x) { x.setAttribute('aria-pressed', x === b); });
+        ['title', 'sub', 'cta'].forEach(function (k) { box.querySelector('[data-f="' + k + '"]').textContent = c[k]; });
+        logo.setAttribute('class', 'lg lg-' + c.logo);
+        logo.querySelector('use').setAttribute('href', '#logo-' + c.logo);
+      });
     });
-  });
 
-  // Gallery: arrows + mouse drag
-  var g = document.getElementById('gallery');
-  Array.prototype.forEach.call(document.querySelectorAll('.g-arrow'), function (a) {
-    a.addEventListener('click', function () { g.scrollBy({ left: g.clientWidth * 0.78 * Number(a.getAttribute('data-dir')), behavior: 'smooth' }); });
-  });
-  var down = false, x0 = 0, l0 = 0;
-  g.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') return; down = true; x0 = e.clientX; l0 = g.scrollLeft; g.style.scrollSnapType = 'none'; });
-  window.addEventListener('pointerup', function () { if (!down) return; down = false; g.style.scrollSnapType = ''; });
-  g.addEventListener('pointermove', function (e) { if (down) g.scrollLeft = l0 - (e.clientX - x0); });
-})();
-</script>
+    // Applications gallery: arrows + mouse drag
+    var g = document.getElementById('gallery');
+    Array.prototype.forEach.call(document.querySelectorAll('.gallery-nav button'), function (a) {
+      a.addEventListener('click', function () { g.scrollBy({ left: g.clientWidth * 0.78 * Number(a.getAttribute('data-dir')), behavior: 'smooth' }); });
+    });
+    var down = false, x0 = 0, l0 = 0;
+    g.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') return; down = true; x0 = e.clientX; l0 = g.scrollLeft; g.style.scrollSnapType = 'none'; });
+    window.addEventListener('pointerup', function () { if (!down) return; down = false; g.style.scrollSnapType = ''; });
+    g.addEventListener('pointermove', function (e) { if (down) g.scrollLeft = l0 - (e.clientX - x0); });
+  })();
+  </script>
 </body>
 </html>
