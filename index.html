@@ -9,19 +9,20 @@
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html,body{width:100%;height:100%;overflow:hidden;}
-:root{--bg:#ffffff;--ink:#111;--muted:#888;}
-body{background:var(--bg);font-family:'DM Mono',ui-monospace,monospace;}
+:root{--bg:#141414;--ink:#F5F3F0;--muted:#9A9A9A;}
+body{background:var(--bg);font-family:'Inter',ui-monospace,monospace;}
 #bg-stage{position:fixed;inset:0;perspective:1100px;display:flex;align-items:center;justify-content:center;z-index:0;pointer-events:none;}
 #bg-ring{position:relative;transform-style:preserve-3d;transform:translateY(-3%) rotateX(-22deg) rotateY(0deg);}
 .bg-card{position:absolute;transform-style:preserve-3d;}
-.bg-face{position:absolute;inset:0;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.13);}
+.bg-face{position:absolute;inset:0;overflow:hidden;box-shadow:0 1px 10px rgba(0,0,0,.5);}
 .bg-face img{width:100%;height:100%;object-fit:cover;display:block;}
 .bg-face .bph{width:100%;height:100%;}
-#fog{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(255,255,255,0) 0%,rgba(255,255,255,0.55) 55%,rgba(255,255,255,0.92) 80%,rgba(255,255,255,1) 100%);}
-#ring-hint{position:fixed;bottom:22px;right:32px;font-size:10px;letter-spacing:.1em;color:#ccc;z-index:10;pointer-events:none;opacity:0;animation:fadeIn .8s 1.5s ease forwards;}
+#fog{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(20,20,20,0) 0%,rgba(20,20,20,0.5) 55%,rgba(20,20,20,0.9) 80%,rgba(20,20,20,1) 100%);}
+#ring-hint{position:fixed;bottom:22px;right:32px;font-size:10px;letter-spacing:.1em;color:#777;z-index:10;pointer-events:none;opacity:0;animation:fadeIn .8s 1.5s ease forwards;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 </style>
-  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="design-system.css">
+  <link rel="stylesheet" href="nav.css">
 </head>
 <body class="overlay-nav">
 <div id="bg-stage"><div id="bg-ring"></div></div>
@@ -29,35 +30,35 @@ body{background:var(--bg);font-family:'DM Mono',ui-monospace,monospace;}
 <div id="ring-hint">drag to rotate</div>
 <script>
 const RING_DATA = [
-  { img: "assets/images/home/remote-01.jpg" },
-  { img: "assets/images/home/remote-02.jpg" },
-  { img: "assets/images/home/remote-03.png" },
-  { img: "assets/images/home/remote-04.avif" },
-  { img: "assets/images/home/remote-05.jpg" },
-  { img: "assets/images/home/remote-06.png" },
-  { img: "assets/images/home/remote-07.jpg" },
-  { img: "assets/images/home/remote-08.jpg" },
-  { img: "assets/images/home/remote-09.jpg" },
-  { img: "assets/images/home/remote-10.jpg" },
-  { img: "assets/images/home/remote-11.jpg" },
-  { img: "assets/images/home/remote-12.jpg" },
-  { img: "assets/images/home/remote-13.jpg" },
-  { img: "assets/images/home/remote-14.jpg" },
-  { img: "assets/images/home/remote-15.jpg" },
-  { img: "assets/images/home/remote-16.jpg" },
-  { img: "assets/images/home/remote-17.jpg" },
-  { img: "assets/images/home/remote-18.png" },
-  { img: "assets/images/home/remote-19.jpg" },
-  { img: "assets/images/home/remote-20.jpg" },
-  { img: "assets/images/home/remote-21.jpg" },
-  { img: "assets/images/home/remote-22.jpg" },
-  { img: "assets/images/home/remote-23.png" },
-  { img: "assets/images/home/remote-24.jpg" },
-  { img: "assets/images/home/remote-25.jpg" },
-  { img: "assets/images/home/remote-26.jpg" },
-  { img: "assets/images/home/remote-27.jpg" },
-  { img: "assets/images/home/remote-28.jpg" },
-  { img: "assets/images/home/remote-29.jpg" },
+  { img: "home/remote-01.jpg" },
+  { img: "home/remote-02.jpg" },
+  { img: "home/remote-03.png" },
+  { img: "home/remote-04.avif" },
+  { img: "home/remote-05.jpg" },
+  { img: "home/remote-06.png" },
+  { img: "home/remote-07.jpg" },
+  { img: "home/remote-08.jpg" },
+  { img: "home/remote-09.jpg" },
+  { img: "home/remote-10.jpg" },
+  { img: "home/remote-11.jpg" },
+  { img: "home/remote-12.jpg" },
+  { img: "home/remote-13.jpg" },
+  { img: "home/remote-14.jpg" },
+  { img: "home/remote-15.jpg" },
+  { img: "home/remote-16.jpg" },
+  { img: "home/remote-17.jpg" },
+  { img: "home/remote-18.png" },
+  { img: "home/remote-19.jpg" },
+  { img: "home/remote-20.jpg" },
+  { img: "home/remote-21.jpg" },
+  { img: "home/remote-22.jpg" },
+  { img: "home/remote-23.png" },
+  { img: "home/remote-24.jpg" },
+  { img: "home/remote-25.jpg" },
+  { img: "home/remote-26.jpg" },
+  { img: "home/remote-27.jpg" },
+  { img: "home/remote-28.jpg" },
+  { img: "home/remote-29.jpg" },
 ];
 
 let rotY=0,tgtRotY=0,tiltX=-22,tgtTiltX=-22,tiltY=0,tgtTiltY=0,transY=0,tgtTransY=0;
@@ -134,6 +135,6 @@ window.addEventListener('resize',buildRing);
 buildRing();
 render();
 </script>
-  <script src="assets/js/nav.js" defer></script>
+  <script src="nav.js" defer></script>
 </body>
 </html>
