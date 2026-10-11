@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Artworks — Jacqueline Lee</title>
+<title>Creative Works — Jacqueline Lee</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
@@ -11,9 +11,9 @@
 html, body { width:100%; height:100%; overflow:hidden; }
 
 :root {
-  --bg: #ffffff;
-  --ink: #111;
-  --muted: #888;
+  --bg: #141414;
+  --ink: #F5F3F0;
+  --muted: #9A9A9A;
 }
 
 body {
@@ -51,10 +51,10 @@ body {
   position: fixed; inset: 0; z-index: 1; pointer-events: none;
   background: radial-gradient(
     ellipse 70% 60% at 50% 50%,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.55) 55%,
-    rgba(255,255,255,0.92) 80%,
-    rgba(255,255,255,1) 100%
+    rgba(20,20,20,0) 0%,
+    rgba(20,20,20,0.5) 55%,
+    rgba(20,20,20,0.9) 80%,
+    rgba(20,20,20,1) 100%
   );
 }
 
@@ -67,13 +67,13 @@ body {
   z-index: 50;
   display: flex;
   gap: 4px;
-  background: rgba(255,255,255,0.75);
+  background: rgba(43,43,43,0.75);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(17,17,17,0.08);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 100px;
   padding: 5px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
 }
 
 .filter-btn {
@@ -98,7 +98,7 @@ body {
 
 .filter-btn.active {
   color: var(--ink);
-  background: rgba(17,17,17,0.06);
+  background: rgba(255,255,255,0.1);
 }
 
 /* ── COUNT LABEL ── */
@@ -162,11 +162,11 @@ body {
   #page-title { font-size: 11px; top: 72px; }
 }
 </style>
-  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="nav.css">
 </head>
 <body class="overlay-nav">
 
-<div id="page-title">Artworks</div>
+<div id="page-title">Creative Works</div>
 
 <div id="bg-stage">
   <div id="bg-ring"></div>
@@ -187,70 +187,70 @@ body {
 
 <script>
 const DATA_ALL = [
-  { img: "assets/images/artworks/remote-01.jpg", cat: "2d" },
-  { img: "assets/images/artworks/remote-02.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-03.png", cat: "digital" },
-  { img: "assets/images/artworks/remote-04.avif", cat: "2d" },
-  { img: "assets/images/artworks/remote-05.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-06.png", cat: "digital" },
-  { img: "assets/images/artworks/remote-07.jpg", cat: "2d" },
-  { img: "assets/images/artworks/remote-08.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-09.jpg", cat: "digital" },
-  { img: "assets/images/artworks/remote-10.jpg", cat: "2d" },
-  { img: "assets/images/artworks/remote-11.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-12.jpg", cat: "digital" },
-  { img: "assets/images/artworks/remote-13.jpg", cat: "2d" },
-  { img: "assets/images/artworks/remote-14.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-15.jpg", cat: "digital" },
-  { img: "assets/images/artworks/remote-16.jpg", cat: "2d" },
-  { img: "assets/images/artworks/remote-17.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-18.png", cat: "digital" },
-  { img: "assets/images/artworks/remote-19.jpg", cat: "2d" },
-  { img: "assets/images/artworks/remote-20.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-21.jpg", cat: "digital" },
-  { img: "assets/images/artworks/remote-22.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-23.png", cat: "digital" },
-  { img: "assets/images/artworks/remote-24.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-25.jpg", cat: "digital" },
-  { img: "assets/images/artworks/remote-26.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-27.jpg", cat: "digital" },
-  { img: "assets/images/artworks/remote-28.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-29.jpg", cat: "digital" },
+  { img: "artworks/remote-01.jpg", cat: "2d" },
+  { img: "artworks/remote-02.jpg", cat: "3d" },
+  { img: "artworks/remote-03.png", cat: "digital" },
+  { img: "artworks/remote-04.avif", cat: "2d" },
+  { img: "artworks/remote-05.jpg", cat: "3d" },
+  { img: "artworks/remote-06.png", cat: "digital" },
+  { img: "artworks/remote-07.jpg", cat: "2d" },
+  { img: "artworks/remote-08.jpg", cat: "3d" },
+  { img: "artworks/remote-09.jpg", cat: "digital" },
+  { img: "artworks/remote-10.jpg", cat: "2d" },
+  { img: "artworks/remote-11.jpg", cat: "3d" },
+  { img: "artworks/remote-12.jpg", cat: "digital" },
+  { img: "artworks/remote-13.jpg", cat: "2d" },
+  { img: "artworks/remote-14.jpg", cat: "3d" },
+  { img: "artworks/remote-15.jpg", cat: "digital" },
+  { img: "artworks/remote-16.jpg", cat: "2d" },
+  { img: "artworks/remote-17.jpg", cat: "3d" },
+  { img: "artworks/remote-18.png", cat: "digital" },
+  { img: "artworks/remote-19.jpg", cat: "2d" },
+  { img: "artworks/remote-20.jpg", cat: "3d" },
+  { img: "artworks/remote-21.jpg", cat: "digital" },
+  { img: "artworks/remote-22.jpg", cat: "3d" },
+  { img: "artworks/remote-23.png", cat: "digital" },
+  { img: "artworks/remote-24.jpg", cat: "3d" },
+  { img: "artworks/remote-25.jpg", cat: "digital" },
+  { img: "artworks/remote-26.jpg", cat: "3d" },
+  { img: "artworks/remote-27.jpg", cat: "digital" },
+  { img: "artworks/remote-28.jpg", cat: "3d" },
+  { img: "artworks/remote-29.jpg", cat: "digital" },
 ];
 const DATA_2D = [
-  { img: "assets/images/artworks/remote-01.jpg", cat: "2d" },
-  { img: "assets/images/artworks/remote-04.avif", cat: "2d" },
-  { img: "assets/images/artworks/remote-07.jpg", cat: "2d" },
-  { img: "assets/images/artworks/remote-10.jpg", cat: "2d" },
-  { img: "assets/images/artworks/remote-13.jpg", cat: "2d" },
-  { img: "assets/images/artworks/remote-16.jpg", cat: "2d" },
-  { img: "assets/images/artworks/remote-19.jpg", cat: "2d" },
+  { img: "artworks/remote-01.jpg", cat: "2d" },
+  { img: "artworks/remote-04.avif", cat: "2d" },
+  { img: "artworks/remote-07.jpg", cat: "2d" },
+  { img: "artworks/remote-10.jpg", cat: "2d" },
+  { img: "artworks/remote-13.jpg", cat: "2d" },
+  { img: "artworks/remote-16.jpg", cat: "2d" },
+  { img: "artworks/remote-19.jpg", cat: "2d" },
 ];
 const DATA_3D = [
-  { img: "assets/images/artworks/remote-02.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-05.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-08.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-11.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-14.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-17.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-20.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-22.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-24.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-26.jpg", cat: "3d" },
-  { img: "assets/images/artworks/remote-28.jpg", cat: "3d" },
+  { img: "artworks/remote-02.jpg", cat: "3d" },
+  { img: "artworks/remote-05.jpg", cat: "3d" },
+  { img: "artworks/remote-08.jpg", cat: "3d" },
+  { img: "artworks/remote-11.jpg", cat: "3d" },
+  { img: "artworks/remote-14.jpg", cat: "3d" },
+  { img: "artworks/remote-17.jpg", cat: "3d" },
+  { img: "artworks/remote-20.jpg", cat: "3d" },
+  { img: "artworks/remote-22.jpg", cat: "3d" },
+  { img: "artworks/remote-24.jpg", cat: "3d" },
+  { img: "artworks/remote-26.jpg", cat: "3d" },
+  { img: "artworks/remote-28.jpg", cat: "3d" },
 ];
 const DATA_DIGITAL = [
-  { img: "assets/images/artworks/remote-03.png", cat: "digital" },
-  { img: "assets/images/artworks/remote-06.png", cat: "digital" },
-  { img: "assets/images/artworks/remote-09.jpg", cat: "digital" },
-  { img: "assets/images/artworks/remote-12.jpg", cat: "digital" },
-  { img: "assets/images/artworks/remote-15.jpg", cat: "digital" },
-  { img: "assets/images/artworks/remote-18.png", cat: "digital" },
-  { img: "assets/images/artworks/remote-21.jpg", cat: "digital" },
-  { img: "assets/images/artworks/remote-23.png", cat: "digital" },
-  { img: "assets/images/artworks/remote-25.jpg", cat: "digital" },
-  { img: "assets/images/artworks/remote-27.jpg", cat: "digital" },
-  { img: "assets/images/artworks/remote-29.jpg", cat: "digital" },
+  { img: "artworks/remote-03.png", cat: "digital" },
+  { img: "artworks/remote-06.png", cat: "digital" },
+  { img: "artworks/remote-09.jpg", cat: "digital" },
+  { img: "artworks/remote-12.jpg", cat: "digital" },
+  { img: "artworks/remote-15.jpg", cat: "digital" },
+  { img: "artworks/remote-18.png", cat: "digital" },
+  { img: "artworks/remote-21.jpg", cat: "digital" },
+  { img: "artworks/remote-23.png", cat: "digital" },
+  { img: "artworks/remote-25.jpg", cat: "digital" },
+  { img: "artworks/remote-27.jpg", cat: "digital" },
+  { img: "artworks/remote-29.jpg", cat: "digital" },
 ];
 
 
@@ -472,6 +472,6 @@ buildRing(true);
 render();
 </script>
 
-  <script src="assets/js/nav.js" defer></script>
+  <script src="nav.js" defer></script>
 </body>
 </html>
